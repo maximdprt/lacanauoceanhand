@@ -16,12 +16,12 @@ export function NewsPreview({ items }: { items: NewsItem[] }) {
           href="/evenements"
           className="group relative col-span-full overflow-hidden rounded-2xl md:col-span-2"
         >
-          <div className="relative aspect-[16/9]">
+          <div className="relative aspect-[16/9] bg-slate-900">
             <Image
               src={featured.cover}
               alt={featured.title}
               fill
-              className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+              className="object-contain transition-transform duration-500 group-hover:scale-[1.02]"
               sizes="(max-width: 768px) 100vw, 66vw"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-900/40 to-transparent" />
@@ -50,12 +50,12 @@ export function NewsPreview({ items }: { items: NewsItem[] }) {
             href="/evenements"
             className="group flex gap-4 overflow-hidden rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition hover:shadow-md"
           >
-            <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-xl">
+            <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-xl bg-slate-100">
               <Image
                 src={news.cover}
                 alt={news.title}
                 fill
-                className="object-cover transition-transform duration-300 group-hover:scale-110"
+                className="object-contain transition-transform duration-300 group-hover:scale-105"
                 sizes="80px"
               />
             </div>

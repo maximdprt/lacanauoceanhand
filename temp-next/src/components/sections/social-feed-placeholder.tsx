@@ -12,12 +12,12 @@ function PostCard({ post }: { post: (typeof socialPosts)[number] }) {
       rel="noreferrer"
       className="group block overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:shadow-md"
     >
-      <div className="relative aspect-[4/3] overflow-hidden">
+      <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
         <Image
           src={post.image}
           alt={post.title}
           fill
-          className="object-cover transition-transform duration-300 group-hover:scale-105"
+          className="object-contain transition-transform duration-300 group-hover:scale-[1.02]"
           sizes="(max-width: 768px) 100vw, 33vw"
         />
       </div>

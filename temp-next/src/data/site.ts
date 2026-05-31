@@ -18,19 +18,19 @@ export const teamSignupEmail = "inscription-equipe@lacanau-ocehand.fr";
 export const navItems: NavItem[] = [
   { label: "Accueil", href: "/" },
   { label: "Le Club", href: "/le-club" },
-  { label: "Nos Equipes", href: "/equipes" },
+  { label: "Nos équipes", href: "/equipes" },
   { label: "Saison 24-25", href: "/saison" },
-  { label: "Evenements", href: "/evenements" },
+  { label: "Événements", href: "/evenements" },
   { label: "Rejoindre", href: "/rejoindre" },
   { label: "Contact", href: "/contact" },
 ];
 
 export const clubStats: ClubStat[] = [
   { label: "Coupe de France", value: 1 },
-  { label: "Licencies", value: 150 },
-  { label: "Fonde en", value: 2017 },
+  { label: "Licenciés", value: 150 },
+  { label: "Fondé en", value: 2017 },
   { label: "Champions Gironde", value: 3, suffix: "x" },
-  { label: "Equipes", value: 9 },
+  { label: "Équipes", value: 9 },
 ];
 
 export const upcomingMatches: MatchItem[] = [
@@ -98,7 +98,7 @@ export const newsItems: NewsItem[] = [
       "Le groupe elite accelere sa preparation pour le circuit national avec un stage intensif sur sable.",
     date: "24 Avril 2026",
     tags: ["elite", "beach handball lacanau"],
-    cover: "/placeholders/news-1.jpg",
+    cover: "/media/teams/beach-elite.jpg",
     slug: "prepa-2026",
   },
   {
@@ -108,7 +108,7 @@ export const newsItems: NewsItem[] = [
       "Le tournoi beach handball lacanau revient avec un format etendu sur trois jours.",
     date: "19 Avril 2026",
     tags: ["evenement", "lacanau beach handball xperience"],
-    cover: "/placeholders/news-2.jpg",
+    cover: "/media/teams/u11-mixte.jpg",
     slug: "xperience-inscriptions",
   },
   {
@@ -118,7 +118,7 @@ export const newsItems: NewsItem[] = [
       "Le club renforce son academie avec de nouveaux creneaux et un suivi individualise.",
     date: "12 Avril 2026",
     tags: ["formation", "handball lacanau"],
-    cover: "/placeholders/news-3.jpg",
+    cover: "/media/teams/u15-masculine.jpg",
     slug: "formation-jeunes",
   },
   {
@@ -128,7 +128,7 @@ export const newsItems: NewsItem[] = [
       "Le staff valide une feuille de route ambitieuse pour viser un nouveau titre national.",
     date: "07 Avril 2026",
     tags: ["performance", "lacanau beach handball 2025"],
-    cover: "/placeholders/news-4.jpg",
+    cover: "/media/teams/ecole-de-hand.jpg",
     slug: "objectif-2025",
   },
 ];
@@ -180,7 +180,7 @@ export const teams: Team[] = [
     coach: "Maelys Dupont",
     schedule: ["Mardi 20h00", "Jeudi 20h00"],
     description: "Groupe fanion feminin engage sur les competitions regionales et beach.",
-    image: "/placeholders/team-f.jpg",
+    image: "/media/teams/senior-feminine.jpg",
   },
   {
     slug: "senior-masculine",
@@ -189,7 +189,7 @@ export const teams: Team[] = [
     coach: "Theo Martin",
     schedule: ["Lundi 20h00", "Mercredi 20h00"],
     description: "Effectif senior axe intensite, vitesse et culture beach handball.",
-    image: "/placeholders/team-m.jpg",
+    image: "/media/teams/senior-masculine.jpg",
   },
   {
     slug: "u18-feminine",
@@ -198,7 +198,7 @@ export const teams: Team[] = [
     coach: "Alice Durand",
     schedule: ["Mardi 18h30", "Vendredi 18h30"],
     description: "Collectif U18 feminin, progression technique et intelligence de jeu.",
-    image: "/placeholders/u18f.jpg",
+    image: "/media/teams/u18-feminine.jpg",
   },
   {
     slug: "u18-masculine",
@@ -207,7 +207,7 @@ export const teams: Team[] = [
     coach: "Nolan Rigaud",
     schedule: ["Mercredi 18h00", "Vendredi 19h00"],
     description: "Groupe U18 masculin, developpement performance et esprit equipe.",
-    image: "/placeholders/u18m.jpg",
+    image: "/media/teams/u18-masculine.jpg",
   },
   {
     slug: "u15-feminine",
@@ -216,7 +216,7 @@ export const teams: Team[] = [
     coach: "Camille Robert",
     schedule: ["Lundi 18h00", "Jeudi 18h00"],
     description: "Equipe U15 feminine, apprentissage du handball lacanau moderne.",
-    image: "/placeholders/u15f.jpg",
+    image: "/media/teams/u15-feminine.jpg",
   },
   {
     slug: "u15-masculine",
@@ -225,7 +225,7 @@ export const teams: Team[] = [
     coach: "Arthur Giraud",
     schedule: ["Mardi 18h00", "Jeudi 19h00"],
     description: "Equipe U15 masculine, progression technique et cohesion collective.",
-    image: "/placeholders/u15m.jpg",
+    image: "/media/teams/u15-masculine.jpg",
   },
   {
     slug: "u13-mixte",
@@ -234,7 +234,7 @@ export const teams: Team[] = [
     coach: "Lina Besson",
     schedule: ["Mercredi 16h30", "Samedi 10h00"],
     description: "Section U13 mixte, pedagogie ludique et bases techniques solides.",
-    image: "/placeholders/u13.jpg",
+    image: "/media/teams/u13-mixte.jpg",
   },
   {
     slug: "ecole-de-hand",
@@ -243,7 +243,7 @@ export const teams: Team[] = [
     coach: "Nathan Leger",
     schedule: ["Samedi 09h00"],
     description: "Decouverte du handball sur un format adapte aux plus jeunes.",
-    image: "/placeholders/ecole.jpg",
+    image: "/media/teams/ecole-de-hand.jpg",
   },
   {
     slug: "beach-elite",
@@ -252,7 +252,7 @@ export const teams: Team[] = [
     coach: "Staff Performance",
     schedule: ["Mardi 19h30", "Dimanche 10h30"],
     description: "Section dediee aux tournois beach handball lacanau et nationaux.",
-    image: "/placeholders/beach-elite.jpg",
+    image: "/media/teams/beach-elite.jpg",
   },
 ];
 
@@ -291,38 +291,38 @@ export const timelineEvents: TimelineEvent[] = [
 export const staffMembers: StaffMember[] = [
   {
     id: "s1",
-    name: "Maxime Dupre",
-    role: "President",
+    name: "Anne-Laure Bondy",
+    role: "Comité directeur",
     pole: "Direction",
-    image: "/placeholders/staff-1.jpg",
+    image: "/media/staff/anne-laure-bondy.jpg",
   },
   {
     id: "s2",
-    name: "Lena Caron",
-    role: "Directrice Sportive",
-    pole: "Sportif",
-    image: "/placeholders/staff-2.jpg",
+    name: "Carinne Laborde",
+    role: "Comité directeur",
+    pole: "Direction",
+    image: "/media/staff/carinne-laborde.jpg",
   },
   {
     id: "s3",
-    name: "Tom Verne",
-    role: "Coach Beach Elite",
-    pole: "Sportif",
-    image: "/placeholders/staff-3.jpg",
+    name: "Johan Lococo",
+    role: "Comité directeur",
+    pole: "Direction",
+    image: "/media/staff/johan-lococo.jpg",
   },
   {
     id: "s4",
-    name: "Nina Bernard",
-    role: "Kine du club",
-    pole: "Medical",
-    image: "/placeholders/staff-4.jpg",
+    name: "Julie Boutet",
+    role: "Comité directeur",
+    pole: "Direction",
+    image: "/media/staff/julie-boutet.jpg",
   },
   {
     id: "s5",
-    name: "Yanis Cazaux",
-    role: "Responsable Partenariats",
-    pole: "Communication",
-    image: "/placeholders/staff-5.jpg",
+    name: "Céline",
+    role: "École d'arbitrage",
+    pole: "Formation",
+    image: "/media/staff/celine-ecole-arbitrage.jpg",
   },
 ];
 
@@ -352,22 +352,27 @@ export const trainingSlots = [
   },
 ];
 
+export const equipeSectionMedia = {
+  ecoleGardiens: "/media/teams/ecole-gardiens.jpg",
+  ecoleArbitrage: "/media/teams/ecole-arbitrage.jpg",
+} as const;
+
 export const galleryItems = [
   {
-    src: "/placeholders/gallery-1.jpg",
-    alt: "Finale Coupe de France 2024 a Bercy",
+    src: "/media/teams/senior-masculine.jpg",
+    alt: "Équipe seniors masculins Lacanau Ocehand",
   },
   {
-    src: "/placeholders/gallery-2.jpg",
-    alt: "Ambiance tournoi beach handball lacanau",
+    src: "/media/teams/u11-mixte.jpg",
+    alt: "Équipe U11 mixte",
   },
   {
-    src: "/placeholders/gallery-3.jpg",
-    alt: "Equipe beach elite en celebration",
+    src: "/media/teams/beach-elite.jpg",
+    alt: "Beach handball — école de beach",
   },
   {
-    src: "/placeholders/gallery-4.jpg",
-    alt: "Formation jeunes sur le sable",
+    src: "/media/club/heritage-2017.webp",
+    alt: "Moments forts du club — archives 2017",
   },
 ];
 
@@ -375,21 +380,21 @@ export const socialPosts = [
   {
     id: "ig-1",
     platform: "Instagram",
-    image: "/placeholders/news-3.jpg",
+    image: "/media/teams/senior-feminine.jpg",
     title: "Finale Coupe de France 2024",
     url: instagramUrl,
   },
   {
     id: "ig-2",
     platform: "Instagram",
-    image: "/placeholders/gallery-2.jpg",
+    image: "/media/teams/u13-mixte.jpg",
     title: "Vie du club et matchs a domicile",
     url: instagramUrl,
   },
   {
     id: "fb-1",
     platform: "Facebook",
-    image: "/placeholders/news-2.jpg",
+    image: "/media/teams/u18-feminine.jpg",
     title: "Resultats et annonces officielles",
     url: facebookUrl,
   },

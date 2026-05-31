@@ -10,13 +10,13 @@ import { siteConfig } from "@/lib/site";
 import "./globals.css";
 
 const displayFont = Bebas_Neue({
-  subsets: ["latin"],
+  subsets: ["latin", "latin-ext"],
   variable: "--font-display",
   weight: "400",
 });
 
 const bodyFont = Inter({
-  subsets: ["latin"],
+  subsets: ["latin", "latin-ext"],
   variable: "--font-body",
 });
 

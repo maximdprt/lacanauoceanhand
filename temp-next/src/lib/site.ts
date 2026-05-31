@@ -11,7 +11,7 @@ const seoKeywords = [
 export const siteConfig = {
   name: "Lacanau Ocehand",
   description:
-    "Site officiel de Lacanau Ocehand, club de handball et beach handball a Lacanau.",
+    "Site officiel de Lacanau Ocehand, club de handball et beach handball à Lacanau.",
   url: "https://lacanau-ocehand.fr",
   keywords: seoKeywords,
   xperienceLabel: "Lacanau Beach Handball Xperience",

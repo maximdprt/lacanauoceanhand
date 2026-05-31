@@ -34,7 +34,7 @@ export function SiteFooter() {
               </span>
             </Link>
             <p className="mt-4 max-w-[240px] text-sm leading-relaxed text-white/50">
-              Club de handball et beach handball ancre sur la cote atlantique a Lacanau, Gironde.
+              Club de handball et beach handball ancré sur la côte atlantique à Lacanau, Gironde.
             </p>
             {/* Réseaux sociaux */}
             <div className="mt-5 flex items-center gap-3">
@@ -123,7 +123,7 @@ export function SiteFooter() {
           {/* Événement */}
           <div>
             <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.2em] text-ocean-light">
-              Evenement
+              Événement
             </p>
             <a
               href={beachXperienceUrl}
@@ -142,10 +142,41 @@ export function SiteFooter() {
           </div>
         </div>
 
+        <div className="mt-12 flex flex-wrap items-center justify-center gap-10 border-t border-white/10 pt-10">
+          <a
+            href="https://www.ffhandball.fr/"
+            target="_blank"
+            rel="noreferrer"
+            className="shrink-0 opacity-90 transition hover:opacity-100"
+          >
+            <Image
+              src="/federation/ffhb.png"
+              alt="Fédération française de handball"
+              width={280}
+              height={112}
+              className="h-12 w-auto max-h-14 max-w-[min(100vw-2rem,280px)] object-contain sm:h-14"
+            />
+          </a>
+          <a
+            href="https://nouvelleaquitaine-handball.org/"
+            target="_blank"
+            rel="noreferrer"
+            className="shrink-0 opacity-90 transition hover:opacity-100"
+          >
+            <Image
+              src="/federation/ligue-nouvelle-aquitaine.png"
+              width={320}
+              height={112}
+              alt="Ligue Nouvelle-Aquitaine de handball"
+              className="h-12 w-auto max-h-14 max-w-[min(100vw-2rem,320px)] object-contain sm:h-14"
+            />
+          </a>
+        </div>
+
         {/* Bottom bar */}
         <div className="mt-10 flex flex-col items-center justify-between gap-2 border-t border-white/10 pt-6 sm:flex-row">
           <p className="text-xs text-white/30">
-            © {new Date().getFullYear()} Lacanau Ocehand — Tous droits reserves.
+            © {new Date().getFullYear()} Lacanau Ocehand — Tous droits réservés.
           </p>
           <p className="text-xs text-white/20">
             Handball Lacanau · Beach Handball Lacanau · Gironde

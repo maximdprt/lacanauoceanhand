@@ -8,12 +8,12 @@ import type { Team } from "@/types";
 export function TeamCard({ team }: { team: Team }) {
   return (
     <div className="group overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition hover:shadow-md">
-      <div className="relative aspect-[16/10] overflow-hidden">
+      <div className="relative aspect-[4/3] overflow-hidden sm:aspect-[3/2]">
         <Image
           src={team.image}
           alt={team.name}
           fill
-          className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+          className="object-cover object-[center_22%] transition-transform duration-500 group-hover:scale-[1.03]"
           sizes="(max-width: 1024px) 50vw, 33vw"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />

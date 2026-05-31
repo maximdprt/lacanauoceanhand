@@ -27,9 +27,9 @@ export const metadata: Metadata = buildMetadata({
 
 const kpis = [
   { icon: Trophy, value: "1", label: "Coupe de France", color: "text-amber-500" },
-  { icon: Users, value: "150+", label: "Licencies", color: "text-ocean" },
-  { icon: Calendar, value: "2017", label: "Annee de fondation", color: "text-emerald-500" },
-  { icon: Star, value: "9", label: "Equipes", color: "text-violet-500" },
+  { icon: Users, value: "150+", label: "Licenciés", color: "text-ocean" },
+  { icon: Calendar, value: "2017", label: "Année de fondation", color: "text-emerald-500" },
+  { icon: Star, value: "9", label: "Équipes", color: "text-violet-500" },
 ];
 
 export default function Home() {
@@ -61,10 +61,10 @@ export default function Home() {
       {/* Bannière club dynamique */}
       <Reveal>
         <section className="relative mx-auto w-full max-w-7xl overflow-hidden rounded-3xl px-4 sm:px-6">
-          <div className="relative overflow-hidden rounded-3xl">
+          <div className="relative min-h-[280px] overflow-hidden rounded-3xl sm:min-h-[340px] md:min-h-[400px]">
             <Image
-              src="/placeholders/gallery-1.jpg"
-              alt="Equipe Lacanau Ocehand"
+              src="/media/teams/senior-masculine.jpg"
+                alt="Équipe Lacanau Ocehand"
               fill
               className="object-cover"
             />
@@ -72,10 +72,10 @@ export default function Home() {
             <div className="relative grid gap-5 p-5 sm:p-8 md:grid-cols-2 md:p-14">
               <div className="space-y-4">
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ocean-light">
-                  Un club ouvert a tous
+                  Un club ouvert à tous
                 </p>
                 <h2 className="font-display text-3xl uppercase sm:text-4xl leading-[0.92] text-white md:text-5xl">
-                  Handball, beach handball, convivialite
+                  Handball, beach handball, convivialité
                 </h2>
                 <p className="max-w-lg text-base leading-relaxed text-white/75">
                   Que vous soyez debutant ou confirme, enfant ou adulte, Lacanau Ocehand vous

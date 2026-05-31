@@ -50,7 +50,7 @@ export type StaffMember = {
   id: string;
   name: string;
   role: string;
-  pole: "Direction" | "Sportif" | "Medical" | "Communication";
+  pole: "Direction" | "Sportif" | "Medical" | "Communication" | "Formation";
   image: string;
 };
 

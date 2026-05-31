@@ -35,7 +35,7 @@ export default function ContactPage() {
             <div className="space-y-4 p-6">
               <div className="grid gap-4 sm:grid-cols-2">
                 <Input placeholder="Nom" aria-label="Nom" />
-                <Input placeholder="Prenom" aria-label="Prenom" />
+                <Input placeholder="Prénom" aria-label="Prénom" />
               </div>
               <Input placeholder="Email" type="email" aria-label="Email" />
               <Input placeholder="Sujet" aria-label="Sujet" />

@@ -6,9 +6,9 @@ import { newsItems } from "@/data/site";
 import { buildMetadata } from "@/lib/site";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Evenements",
+  title: "Événements",
   description:
-    "Evenements du club: vie associative, resultats, annonces et rendez-vous beach handball lacanau.",
+    "Événements du club : vie associative, résultats, annonces et rendez-vous beach handball à Lacanau.",
   path: "/evenements",
 });
 
@@ -17,8 +17,8 @@ export default function EvenementsPage() {
     <div className="space-y-8">
       <SectionTitle
         eyebrow="Vie du club"
-        title="Evenements"
-        description="Retrouve les rendez-vous importants, annonces et temps forts de la saison."
+        title="Événements"
+        description="Retrouvez les rendez-vous importants, annonces et temps forts de la saison."
       />
       <NewsGrid items={newsItems} />
     </div>

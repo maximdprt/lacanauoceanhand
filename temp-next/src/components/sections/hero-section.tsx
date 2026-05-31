@@ -12,7 +12,7 @@ export function HeroSection() {
   return (
     <section className="relative min-h-screen overflow-hidden">
       <Image
-        src="/placeholders/hero.jpg"
+        src="/media/teams/beach-elite.jpg"
         alt="Lacanau Ocehand en action"
         fill
         priority
@@ -85,7 +85,7 @@ export function HeroSection() {
           className="hidden items-center gap-2 self-start text-white/40 sm:flex"
         >
           <ArrowDown size={14} className="animate-bounce" />
-          <span className="text-xs uppercase tracking-[0.2em]">Decouvrir</span>
+          <span className="text-xs uppercase tracking-[0.2em]">Découvrir</span>
         </motion.div>
       </div>
     </section>

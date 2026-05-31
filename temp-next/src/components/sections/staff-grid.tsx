@@ -10,6 +10,7 @@ import type { StaffMember } from "@/types";
 const poles: Array<StaffMember["pole"] | "Tous"> = [
   "Tous",
   "Direction",
+  "Formation",
   "Sportif",
   "Medical",
   "Communication",
@@ -44,13 +45,14 @@ export function StaffGrid() {
         {filtered.map((member) => (
           <Card key={member.id}>
             <CardContent>
-              <div className="relative aspect-[16/10] overflow-hidden rounded-md border border-slate-200">
+              <div className="flex min-h-[280px] items-center justify-center overflow-hidden rounded-xl border border-slate-200 bg-slate-100 p-3 sm:min-h-[300px]">
                 <Image
                   src={member.image}
                   alt={member.name}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 50vw, 33vw"
+                  width={900}
+                  height={1200}
+                  className="max-h-[min(420px,50vh)] w-auto max-w-full object-contain"
+                  sizes="(max-width: 768px) 90vw, (max-width: 1280px) 40vw, 320px"
                 />
               </div>
               <p className="mt-4 font-display text-2xl uppercase text-slate-900">{member.name}</p>

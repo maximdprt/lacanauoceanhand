@@ -38,12 +38,12 @@ export default function TeamDetailPage({ params }: { params: Params }) {
     <div className="space-y-8">
       <header className="rounded-xl border border-slate-200 bg-card p-4 sm:p-6">
         <Badge>{team.category}</Badge>
-        <div className="relative mt-4 aspect-[16/9] sm:aspect-[16/7] overflow-hidden rounded-md border border-slate-200">
+        <div className="relative mt-4 aspect-[4/3] w-full overflow-hidden rounded-md border border-slate-200 sm:aspect-[16/9]">
           <Image
             src={team.image}
             alt={team.name}
             fill
-            className="object-cover"
+            className="object-cover object-[center_25%]"
             sizes="(max-width: 1280px) 100vw, 80vw"
           />
         </div>

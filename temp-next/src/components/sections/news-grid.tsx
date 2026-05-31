@@ -42,12 +42,12 @@ export function NewsGrid({ items }: { items: NewsItem[] }) {
             key={news.id}
             className="group overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition hover:shadow-md"
           >
-            <div className="relative aspect-[16/10] overflow-hidden">
+            <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
               <Image
                 src={news.cover}
                 alt={news.title}
                 fill
-                className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                className="object-contain transition-transform duration-500 group-hover:scale-[1.02]"
                 sizes="(max-width: 1024px) 50vw, 33vw"
               />
             </div>
