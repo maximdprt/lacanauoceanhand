@@ -1,52 +1,37 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-
 import { cn } from "@/lib/utils";
 
-const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap font-semibold transition-all duration-200 disabled:pointer-events-none disabled:opacity-50 outline-none focus-visible:ring-2 focus-visible:ring-ocean focus-visible:ring-offset-2",
+export const buttonVariants = cva(
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap font-semibold transition-all duration-200 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 cursor-pointer",
   {
     variants: {
       variant: {
-        default:
-          "rounded-full bg-ocean text-white shadow-sm hover:bg-ocean/90 hover:shadow-ocean active:scale-[0.98]",
-        outline:
-          "rounded-full border border-white/30 bg-transparent text-white backdrop-blur-sm hover:bg-white/15 active:scale-[0.98]",
-        ghost:
-          "rounded-full text-white hover:bg-white/12 active:scale-[0.98]",
-        light:
-          "rounded-full bg-white text-slate-900 shadow-sm hover:bg-slate-50 active:scale-[0.98]",
-        secondary:
-          "rounded-full border border-slate-200 bg-white text-slate-800 shadow-sm hover:bg-slate-50 hover:border-slate-300 active:scale-[0.98]",
+        primary: "bg-ink text-white hover:bg-ocean rounded-full shadow-(--shadow-sm)",
+        ocean: "bg-ocean text-white hover:bg-ocean-deep rounded-full shadow-(--shadow-sm)",
+        outline: "border border-line-strong text-ink hover:border-ink hover:bg-ink hover:text-white rounded-full",
+        ghost: "text-ink hover:bg-mist rounded-full",
+        light: "bg-white text-ink hover:bg-mist rounded-full shadow-(--shadow-sm)",
       },
       size: {
-        default: "h-10 px-5 py-2 text-sm",
-        sm: "h-8 px-4 text-xs",
-        lg: "h-12 px-8 text-base",
-        icon: "h-9 w-9",
+        sm: "h-9 px-4 text-sm",
+        md: "h-11 px-6 text-sm",
+        lg: "h-[52px] px-8 text-base",
       },
     },
-    defaultVariants: {
-      variant: "default",
-      size: "default",
-    },
+    defaultVariants: { variant: "primary", size: "md" },
   },
 );
 
-function Button({
-  className,
-  variant,
-  size,
-  asChild = false,
-  ...props
-}: React.ComponentProps<"button"> &
-  VariantProps<typeof buttonVariants> & {
-    asChild?: boolean;
-  }) {
-  const Comp = asChild ? "span" : "button";
-  return (
-    <Comp className={cn(buttonVariants({ variant, size, className }))} {...props} />
-  );
-}
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {}
 
-export { Button, buttonVariants };
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant, size, ...props }, ref) => (
+    <button ref={ref} className={cn(buttonVariants({ variant, size, className }))} {...props} />
+  ),
+);
+Button.displayName = "Button";
+
+export { Button };

@@ -7,8 +7,10 @@ import { buildMetadata } from "@/lib/site";
 
 export const metadata: Metadata = buildMetadata({
   title: "Coupe de France 2024",
-  description: "L'epopee de Lacanau Ocehand a Bercy, champions de France 2024.",
+  description:
+    "L'épopée de Lacanau Océhand à Bercy : retour sur la campagne historique qui a couronné le club champion de France 2024. Photos et galerie.",
   path: "/le-club/coupe-de-france-2024",
+  keywords: ["coupe de france handball 2024", "champion de france handball Lacanau", "Bercy handball 2024"],
 });
 
 export default function CoupePage() {

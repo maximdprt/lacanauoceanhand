@@ -1,92 +1,145 @@
-import type { Metadata } from "next";
-import { Euro, Clock } from "lucide-react";
+import { Clock, Check } from "lucide-react";
 
-import { Reveal } from "@/components/common/reveal";
-import { SectionTitle } from "@/components/common/section-title";
-import { SeasonCalendar } from "@/components/sections/season-calendar";
 import { buildMetadata } from "@/lib/site";
-import { licensePricing, trainingSlots, upcomingMatches } from "@/data/site";
+import { PageHero } from "@/components/sections/page-hero";
+import { SectionTitle } from "@/components/common/section-title";
+import { ScorencoMatchCenter } from "@/components/sections/scorenco-match-center";
+import { Reveal } from "@/components/common/reveal";
+import {
+  licensePricing,
+  pricingPerks,
+  teams,
+} from "@/data/site";
 
-export const metadata: Metadata = buildMetadata({
-  title: "Saison 24-25",
+export const metadata = buildMetadata({
+  title: "La saison",
   description:
-    "Calendrier interactif, resultats, tarifs licences et horaires d'entrainement Lacanau Ocehand.",
+    "Calendrier des matchs, résultats, horaires d'entraînement et tarifs des licences du club de handball de Lacanau. Toutes les infos pratiques.",
   path: "/saison",
+  keywords: ["calendrier handball Lacanau", "résultats handball Lacanau", "matchs handball Gironde"],
 });
 
-export default function SaisonPage() {
+export default function SeasonPage() {
+  const trainable = teams.filter(
+    (t) => t.schedule.length > 0 && t.schedule[0].includes("h"),
+  );
+
   return (
-    <div className="space-y-14">
-      <SectionTitle
-        eyebrow="Saison 24-25"
-        title="Calendrier &amp; infos pratiques"
-        description="Calendrier des rencontres, tarifs licences et horaires d'entrainements."
+    <>
+      <PageHero
+        eyebrow="La saison"
+        title="Calendrier & infos pratiques"
+        description="Matchs, horaires d'entraînement et tarifs : tout pour bien vivre la saison à Lacanau."
       />
 
-      <Reveal>
-        <SeasonCalendar matches={upcomingMatches} />
-      </Reveal>
+      {/* MATCH CENTER */}
+      <section className="container-x py-20 md:py-28">
+        <Reveal>
+          <SectionTitle
+            index="01"
+            eyebrow="Match center"
+            title="Matchs & résultats"
+            description="Le calendrier détaillé est mis à jour au fil de la saison."
+          />
+        </Reveal>
+        <div className="mt-10 md:mt-14">
+          <ScorencoMatchCenter />
+        </div>
+      </section>
 
-      <Reveal>
-        <div className="grid gap-6 lg:grid-cols-2">
-          {/* Tarifs */}
-          <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
-            <div className="flex items-center gap-3 border-b border-slate-100 bg-slate-50 px-6 py-5">
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-ocean/10 text-ocean">
-                <Euro size={16} />
-              </div>
-              <h2 className="font-display text-xl uppercase tracking-wide text-slate-900">Tarifs licences</h2>
-            </div>
-            <div className="p-6">
-              <table className="w-full">
-                <thead>
-                  <tr>
-                    <th className="pb-3 text-left text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400">
-                      Categorie
-                    </th>
-                    <th className="pb-3 text-right text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400">
-                      Tarif
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-100">
-                  {licensePricing.map((row, i) => (
-                    <tr key={row.category} className={i % 2 === 0 ? "" : "bg-slate-50/50"}>
-                      <td className="py-3 text-sm font-medium text-slate-800">{row.category}</td>
-                      <td className="py-3 text-right">
-                        <span className="rounded-full bg-ocean/10 px-3 py-1 text-xs font-bold text-ocean">
-                          {row.fee}
-                        </span>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          {/* Horaires */}
-          <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
-            <div className="flex items-center gap-3 border-b border-slate-100 bg-slate-50 px-6 py-5">
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-ocean/10 text-ocean">
-                <Clock size={16} />
-              </div>
-              <h2 className="font-display text-xl uppercase tracking-wide text-slate-900">Horaires entrainements</h2>
-            </div>
-            <div className="space-y-2.5 p-6">
-              {trainingSlots.map((slot) => (
-                <div
-                  key={slot.team}
-                  className="flex items-center justify-between rounded-xl border border-slate-100 bg-slate-50 px-4 py-3 transition hover:border-ocean/20 hover:bg-ocean/5"
-                >
-                  <p className="text-sm font-semibold text-slate-900">{slot.team}</p>
-                  <p className="text-xs font-medium text-slate-500">{slot.schedule}</p>
+      {/* ENTRAÎNEMENTS */}
+      <section className="border-y border-line bg-mist">
+        <div className="container-x py-20 md:py-28">
+          <Reveal>
+            <SectionTitle
+              index="02"
+              eyebrow="Entraînements"
+              title="Les créneaux"
+              description="Horaires indicatifs par catégorie, à confirmer en début de saison auprès des entraîneurs."
+            />
+          </Reveal>
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {trainable.map((t, i) => (
+              <Reveal key={t.slug} delay={i * 0.05}>
+                <div className="h-full rounded-(--radius) border border-line bg-paper p-6">
+                  <h3 className="text-lg font-bold text-ink">{t.name}</h3>
+                  <p className="mt-1 text-sm text-ink-soft">{t.coach}</p>
+                  <ul className="mt-4 space-y-2 border-t border-line pt-4">
+                    {t.schedule.map((s) => (
+                      <li
+                        key={s}
+                        className="flex items-center gap-2.5 text-[15px] text-ink"
+                      >
+                        <Clock size={15} className="shrink-0 text-ocean" />
+                        {s}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-              ))}
-            </div>
+              </Reveal>
+            ))}
           </div>
         </div>
-      </Reveal>
-    </div>
+      </section>
+
+      {/* TARIFS */}
+      <section className="container-x py-20 md:py-28">
+        <Reveal>
+          <SectionTitle
+            index="03"
+            eyebrow="Licences"
+            title="Tarifs & avantages"
+            description="Tarifs communiqués par le club. La licence inclut l'équipement et donne accès à tous les créneaux de la catégorie."
+          />
+        </Reveal>
+
+        <div className="mt-12 grid gap-6 lg:grid-cols-2">
+          {/* table tarifs */}
+          <Reveal>
+            <div className="overflow-hidden rounded-(--radius) border border-line bg-white">
+              <div className="border-b border-line px-6 py-4">
+                <h3 className="font-display text-lg uppercase tracking-tight text-ink">
+                  Cotisations
+                </h3>
+              </div>
+              <ul className="divide-y divide-line">
+                {licensePricing.map((row) => (
+                  <li
+                    key={row.category}
+                    className="flex items-center justify-between gap-4 px-6 py-4"
+                  >
+                    <span className="text-[15px] font-semibold text-ink">
+                      {row.category}
+                    </span>
+                    <span className="font-display text-lg uppercase tracking-tight text-ocean">
+                      {row.fee}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Reveal>
+
+          {/* avantages */}
+          <Reveal delay={0.08}>
+            <div className="h-full rounded-(--radius) border border-line bg-ocean-tint p-7 md:p-8">
+              <h3 className="font-display text-lg uppercase tracking-tight text-ink">
+                Inclus & avantages
+              </h3>
+              <ul className="mt-5 space-y-3.5">
+                {pricingPerks.map((perk) => (
+                  <li key={perk} className="flex items-start gap-3 text-[15px] text-ink">
+                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-ocean text-white">
+                      <Check size={12} strokeWidth={3} />
+                    </span>
+                    {perk}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+    </>
   );
 }

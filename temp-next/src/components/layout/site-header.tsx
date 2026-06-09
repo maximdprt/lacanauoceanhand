@@ -1,74 +1,92 @@
 "use client";
 
-import { Menu, X } from "lucide-react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Menu, X } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 
+import { navItems, beachXperienceUrl } from "@/data/site";
 import { Button } from "@/components/ui/button";
-import { beachXperienceUrl, navItems } from "@/data/site";
 import { cn } from "@/lib/utils";
 
 export function SiteHeader() {
   const pathname = usePathname();
-  const isHome = pathname === "/";
-  const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    if (!isHome) return;
-    const onScroll = () => setScrolled(window.scrollY > 60);
-    window.addEventListener("scroll", onScroll, { passive: true });
+    const onScroll = () => setScrolled(window.scrollY > 12);
     onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, [isHome]);
+  }, []);
 
-  const isOpaque = !isHome || scrolled;
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
     <header
       className={cn(
-        "top-0 z-50 w-full transition-all duration-300",
-        isHome ? "fixed" : "sticky",
-        isOpaque
-          ? "border-b border-slate-200/80 bg-white/90 shadow-sm backdrop-blur-lg"
-          : "border-b border-white/0 bg-white/70 backdrop-blur-lg",
+        "sticky top-0 z-50 transition-all duration-300",
+        scrolled
+          ? "border-b border-line bg-white/85 backdrop-blur-md"
+          : "border-b border-transparent bg-white/0",
       )}
     >
-      <div className="mx-auto flex h-14 w-full max-w-7xl items-center justify-between px-3 sm:h-16 sm:px-6">
+      <div className="container-x flex h-[68px] items-center justify-between gap-6">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2.5 transition-opacity hover:opacity-85 sm:gap-3">
+        <Link href="/" className="flex items-center gap-2.5" aria-label="Accueil Lacanau Océhand">
           <Image
-            src="/placeholders/logo-main.png"
-            alt="Logo Lacanau Ocehand"
-            width={38}
-            height={38}
-            className="h-8 w-8 object-contain sm:h-9 sm:w-9"
+            src="/brand/logo-color.png"
+            alt="Logo Lacanau Océhand"
+            width={40}
+            height={40}
+            className="h-10 w-10 object-contain"
           />
-          <span className="hidden font-display text-xl uppercase tracking-wider text-slate-900 sm:block sm:text-2xl">
-            Lacanau Ocehand
+          <span className="font-display text-xl uppercase tracking-tight text-ink">
+            Lacanau<span className="text-ocean"> Océhand</span>
           </span>
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden items-center gap-1 lg:flex">
-          {navItems.map((item) => (
+        <nav className="hidden items-center gap-7 lg:flex">
+          {navItems.slice(0, -1).map((item) => (
             <Link
               key={item.href}
               href={item.href}
+              data-active={isActive(item.href)}
               className={cn(
-                "rounded-md px-3 py-2 text-sm font-medium uppercase tracking-wide transition-colors",
-                pathname === item.href
-                  ? "bg-ocean/10 text-ocean"
-                  : "text-slate-600 hover:bg-slate-100 hover:text-slate-900",
+                "nav-link text-sm font-semibold text-ink/80 transition hover:text-ink",
+                isActive(item.href) && "text-ink",
               )}
             >
               {item.label}
             </Link>
           ))}
-          <a href={beachXperienceUrl} target="_blank" rel="noreferrer" className="ml-2">
-            <Button size="sm" className="rounded-full px-5 text-xs font-semibold uppercase tracking-wider">
+          <Link
+            href="/rejoindre"
+            className="rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-ocean"
+          >
+            Rejoindre
+          </Link>
+          <a href={beachXperienceUrl} target="_blank" rel="noopener noreferrer">
+            <Button
+              variant="ocean"
+              className="rounded-full px-5 py-2.5 text-sm"
+            >
               Beach Xperience
             </Button>
           </a>
@@ -76,50 +94,60 @@ export function SiteHeader() {
 
         {/* Mobile toggle */}
         <button
-          className="rounded-lg border border-slate-200 bg-white p-2 text-slate-700 transition hover:bg-slate-50 lg:hidden"
-          onClick={() => setOpen((s) => !s)}
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          className="flex h-10 w-10 items-center justify-center rounded-full border border-line text-ink lg:hidden"
           aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
         >
-          {open ? <X size={18} /> : <Menu size={18} />}
+          {open ? <X size={20} /> : <Menu size={20} />}
         </button>
       </div>
 
-      {/* Mobile menu */}
-      <div
-        className={cn(
-          "overflow-hidden transition-all duration-300 lg:hidden",
-          open ? "max-h-[70vh] overflow-y-auto opacity-100" : "max-h-0 opacity-0",
-        )}
-      >
-        <div className="space-y-1 border-t border-slate-200 bg-white/95 px-4 py-3 backdrop-blur-lg">
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              onClick={() => setOpen(false)}
-              className={cn(
-                "block rounded-lg px-4 py-3 text-sm font-medium uppercase tracking-wide transition-colors",
-                pathname === item.href
-                  ? "bg-ocean/10 text-ocean"
-                  : "text-slate-700 hover:bg-slate-50",
-              )}
-            >
-              {item.label}
-            </Link>
-          ))}
-          <a
-            href={beachXperienceUrl}
-            target="_blank"
-            rel="noreferrer"
-            onClick={() => setOpen(false)}
-            className="mt-2 block rounded-lg bg-ocean px-4 py-3 text-center text-sm font-semibold uppercase tracking-wide text-white transition hover:bg-ocean/90"
+      {/* Mobile overlay */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 top-[68px] z-40 bg-white lg:hidden"
           >
-            Lacanau Beach Handball Xperience
-          </a>
-        </div>
-      </div>
+            <nav className="container-x flex flex-col gap-1 py-6">
+              {navItems.map((item, i) => (
+                <motion.div
+                  key={item.href}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.04 * i }}
+                >
+                  <Link
+                    href={item.href}
+                    className={cn(
+                      "flex items-center justify-between border-b border-line py-4 text-2xl font-semibold text-ink",
+                      isActive(item.href) && "text-ocean",
+                    )}
+                  >
+                    <span className="font-display uppercase">{item.label}</span>
+                    <span className="section-index text-sm text-line-strong">
+                      0{i + 1}
+                    </span>
+                  </Link>
+                </motion.div>
+              ))}
+              <a
+                href={beachXperienceUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 flex items-center justify-between rounded-2xl border border-ocean/25 bg-ocean-tint px-4 py-4 text-ocean transition hover:border-ocean"
+              >
+                <span className="font-display text-lg uppercase">Beach Xperience</span>
+                <span className="text-xs font-medium">site-lbhx.vercel.app →</span>
+              </a>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
-
-

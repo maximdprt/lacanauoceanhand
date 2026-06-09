@@ -6,8 +6,10 @@ import { buildMetadata } from "@/lib/site";
 
 export const metadata: Metadata = buildMetadata({
   title: "Le Staff",
-  description: "Encadrement sportif, medical et direction du club Lacanau Ocehand.",
+  description:
+    "Encadrement sportif, médical et direction de Lacanau Océhand. Découvrez les bénévoles, entraîneurs et dirigeants du club de handball de Lacanau.",
   path: "/le-club/staff",
+  keywords: ["staff handball Lacanau", "entraîneurs handball Lacanau", "bénévoles handball Gironde"],
 });
 
 export default function StaffPage() {

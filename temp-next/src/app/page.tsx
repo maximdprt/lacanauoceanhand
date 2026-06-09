@@ -1,157 +1,202 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Users, Trophy, Calendar, Star } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
-import { Reveal } from "@/components/common/reveal";
-import { SectionTitle } from "@/components/common/section-title";
 import { HeroSection } from "@/components/sections/hero-section";
-import { MatchList } from "@/components/sections/matches-widget";
+import { FiliereCards } from "@/components/sections/filiere-cards";
+import { JoinCta } from "@/components/sections/join-cta";
+import { EventsCalendar } from "@/components/sections/events-calendar";
+import { ScorencoMatchCenter } from "@/components/sections/scorenco-match-center";
 import { NewsPreview } from "@/components/sections/news-preview";
+import { Testimonials } from "@/components/sections/testimonials";
+import { VolunteerPartner } from "@/components/sections/volunteer-partner";
+import { Newsletter } from "@/components/sections/newsletter";
+import { Faq } from "@/components/sections/faq";
 import { PartnersCarousel } from "@/components/sections/partners-carousel";
-import { SocialFeedPlaceholder } from "@/components/sections/social-feed-placeholder";
+import { SectionTitle } from "@/components/common/section-title";
+import { Reveal } from "@/components/common/reveal";
+import { Button } from "@/components/ui/button";
+
 import {
-  latestResults,
+  faqItems,
   newsItems,
   partners,
-  upcomingMatches,
 } from "@/data/site";
-import { buildMetadata } from "@/lib/site";
 
-export const metadata: Metadata = buildMetadata({
-  title: "Accueil",
+export const metadata: Metadata = {
+  title: {
+    absolute:
+      "Lacanau Océhand — Club de handball à Lacanau | Champions de France 2024",
+  },
   description:
-    "Site officiel de Lacanau Ocehand, club de beach handball lacanau et handball lacanau.",
-  path: "/",
-});
+    "Rejoignez Lacanau Océhand, le club de handball à Lacanau (Gironde). Baby hand, jeunes, seniors, beach handball. Vainqueurs de la Coupe de France 2024. Inscriptions ouvertes.",
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: "Lacanau Océhand — Club de handball à Lacanau",
+    description:
+      "Baby hand, jeunes, seniors, beach handball en Gironde. Champions de France 2024. Inscriptions ouvertes.",
+    url: "https://lacanau-ocehand.fr",
+    images: [
+      {
+        url: "https://lacanau-ocehand.fr/media/club/hero-coupe-bercy.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Lacanau Océhand — Champions de France 2024",
+      },
+    ],
+  },
+};
 
-const kpis = [
-  { icon: Trophy, value: "1", label: "Coupe de France", color: "text-amber-500" },
-  { icon: Users, value: "150+", label: "Licenciés", color: "text-ocean" },
-  { icon: Calendar, value: "2017", label: "Année de fondation", color: "text-emerald-500" },
-  { icon: Star, value: "9", label: "Équipes", color: "text-violet-500" },
-];
-
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="-mt-8 pb-20">
-      {/* Hero plein écran */}
-      <div className="relative left-1/2 w-screen -translate-x-1/2">
-        <HeroSection />
-      </div>
+    <>
+      <HeroSection />
 
-      {/* KPIs strip */}
-      <Reveal>
-        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6">
-          <div className="grid grid-cols-2 gap-3 py-8 sm:gap-4 sm:py-10 md:grid-cols-4">
-            {kpis.map(({ icon: Icon, value, label, color }) => (
-              <div
-                key={label}
-                className="flex flex-col items-center rounded-2xl border border-slate-200 bg-white p-4 text-center sm:p-5 shadow-sm transition hover:shadow-md"
-              >
-                <Icon size={22} className={color} />
-                <p className={`mt-2 font-display text-3xl uppercase sm:text-4xl ${color}`}>{value}</p>
-                <p className="mt-1 text-xs font-medium uppercase tracking-wider text-slate-500">{label}</p>
-              </div>
-            ))}
+      {/* FILIÈRES */}
+      <section className="container-x section-pad">
+        <Reveal>
+          <SectionTitle
+            index="01"
+            eyebrow="Deux façons de jouer"
+            title="Salle & beach handball"
+            description="Le handball à Lacanau se vit toute l'année en salle et l'été sur le sable. Choisissez votre terrain de jeu."
+          />
+        </Reveal>
+        <div className="mt-10 md:mt-14">
+          <Reveal delay={0.05}>
+            <FiliereCards />
+          </Reveal>
+        </div>
+      </section>
+
+      {/* REJOINDRE LE CLUB */}
+      <section className="border-y border-line bg-mist">
+        <div className="container-x section-pad">
+          <Reveal>
+            <SectionTitle
+              index="02"
+              eyebrow="Rejoindre le club"
+              title="Une place pour chacun"
+              description="De 5 ans aux vétérans, filles et garçons, compétiteurs ou joueurs du dimanche : il y a forcément une équipe pour vous à Lacanau Océhand."
+            />
+          </Reveal>
+          <div className="mt-10 md:mt-14">
+            <JoinCta />
           </div>
         </div>
-      </Reveal>
+      </section>
 
-      {/* Bannière club dynamique */}
-      <Reveal>
-        <section className="relative mx-auto w-full max-w-7xl overflow-hidden rounded-3xl px-4 sm:px-6">
-          <div className="relative min-h-[280px] overflow-hidden rounded-3xl sm:min-h-[340px] md:min-h-[400px]">
-            <Image
-              src="/media/teams/senior-masculine.jpg"
-                alt="Équipe Lacanau Ocehand"
-              fill
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-950/88 via-slate-900/55 to-slate-800/10" />
-            <div className="relative grid gap-5 p-5 sm:p-8 md:grid-cols-2 md:p-14">
-              <div className="space-y-4">
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ocean-light">
-                  Un club ouvert à tous
-                </p>
-                <h2 className="font-display text-3xl uppercase sm:text-4xl leading-[0.92] text-white md:text-5xl">
-                  Handball, beach handball, convivialité
-                </h2>
-                <p className="max-w-lg text-base leading-relaxed text-white/75">
-                  Que vous soyez debutant ou confirme, enfant ou adulte, Lacanau Ocehand vous
-                  accueille dans une atmosphere moderne et bienveillante.
-                </p>
-                <div className="flex flex-wrap gap-3 pt-2">
-                  <Link
-                    href="/equipes"
-                    className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-6 py-2.5 text-sm sm:w-auto font-semibold text-slate-900 transition hover:bg-slate-100"
-                  >
-                    Nos equipes <ArrowRight size={14} />
-                  </Link>
-                  <Link
-                    href="/rejoindre"
-                    className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/30 bg-white/10 px-6 py-2.5 text-sm sm:w-auto font-semibold text-white backdrop-blur-sm transition hover:bg-white/20"
-                  >
-                    S&apos;inscrire
-                  </Link>
-                </div>
-              </div>
+      {/* CALENDRIER & MATCH CENTER */}
+      <section className="container-x section-pad">
+        <Reveal>
+          <SectionTitle
+            index="03"
+            eyebrow="Agenda"
+            title="Les prochains rendez-vous"
+            description="Matchs, tournois et manifestations : ne manquez aucun temps fort de la saison."
+          />
+        </Reveal>
+        <div className="mt-10 md:mt-14">
+          <EventsCalendar />
+        </div>
+        <div className="mt-10 md:mt-14">
+          <ScorencoMatchCenter />
+        </div>
+        <div className="mt-8">
+          <Link href="/saison">
+            <Button variant="outline" size="md">
+              Voir toute la saison <ArrowRight size={16} />
+            </Button>
+          </Link>
+        </div>
+      </section>
+
+      {/* ACTUALITÉS */}
+      <section className="border-y border-line bg-mist">
+        <div className="container-x section-pad">
+          <Reveal>
+            <div className="flex flex-wrap items-end justify-between gap-6">
+              <SectionTitle
+                index="04"
+                eyebrow="Actualités"
+                title="La vie du club"
+                description="Titres, évènements et moments forts de la saison à Lacanau."
+              />
+              <Link href="/evenements" className="hidden sm:block">
+                <Button variant="ghost" size="md">
+                  Toutes les actus <ArrowRight size={16} />
+                </Button>
+              </Link>
             </div>
+          </Reveal>
+          <div className="mt-10 md:mt-14">
+            <NewsPreview items={newsItems} />
           </div>
-        </section>
-      </Reveal>
+        </div>
+      </section>
 
-      {/* Match Center */}
-      <Reveal>
-        <section className="mx-auto w-full max-w-7xl space-y-6 px-4 pt-14 sm:px-6">
+      {/* TÉMOIGNAGES */}
+      <section className="container-x section-pad">
+        <Reveal>
           <SectionTitle
-            eyebrow="Match Center"
-            title="Prochains matchs &amp; resultats"
-            description="Rencontres a venir et derniers scores de vos equipes."
+            index="05"
+            eyebrow="Ils en parlent"
+            title="Une deuxième famille"
+            description="Joueurs, parents et bénévoles racontent ce qui les fait revenir au gymnase chaque semaine."
+            align="center"
           />
-          <div className="grid gap-5 xl:grid-cols-2">
-            <MatchList title="Prochains matchs" matches={upcomingMatches} />
-            <MatchList title="Derniers resultats" matches={latestResults} isResults />
+        </Reveal>
+        <div className="mt-10 md:mt-14">
+          <Testimonials />
+        </div>
+      </section>
+
+      {/* BÉNÉVOLES & PARTENAIRES */}
+      <section className="border-y border-line bg-mist">
+        <div className="container-x section-pad">
+          <Reveal>
+            <SectionTitle
+              index="06"
+              eyebrow="S'engager"
+              title="Faire vivre le club"
+              description="Le club avance grâce à ses bénévoles et à ses partenaires. Rejoignez l'aventure, à votre façon."
+            />
+          </Reveal>
+          <div className="mt-10 md:mt-14">
+            <VolunteerPartner />
           </div>
-        </section>
-      </Reveal>
+          <div className="mt-14">
+            <p className="mb-8 text-center eyebrow text-ink-soft">
+              Ils soutiennent le club
+            </p>
+            <PartnersCarousel partners={partners} />
+          </div>
+        </div>
+      </section>
 
-      {/* Événements */}
-      <Reveal>
-        <section className="mx-auto w-full max-w-7xl space-y-6 px-4 pt-14 sm:px-6">
-          <SectionTitle
-            eyebrow="Evenements"
-            title="La vie du club"
-            description="Actualites, competitions et moments forts de la saison."
-          />
-          <NewsPreview items={newsItems.slice(0, 3)} />
-        </section>
-      </Reveal>
+      {/* FAQ */}
+      <section className="container-x section-pad">
+        <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+          <Reveal>
+            <SectionTitle
+              index="07"
+              eyebrow="Questions fréquentes"
+              title="Tout savoir sur le club"
+              description="Inscriptions, âges, lieux d'entraînement : les réponses aux questions les plus posées sur le handball à Lacanau."
+            />
+          </Reveal>
+          <Reveal delay={0.06}>
+            <Faq items={faqItems} />
+          </Reveal>
+        </div>
+      </section>
 
-      {/* Réseaux sociaux */}
-      <Reveal>
-        <section className="mx-auto w-full max-w-7xl space-y-6 px-4 pt-14 sm:px-6">
-          <SectionTitle
-            eyebrow="Reseaux"
-            title="Instagram &amp; Facebook"
-            description="Suivez le club sur les reseaux sociaux pour ne rien manquer."
-          />
-          <SocialFeedPlaceholder />
-        </section>
-      </Reveal>
-
-      {/* Partenaires */}
-      <Reveal>
-        <section className="mx-auto w-full max-w-7xl space-y-6 px-4 pt-14 sm:px-6">
-          <SectionTitle
-            eyebrow="Partenaires"
-            title="Ils soutiennent le club"
-            description="Merci a tous nos partenaires pour leur confiance et leur engagement."
-          />
-          <PartnersCarousel partners={partners} />
-        </section>
-      </Reveal>
-    </div>
+      {/* NEWSLETTER */}
+      <section className="container-x pb-24">
+        <Reveal>
+          <Newsletter />
+        </Reveal>
+      </section>
+    </>
   );
 }
-

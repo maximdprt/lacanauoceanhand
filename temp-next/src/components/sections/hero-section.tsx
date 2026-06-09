@@ -1,94 +1,83 @@
 "use client";
 
-import { ArrowDown, Trophy } from "lucide-react";
-import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowRight, CalendarDays, Users } from "lucide-react";
 
-import { beachXperienceUrl } from "@/data/site";
-import { fadeUp, staggerContainer } from "@/lib/animations";
+const textShadow =
+  "0 2px 8px rgba(0,0,0,0.9), 0 4px 32px rgba(0,0,0,0.55)";
+
+const ctas = [
+  { label: "Rejoindre le club", href: "/rejoindre", icon: ArrowRight, primary: true },
+  { label: "Calendrier", href: "/saison", icon: CalendarDays, primary: false },
+  { label: "Nos équipes", href: "/equipes", icon: Users, primary: false },
+] as const;
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-screen overflow-hidden">
-      <Image
-        src="/media/teams/beach-elite.jpg"
-        alt="Lacanau Ocehand en action"
-        fill
-        priority
-        className="object-cover object-center"
-      />
-      {/* gradient plus riche */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-950/88 via-slate-900/55 to-slate-800/20" />
-      {/* bande bleu en bas */}
-      <div className="absolute right-0 bottom-0 left-0 h-1 bg-gradient-to-r from-transparent via-ocean to-transparent opacity-60" />
+    <section className="relative min-h-[100svh] w-full overflow-hidden bg-ink">
+      <div className="hero-zoom absolute inset-0">
+        <Image
+          src="/media/club/hero-coupe-bercy.jpg"
+          alt="Lacanau Océhand soulève la Coupe de France 2024 à l'Accor Arena de Bercy"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-[center_30%]"
+        />
+      </div>
 
-      <div className="relative mx-auto flex min-h-screen w-full max-w-7xl flex-col justify-between px-4 pt-24 pb-8 sm:px-6 md:px-10">
-        <motion.div
-          className="max-w-3xl space-y-5"
-          initial="hidden"
-          animate="visible"
-          variants={staggerContainer}
-        >
-          {/* Badge champion */}
-          <motion.div variants={fadeUp}>
-            <span className="inline-flex items-center gap-2 rounded-full border border-ocean/40 bg-ocean/15 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.14em] sm:px-4 sm:py-2 sm:text-xs sm:tracking-[0.2em] text-ocean-light backdrop-blur-sm">
-              <Trophy size={12} />
-              Champions de France 2024
-            </span>
-          </motion.div>
+      <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-ink/85 via-ink/25 to-transparent" />
 
-          <motion.p
-            variants={fadeUp}
-            className="text-[11px] font-medium uppercase tracking-[0.14em] sm:text-sm sm:tracking-[0.25em] text-white/60"
+      <div className="container-x relative flex min-h-[100svh] flex-col justify-end px-4 pb-12 pt-32 text-center md:pb-16">
+        <div className="hero-fade-up mx-auto w-full max-w-4xl">
+          <h1
+            className="headline-tight text-[clamp(2.5rem,8vw,4.5rem)] leading-[1] text-white"
+            style={{ textShadow }}
           >
-            Club officiel de handball · Lacanau, Gironde
-          </motion.p>
-
-          <motion.h1
-            variants={fadeUp}
-            className="font-display text-[2.7rem] uppercase leading-[0.88] tracking-wide text-white sm:text-7xl md:text-[6.5rem]"
-          >
-            Lacanau
+            Club de handball
             <br />
-            <span className="text-ocean-light">Ocehand</span>
-          </motion.h1>
-
-          <motion.p variants={fadeUp} className="max-w-xl text-base leading-relaxed text-white/75 sm:text-lg">
-            Ocean, competition et passion du handball&nbsp;— un club moderne, ouvert et
-            ambitieux sur la cote atlantique.
-          </motion.p>
-
-          <motion.div variants={fadeUp} className="flex flex-wrap gap-3 pt-2">
-            <Link
-              href="/rejoindre"
-              className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-ocean px-5 py-2.5 text-xs sm:w-auto sm:px-7 sm:py-3 sm:text-sm font-semibold uppercase tracking-wider text-white transition-all hover:bg-ocean/90 hover:shadow-ocean focus-visible:outline-2"
+            <span
+              className="text-gold-grad"
+              style={{ filter: "drop-shadow(0 2px 12px rgba(0,0,0,0.6))" }}
             >
-              Rejoindre le club
-            </Link>
-            <a
-              href={beachXperienceUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/35 bg-white/10 px-5 py-2.5 text-xs sm:w-auto sm:px-7 sm:py-3 sm:text-sm font-semibold uppercase tracking-wider text-white backdrop-blur-sm transition-all hover:bg-white/20"
-            >
-              Beach Xperience →
-            </a>
-          </motion.div>
-        </motion.div>
+              à Lacanau
+            </span>
+          </h1>
 
-        {/* Scroll hint */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.6, duration: 0.8 }}
-          className="hidden items-center gap-2 self-start text-white/40 sm:flex"
-        >
-          <ArrowDown size={14} className="animate-bounce" />
-          <span className="text-xs uppercase tracking-[0.2em]">Découvrir</span>
-        </motion.div>
+          <p
+            className="mx-auto mt-5 max-w-xl text-[clamp(1rem,2.2vw,1.2rem)] font-semibold leading-relaxed text-white"
+            style={{ textShadow }}
+          >
+            Une équipe championne de France, familiale et ouverte à tous, du baby
+            hand aux seniors, en salle et sur le sable.
+          </p>
+
+          <div className="mt-8 grid w-full gap-3 sm:grid-cols-3">
+            {ctas.map(({ label, href, icon: Icon, primary }) => (
+              <Link
+                key={label}
+                href={href}
+                className={
+                  primary
+                    ? "group flex h-14 w-full items-center justify-center gap-2.5 rounded-md bg-gold px-6 text-[15px] font-bold uppercase tracking-wide text-ink shadow-lg shadow-black/30 transition hover:bg-white sm:h-[56px] sm:text-base"
+                    : "flex h-14 w-full items-center justify-center gap-2.5 rounded-md border border-white/40 bg-black/35 px-6 text-[15px] font-bold uppercase tracking-wide text-white backdrop-blur-[2px] transition hover:bg-black/50 sm:h-[56px] sm:text-base"
+                }
+              >
+                {!primary && <Icon size={18} strokeWidth={2.25} />}
+                {label}
+                {primary && (
+                  <ArrowRight
+                    size={18}
+                    strokeWidth={2.25}
+                    className="transition-transform group-hover:translate-x-1"
+                  />
+                )}
+              </Link>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
 }
-

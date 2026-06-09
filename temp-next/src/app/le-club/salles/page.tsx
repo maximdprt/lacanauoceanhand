@@ -5,8 +5,10 @@ import { buildMetadata } from "@/lib/site";
 
 export const metadata: Metadata = buildMetadata({
   title: "Les Salles",
-  description: "Salles d'entrainement et lieux de match de Lacanau Ocehand.",
+  description:
+    "Salles d'entraînement et terrains de match de Lacanau Océhand : Salle de la Cousteyre et Cosec à Lacanau (Gironde). Adresses et accès.",
   path: "/le-club/salles",
+  keywords: ["salle handball Lacanau", "gymnase Lacanau handball", "Cousteyre Lacanau handball"],
 });
 
 export default function SallesPage() {

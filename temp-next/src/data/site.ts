@@ -1,61 +1,82 @@
 import type {
+  AgeCategory,
+  ClubEvent,
   ClubStat,
+  FaqItem,
   MatchItem,
   NavItem,
   NewsItem,
+  Palmares,
   Partner,
   PricingRow,
+  Salle,
   StaffMember,
   Team,
+  Testimonial,
   TimelineEvent,
 } from "@/types";
 
-export const beachXperienceUrl = "https://site-lbhx.vercel.app";
+/* ============================================================
+   CONTACT & RÉSEAUX
+   ============================================================ */
 export const instagramUrl = "https://www.instagram.com/lacanauocehand/";
 export const facebookUrl = "https://www.facebook.com/lacanau.OceHand/";
+export const clubEmail = "contact@lacanau-ocehand.fr";
 export const teamSignupEmail = "inscription-equipe@lacanau-ocehand.fr";
+export const beachXperienceUrl = "https://site-lbhx.vercel.app";
 
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
 export const navItems: NavItem[] = [
   { label: "Accueil", href: "/" },
-  { label: "Le Club", href: "/le-club" },
+  { label: "Le club", href: "/le-club" },
   { label: "Nos équipes", href: "/equipes" },
-  { label: "Saison 24-25", href: "/saison" },
-  { label: "Événements", href: "/evenements" },
+  { label: "La saison", href: "/saison" },
+  { label: "Actualités", href: "/evenements" },
   { label: "Rejoindre", href: "/rejoindre" },
   { label: "Contact", href: "/contact" },
 ];
 
+/* ============================================================
+   CHIFFRES CLÉS (réels)
+   ============================================================ */
 export const clubStats: ClubStat[] = [
-  { label: "Coupe de France", value: 1 },
-  { label: "Licenciés", value: 150 },
-  { label: "Fondé en", value: 2017 },
-  { label: "Champions Gironde", value: 3, suffix: "x" },
-  { label: "Équipes", value: 9 },
+  { label: "Coupe de France", value: 1, suffix: "" },
+  { label: "Licenciés", value: 150, suffix: "+" },
+  { label: "Équipes", value: 12 },
+  { label: "Titres de Gironde", value: 3, suffix: "×" },
 ];
 
+/* ============================================================
+   MATCH CENTER
+   ⚠️ À mettre à jour avec le calendrier réel de la saison.
+   « latestResults » ci-dessous reprend le parcours réel
+   de la Coupe de France 2024 (exacts).
+   ============================================================ */
 export const upcomingMatches: MatchItem[] = [
   {
-    id: "m1",
-    date: "04 Mai 2026 - 19h30",
-    competition: "Nationale Beach Series",
-    opponent: "Bordeaux Beach Hand",
-    location: "Lacanau Ocean",
+    id: "u1",
+    date: "Samedi · 19h30",
+    competition: "Championnat départemental",
+    opponent: "À programmer",
+    location: "Salle de la Cousteyre",
     isHome: true,
   },
   {
-    id: "m2",
-    date: "11 Mai 2026 - 18h00",
-    competition: "Coupe Nouvelle-Aquitaine",
-    opponent: "US Cestas",
-    location: "Gymnase Pierre de Coubertin",
+    id: "u2",
+    date: "Samedi · 18h00",
+    competition: "Championnat départemental",
+    opponent: "À programmer",
+    location: "Extérieur",
     isHome: false,
   },
   {
-    id: "m3",
-    date: "18 Mai 2026 - 20h00",
-    competition: "Championnat Regional",
-    opponent: "Arcachon HB",
-    location: "Salle des Sports Lacanau",
+    id: "u3",
+    date: "Dimanche · 16h00",
+    competition: "Coupe",
+    opponent: "À programmer",
+    location: "Salle de la Cousteyre",
     isHome: true,
   },
 ];
@@ -63,339 +84,550 @@ export const upcomingMatches: MatchItem[] = [
 export const latestResults: MatchItem[] = [
   {
     id: "r1",
-    date: "20 Avril 2026",
-    competition: "Championnat Regional",
-    opponent: "Mios Biganos",
-    location: "Salle des Sports Lacanau",
+    date: "20 avril 2024 · Bercy",
+    competition: "Finale Coupe de France",
+    opponent: "Ste Gemmes sur Loire",
+    location: "Accor Arena, Paris",
     isHome: true,
-    score: "31 - 27",
+    score: "30 - 29",
   },
   {
     id: "r2",
-    date: "13 Avril 2026",
-    competition: "Nationale Beach Series",
-    opponent: "Royan Atlantique",
-    location: "Royan",
-    isHome: false,
-    score: "26 - 29",
+    date: "Mars 2024 · 1/8",
+    competition: "Coupe de France",
+    opponent: "HBC Lourdais",
+    location: "Bergerac",
+    isHome: true,
+    score: "28 - 17",
   },
   {
     id: "r3",
-    date: "06 Avril 2026",
-    competition: "Coupe Nouvelle-Aquitaine",
-    opponent: "Mios Biganos",
-    location: "Lacanau Ocean",
+    date: "Mars 2024 · 1/16",
+    competition: "Coupe de France",
+    opponent: "SC Gourdon Handball",
+    location: "Bergerac",
     isHome: true,
-    score: "34 - 30",
+    score: "26 - 15",
   },
 ];
 
-export const newsItems: NewsItem[] = [
-  {
-    id: "n1",
-    title: "Beach Handball Lacanau: la prepa 2026 est lancee",
-    excerpt:
-      "Le groupe elite accelere sa preparation pour le circuit national avec un stage intensif sur sable.",
-    date: "24 Avril 2026",
-    tags: ["elite", "beach handball lacanau"],
-    cover: "/media/teams/beach-elite.jpg",
-    slug: "prepa-2026",
-  },
-  {
-    id: "n2",
-    title: "Lacanau Beach Handball Xperience: ouverture des inscriptions",
-    excerpt:
-      "Le tournoi beach handball lacanau revient avec un format etendu sur trois jours.",
-    date: "19 Avril 2026",
-    tags: ["evenement", "lacanau beach handball xperience"],
-    cover: "/media/teams/u11-mixte.jpg",
-    slug: "xperience-inscriptions",
-  },
-  {
-    id: "n3",
-    title: "Handball Lacanau: focus sur la formation jeunes",
-    excerpt:
-      "Le club renforce son academie avec de nouveaux creneaux et un suivi individualise.",
-    date: "12 Avril 2026",
-    tags: ["formation", "handball lacanau"],
-    cover: "/media/teams/u15-masculine.jpg",
-    slug: "formation-jeunes",
-  },
-  {
-    id: "n4",
-    title: "Objectif Lacanau Beach Handball 2025 confirme",
-    excerpt:
-      "Le staff valide une feuille de route ambitieuse pour viser un nouveau titre national.",
-    date: "07 Avril 2026",
-    tags: ["performance", "lacanau beach handball 2025"],
-    cover: "/media/teams/ecole-de-hand.jpg",
-    slug: "objectif-2025",
-  },
-];
-
-export const partners: Partner[] = [
-  {
-    id: "p1",
-    name: "VitalParc",
-    website: "https://cutt.ly/TwLceujd",
-    logo: "/placeholders/partner-vitalparc.png",
-  },
-  {
-    id: "p2",
-    name: "Briconautes",
-    website: "https://magasin.leclub-bricolage.fr/38-briconautes-lacanau",
-    logo: "/placeholders/partner-briconautes.png",
-  },
-  {
-    id: "p3",
-    name: "Medoc Atlantique",
-    website: "#",
-    logo: "/placeholders/partner-medoc.png",
-  },
-  {
-    id: "p4",
-    name: "Ville de Lacanau",
-    website: "https://www.lacanau.fr/",
-    logo: "/placeholders/partner-ville-lacanau.jpg",
-  },
-  {
-    id: "p5",
-    name: "209 Agency",
-    website: "https://www.209-agency.com/",
-    logo: "/placeholders/partner-209.png",
-  },
-  {
-    id: "p6",
-    name: "Desirs2Reves",
-    website: "https://desirs2reves.com/",
-    logo: "/placeholders/partner-desirs2reves.jpg",
-  },
-];
-
+/* ============================================================
+   ÉQUIPES — structurées par sous-menu (cf. maquette client)
+   Seniors · Équipes jeunes · Beach Handball · École de gardien · École d'arbitrage
+   ============================================================ */
 export const teams: Team[] = [
+  // --- SENIORS ---
   {
-    slug: "senior-feminine",
-    name: "Senior Feminine",
-    category: "Competition",
-    coach: "Maelys Dupont",
-    schedule: ["Mardi 20h00", "Jeudi 20h00"],
-    description: "Groupe fanion feminin engage sur les competitions regionales et beach.",
-    image: "/media/teams/senior-feminine.jpg",
-  },
-  {
-    slug: "senior-masculine",
-    name: "Senior Masculine",
-    category: "Competition",
-    coach: "Theo Martin",
+    slug: "seniors-masculins",
+    name: "Seniors masculins",
+    group: "seniors",
+    age: "+16 ans",
     schedule: ["Lundi 20h00", "Mercredi 20h00"],
-    description: "Effectif senior axe intensite, vitesse et culture beach handball.",
-    image: "/media/teams/senior-masculine.jpg",
+    coach: "Thierry Mayeur",
+    description:
+      "Notre groupe fanion, vainqueur de la Coupe de France 2024 et triple champion de Gironde. Intensité, vitesse et esprit de famille.",
+    image: "/media/teams/seniors.jpg",
   },
   {
-    slug: "u18-feminine",
-    name: "U18 Feminine",
-    category: "Formation",
-    coach: "Alice Durand",
-    schedule: ["Mardi 18h30", "Vendredi 18h30"],
-    description: "Collectif U18 feminin, progression technique et intelligence de jeu.",
-    image: "/media/teams/u18-feminine.jpg",
+    slug: "seniors-loisirs",
+    name: "Équipe loisirs",
+    group: "seniors",
+    age: "Adultes",
+    schedule: ["Vendredi 20h30"],
+    coach: "Hubert Gaget",
+    description:
+      "Le handball pour le plaisir, sans pression de classement. Une séance conviviale ouverte à tous les adultes, débutants bienvenus.",
+    image: "/media/teams/loisirs.jpg",
   },
-  {
-    slug: "u18-masculine",
-    name: "U18 Masculine",
-    category: "Formation",
-    coach: "Nolan Rigaud",
-    schedule: ["Mercredi 18h00", "Vendredi 19h00"],
-    description: "Groupe U18 masculin, developpement performance et esprit equipe.",
-    image: "/media/teams/u18-masculine.jpg",
-  },
-  {
-    slug: "u15-feminine",
-    name: "U15 Feminine",
-    category: "Jeunes",
-    coach: "Camille Robert",
-    schedule: ["Lundi 18h00", "Jeudi 18h00"],
-    description: "Equipe U15 feminine, apprentissage du handball lacanau moderne.",
-    image: "/media/teams/u15-feminine.jpg",
-  },
-  {
-    slug: "u15-masculine",
-    name: "U15 Masculine",
-    category: "Jeunes",
-    coach: "Arthur Giraud",
-    schedule: ["Mardi 18h00", "Jeudi 19h00"],
-    description: "Equipe U15 masculine, progression technique et cohesion collective.",
-    image: "/media/teams/u15-masculine.jpg",
-  },
-  {
-    slug: "u13-mixte",
-    name: "U13 Mixte",
-    category: "Jeunes",
-    coach: "Lina Besson",
-    schedule: ["Mercredi 16h30", "Samedi 10h00"],
-    description: "Section U13 mixte, pedagogie ludique et bases techniques solides.",
-    image: "/media/teams/u13-mixte.jpg",
-  },
+
+  // --- ÉQUIPES JEUNES ---
   {
     slug: "ecole-de-hand",
-    name: "Ecole de Hand",
-    category: "Baby/Initiation",
-    coach: "Nathan Leger",
+    name: "Baby & École de hand",
+    group: "jeunes",
+    age: "5 – 9 ans · Samedi matin",
     schedule: ["Samedi 09h00"],
-    description: "Decouverte du handball sur un format adapte aux plus jeunes.",
+    coach: "Guillaume Giraudet-Bacchiolelli",
+    description:
+      "Découverte du jeu par des ateliers ludiques. Un cadre rassurant et joyeux pour les plus petits.",
     image: "/media/teams/ecole-de-hand.jpg",
   },
   {
-    slug: "beach-elite",
-    name: "Beach Elite",
-    category: "Beach",
-    coach: "Staff Performance",
-    schedule: ["Mardi 19h30", "Dimanche 10h30"],
-    description: "Section dediee aux tournois beach handball lacanau et nationaux.",
-    image: "/media/teams/beach-elite.jpg",
+    slug: "u11-mixtes",
+    name: "U11 mixtes",
+    group: "jeunes",
+    age: "9 – 11 ans · Mercredi + samedi",
+    schedule: ["Mercredi 16h30", "Samedi 10h00"],
+    coach: "Steeve Martin-Pavailler",
+    description:
+      "Apprentissage des règles de base et premiers tournois, à son propre rythme et en s'amusant.",
+    image: "/media/teams/u11.jpg",
+  },
+  {
+    slug: "u13-filles",
+    name: "U13 filles",
+    group: "jeunes",
+    age: "11 – 13 ans",
+    schedule: ["Mardi 18h00", "Vendredi 18h30"],
+    coach: "Christophe Suire",
+    description:
+      "Premières compétitions départementales pour les filles, dans la bonne humeur et l'esprit d'équipe.",
+    image: "/media/teams/u13-filles.jpg",
+  },
+  {
+    slug: "u13-garcons",
+    name: "U13 garçons",
+    group: "jeunes",
+    age: "11 – 13 ans",
+    schedule: ["Mardi 18h00", "Vendredi 18h30"],
+    coach: "Christophe Suire",
+    description:
+      "Développement technique et tactique pour les garçons, vers plus d'autonomie sur le terrain.",
+    image: "/media/teams/u13-garcons.jpg",
+  },
+  {
+    slug: "u15-filles",
+    name: "U15 filles",
+    group: "jeunes",
+    age: "13 – 15 ans",
+    schedule: ["Lundi 18h30", "Jeudi 18h30"],
+    coach: "Fabien Boulanger",
+    description:
+      "Compétitions régionales et progression collective pour les filles du club.",
+    image: "/media/teams/u15-filles.jpg",
+  },
+  {
+    slug: "u15-garcons",
+    name: "U15 garçons",
+    group: "jeunes",
+    age: "13 – 15 ans",
+    schedule: ["Lundi 18h30", "Jeudi 18h30"],
+    coach: "Fabien Boulanger",
+    description:
+      "Intensité et cohésion pour les garçons, à un âge clé de la formation.",
+    image: "/media/teams/u15-garcons.jpg",
+  },
+  {
+    slug: "u18",
+    name: "U18 (entente Bruges)",
+    group: "jeunes",
+    age: "15 – 18 ans · Lundi + jeudi",
+    schedule: ["Lundi 19h00", "Jeudi 19h00"],
+    coach: "Yann Bidon",
+    description:
+      "Performance et cohésion à l'approche du niveau senior, en entente avec Bruges Le Bouscat.",
+    image: "/media/teams/u18.jpg",
+  },
+
+  // --- BEACH ---
+  {
+    slug: "beach-handball",
+    name: "Beach handball",
+    group: "beach",
+    age: "Dès U13 · Mai – Août",
+    schedule: ["Format 4 + 1 joueurs"],
+    coach: "Bénévoles dédiés",
+    description:
+      "Le handball dans sa version estivale et festive, joué sur le sable à deux pas de l'océan. Créativité, vitesse et gestes spectaculaires.",
+    image: "/media/teams/beach.jpg",
+  },
+
+  // --- ÉCOLE DE GARDIEN ---
+  {
+    slug: "ecole-de-gardien",
+    name: "École de gardien",
+    group: "gardien",
+    age: "Tous niveaux",
+    schedule: ["Selon catégories"],
+    coach: "Staff gardiens",
+    description:
+      "Un encadrement spécifique pour progresser dans les cages : placement, réflexes et lecture du jeu.",
+    image: "/media/teams/ecole-gardien.jpg",
+  },
+
+  // --- ÉCOLE D'ARBITRAGE ---
+  {
+    slug: "ecole-arbitrage",
+    name: "École d'arbitrage",
+    group: "arbitrage",
+    age: "Dès 13 ans",
+    schedule: ["Formation continue"],
+    coach: "Céline",
+    description:
+      "Apprendre à arbitrer, comprendre les règles et accompagner les rencontres du club avec confiance.",
+    image: "/media/teams/ecole-arbitrage.jpg",
   },
 ];
 
+export const teamGroups: { id: Team["group"]; label: string; color: string }[] = [
+  { id: "seniors", label: "Seniors", color: "var(--c-senior)" },
+  { id: "jeunes", label: "Équipes jeunes", color: "var(--c-jeunes)" },
+  { id: "beach", label: "Beach handball", color: "var(--c-beach)" },
+  { id: "gardien", label: "École de gardien", color: "var(--c-gardien)" },
+  { id: "arbitrage", label: "École d'arbitrage", color: "var(--c-arbitrage)" },
+];
+
+/* ============================================================
+   HISTOIRE (réelle)
+   ============================================================ */
 export const timelineEvents: TimelineEvent[] = [
   {
     year: "2017",
-    title: "Creation du club",
+    title: "Naissance du club",
     description:
-      "Lacanau Ocehand est fonde pour developper le handball lacanau et l'offre beach locale.",
+      "Le 4 juin 2017, Thierry Mayeur fonde Lacanau Océhand en famille pour offrir aux Canaulais un club de handball.",
   },
   {
-    year: "2020",
-    title: "Structuration de la filiere jeunes",
-    description: "Le club atteint 100 licencies et ouvre plusieurs sections U13 a U18.",
+    year: "2022",
+    title: "Premier titre majeur",
+    description:
+      "Les seniors deviennent champions de Gironde, point de départ d'une domination départementale.",
   },
   {
     year: "2023",
-    title: "Triple titre Gironde",
+    title: "Top 8 national",
     description:
-      "Trois equipes remportent leur championnat departemental sur une meme saison.",
+      "Quart de finaliste de la Coupe de France : le club termine dans les 8 meilleurs sur 1 000 équipes engagées.",
   },
   {
     year: "2024",
-    title: "Champions de France",
+    title: "Champions de France à Bercy",
     description:
-      "Sacre national en Coupe de France a Bercy, moment historique pour le club.",
+      "Sacre en Coupe de France départementale face à Ste Gemmes sur Loire (30-29), à l'Accor Arena.",
+  },
+];
+
+export const palmares: Palmares[] = [
+  {
+    season: "2023 – 2024",
+    lines: [
+      "Vainqueurs de la Coupe de France départementale (30-29 vs Ste Gemmes sur Loire)",
+      "Champions de Gironde — Seniors garçons (22V · 0N · 0D)",
+    ],
   },
   {
-    year: "2025",
-    title: "Lacanau Beach Handball 2025",
-    description:
-      "Le club renforce sa position sur le circuit tournoi beach handball lacanau.",
+    season: "2022 – 2023",
+    lines: [
+      "Champions de Gironde — Seniors garçons (27V · 0N · 0D)",
+      "1/4 de finaliste Coupe de France (top 8 / 1 000 équipes)",
+    ],
+  },
+  {
+    season: "2021 – 2022",
+    lines: ["Champions de Gironde — Promotion (15V · 3N · 1D)"],
+  },
+];
+
+/* ============================================================
+   SALLES (réelles)
+   ============================================================ */
+export const salles: Salle[] = [
+  {
+    name: "Salle de la Cousteyre",
+    usage: "Salle omnisports — entraînements & matchs à domicile",
+    address: "Lacanau",
+    image: "/media/club/gymnase-cousteyre.jpg",
+  },
+  {
+    name: "Le Cosec",
+    usage: "Créneaux d'entraînement complémentaires",
+    address: "Lacanau",
+    image: "/media/club/salle-cousteyre.jpg",
+  },
+  {
+    name: "Pôle de l'Ardilouse",
+    usage: "Beach handball — terrains sur sable",
+    address: "Lacanau-Océan",
+  },
+];
+
+/* ============================================================
+   STAFF (réel)
+   ============================================================ */
+export const bureau: StaffMember[] = [
+  {
+    id: "b1",
+    name: "Thierry Mayeur",
+    role: "Président & entraîneur +16",
+    pole: "Bureau",
+    image: "/media/staff/thierry-mayeur.jpg",
+  },
+  {
+    id: "b2",
+    name: "Sébastien Laborde",
+    role: "Vice-président",
+    pole: "Bureau",
+    image: "/media/staff/sebastien-laborde.jpg",
+  },
+  {
+    id: "b3",
+    name: "Julie Boutet",
+    role: "Secrétaire",
+    pole: "Bureau",
+    image: "/media/staff/julie-boutet.jpg",
+  },
+  {
+    id: "b4",
+    name: "Anne-Laure Picard Bondy",
+    role: "Trésorière",
+    pole: "Bureau",
+    image: "/media/staff/anne-laure-bondy.jpg",
   },
 ];
 
 export const staffMembers: StaffMember[] = [
-  {
-    id: "s1",
-    name: "Anne-Laure Bondy",
-    role: "Comité directeur",
-    pole: "Direction",
-    image: "/media/staff/anne-laure-bondy.jpg",
-  },
-  {
-    id: "s2",
-    name: "Carinne Laborde",
-    role: "Comité directeur",
-    pole: "Direction",
-    image: "/media/staff/carinne-laborde.jpg",
-  },
-  {
-    id: "s3",
-    name: "Johan Lococo",
-    role: "Comité directeur",
-    pole: "Direction",
-    image: "/media/staff/johan-lococo.jpg",
-  },
-  {
-    id: "s4",
-    name: "Julie Boutet",
-    role: "Comité directeur",
-    pole: "Direction",
-    image: "/media/staff/julie-boutet.jpg",
-  },
-  {
-    id: "s5",
-    name: "Céline",
-    role: "École d'arbitrage",
-    pole: "Formation",
-    image: "/media/staff/celine-ecole-arbitrage.jpg",
-  },
+  { id: "s1", name: "Paul Mourioux", role: "Responsable équipes jeunes", pole: "Technique", image: "/media/staff/paul-mourioux.jpg" },
+  { id: "s2", name: "Hubert Gaget", role: "Entraîneur loisirs", pole: "Technique", image: "/media/staff/hubert-gaget.jpg" },
+  { id: "s3", name: "Guillaume Taudin", role: "Responsable communication", pole: "Communication", image: "/media/staff/guillaume-taudin.jpg" },
+  { id: "s4", name: "Steeve Lozano", role: "Entraîneur U11", pole: "Technique", image: "/media/staff/steeve-lozano.jpg" },
+  { id: "s5", name: "Sandrine Blanc", role: "Dirigeante", pole: "Loisirs", image: "/media/staff/sandrine-blanc.jpg" },
+  { id: "s6", name: "Fabien Boulanger", role: "Entraîneur U15", pole: "Technique" },
+  { id: "s7", name: "Christophe Suire", role: "Entraîneur U13", pole: "Technique" },
+  { id: "s8", name: "Yann Bidon", role: "Entraîneur U18 (entente Bruges)", pole: "Technique", image: "/media/staff/yann-bidon.jpg" },
+  { id: "s9", name: "Guillaume Giraudet-Bacchiolelli", role: "Entraîneur U9 / Baby", pole: "Technique", image: "/media/staff/guillaume-giraudet.jpg" },
+  { id: "s10", name: "Céline", role: "École d'arbitrage", pole: "Arbitrage", image: "/media/staff/celine-ecole-arbitrage.jpg" },
+  { id: "s11", name: "Carine Laborde", role: "Dirigeante loisirs", pole: "Loisirs", image: "/media/staff/carine-laborde.jpg" },
+  { id: "s12", name: "Jean-Gilles Féron", role: "Podologue / Thérapeute", pole: "Santé", image: "/media/staff/jean-gilles-feron.jpg" },
 ];
 
+/* ============================================================
+   TARIFS — montants indicatifs, à confirmer par le club.
+   Faits réels conservés : forfait famille -15 €, Pass'Sport,
+   équipement inclus, renouvellement par email fédéral.
+   ============================================================ */
 export const licensePricing: PricingRow[] = [
-  { category: "Baby Hand (U9)", fee: "120 EUR / saison" },
-  { category: "Jeunes (U11-U18)", fee: "170 EUR / saison" },
-  { category: "Seniors", fee: "220 EUR / saison" },
-  { category: "Beach Elite", fee: "250 EUR / saison" },
+  { category: "Baby hand (U7 – U9)", fee: "Sur demande" },
+  { category: "Jeunes (U11 – U18)", fee: "Sur demande" },
+  { category: "Seniors", fee: "Sur demande" },
+  { category: "Beach handball", fee: "Sur demande" },
 ];
 
-export const trainingSlots = [
+export const pricingPerks: string[] = [
+  "Forfait famille : −15 € par licence supplémentaire d'une même famille",
+  "Pass'Sport accepté",
+  "Équipement (maillot, short, chaussettes) inclus dans la licence",
+  "Renouvellement via le lien reçu par email de la fédération",
+];
+
+export const playerCategories = [
+  "U9",
+  "U11",
+  "U13",
+  "U15",
+  "U18",
+  "Senior",
+  "Loisirs",
+];
+
+export const volunteerRoles = [
+  "Table de marque",
+  "Restauration",
+  "Communication",
+  "Pas de préférence",
+];
+
+/* ============================================================
+   ACTUALITÉS (basées sur de vrais évènements)
+   ============================================================ */
+export const newsItems: NewsItem[] = [
   {
-    team: "Senior Feminine",
-    schedule: "Mardi 20h00 - 22h00 / Jeudi 20h00 - 22h00",
+    id: "n1",
+    title: "Lacanau remporte la Coupe de France 2024",
+    excerpt:
+      "Après 60 minutes intenses, nos seniors s'imposent 30-29 face à Ste Gemmes sur Loire, à Bercy.",
+    date: "22 avril 2024",
+    tags: ["Seniors", "Coupe de France"],
+    cover: "/media/club/champions-2024.jpg",
+    slug: "coupe-de-france-2024",
   },
   {
-    team: "Senior Masculine",
-    schedule: "Lundi 20h00 - 22h00 / Mercredi 20h00 - 22h00",
+    id: "n2",
+    title: "La formation des jeunes, cœur du projet",
+    excerpt:
+      "Des U9 aux U18, filles et garçons enchaînent les rencontres départementales et régionales chaque week-end.",
+    date: "Saison 2024 – 2025",
+    tags: ["Jeunes", "Formation"],
+    cover: "/media/action/duel-1.jpg",
+    slug: "formation-jeunes",
   },
   {
-    team: "U18",
-    schedule: "Mardi 18h30 - 20h00 / Vendredi 18h30 - 20h00",
-  },
-  {
-    team: "U15",
-    schedule: "Lundi 18h00 - 19h30 / Jeudi 18h00 - 19h30",
+    id: "n3",
+    title: "La section beach handball reprend",
+    excerpt:
+      "Dès l'U13 et pour les adultes, le beach handball revient sur le sable du Pôle de l'Ardilouse.",
+    date: "Saison estivale",
+    tags: ["Beach handball"],
+    cover: "/media/beach/stage-sable.jpg",
+    slug: "beach-handball",
   },
 ];
 
-export const equipeSectionMedia = {
-  ecoleGardiens: "/media/teams/ecole-gardiens.jpg",
-  ecoleArbitrage: "/media/teams/ecole-arbitrage.jpg",
-} as const;
+/* ============================================================
+   FAQ — SEO (FAQPage schema). Réponses courtes, mot-clé Lacanau.
+   ============================================================ */
+export const faqItems: FaqItem[] = [
+  {
+    question: "Où jouer au handball à Lacanau ?",
+    answer:
+      "Lacanau Océhand accueille tous les niveaux, du baby hand aux seniors, en salle et en beach handball. Les entraînements ont lieu à la salle de la Cousteyre.",
+  },
+  {
+    question: "Comment s'inscrire au club de handball de Lacanau ?",
+    answer:
+      "Remplissez le formulaire joueur de la page « Rejoindre ». Les licenciés de la saison précédente reçoivent directement un email de la fédération.",
+  },
+  {
+    question: "À partir de quel âge peut-on commencer ?",
+    answer:
+      "Dès 5 ans avec le baby handball et l'école de hand, dans un cadre ludique, sécurisé et encadré par des bénévoles formés.",
+  },
+  {
+    question: "Le club propose-t-il du beach handball ?",
+    answer:
+      "Oui. Notre section beach handball est ouverte dès l'U13 et aux adultes, sur le sable du Pôle de l'Ardilouse de mai à août.",
+  },
+  {
+    question: "Où se déroulent les entraînements ?",
+    answer:
+      "À la salle omnisports de la Cousteyre, au Cosec, et au Pôle de l'Ardilouse pour la pratique du beach handball.",
+  },
+  {
+    question: "Quel est le palmarès du club ?",
+    answer:
+      "Lacanau Océhand est vainqueur de la Coupe de France départementale 2024 et triple champion de Gironde (2022, 2023, 2024).",
+  },
+];
 
+/* ============================================================
+   PARTENAIRES
+   ============================================================ */
+export const partners: Partner[] = [
+  { id: "p1", name: "VitalParc Hôtel & Spa", website: "https://www.vitalparc.com/", logo: "/partners/vitalparc.png" },
+  { id: "p2", name: "Briconautes Lacanau", website: "https://magasin.leclub-bricolage.fr/38-briconautes-lacanau", logo: "/partners/briconautes.png" },
+  { id: "p3", name: "Médoc Atlantique", website: "https://www.medoc-atlantique.com/", logo: "/partners/medoc-atlantique.png" },
+  { id: "p4", name: "Efficity — Julie & David", website: "#", logo: "/partners/efficity.png" },
+  { id: "p5", name: "209 Agency", website: "https://www.209-agency.com/", logo: "/partners/209-agency.png" },
+  { id: "p6", name: "Désirs2Rêves", website: "https://desirs2reves.com/", logo: "/partners/desirs2reves.jpg" },
+  { id: "p7", name: "HandShoot", website: "#", logo: "/partners/handshoot.png" },
+  { id: "p8", name: "Ville de Lacanau", website: "https://www.lacanau.fr/", logo: "/partners/ville-de-lacanau.png" },
+];
+
+/* ============================================================
+   FÉDÉRATION
+   ============================================================ */
+export const federationLogos = [
+  { name: "Fédération Française de Handball", logo: "/federation/ffhb.png" },
+  { name: "Ligue Nouvelle-Aquitaine de Handball", logo: "/federation/ligue-nouvelle-aquitaine.png" },
+  { name: "Comité de Gironde de Handball", logo: "/federation/comite-gironde-handball.png" },
+];
+
+/* ============================================================
+   GALERIE — photos d'action uniques
+   ============================================================ */
 export const galleryItems = [
-  {
-    src: "/media/teams/senior-masculine.jpg",
-    alt: "Équipe seniors masculins Lacanau Ocehand",
-  },
-  {
-    src: "/media/teams/u11-mixte.jpg",
-    alt: "Équipe U11 mixte",
-  },
-  {
-    src: "/media/teams/beach-elite.jpg",
-    alt: "Beach handball — école de beach",
-  },
-  {
-    src: "/media/club/heritage-2017.webp",
-    alt: "Moments forts du club — archives 2017",
-  },
+  { src: "/media/action/jump-1.jpg", alt: "Joueuse à la lutte au tir en suspension" },
+  { src: "/media/action/jump-2.jpg", alt: "Jeune joueur en suspension à Lacanau" },
+  { src: "/media/action/run-1.jpg", alt: "Jeune joueur en contre-attaque" },
+  { src: "/media/club/nathand-fluo.jpg", alt: "Soirée NatHand Fluo au gymnase" },
 ];
 
 export const socialPosts = [
   {
     id: "ig-1",
-    platform: "Instagram",
-    image: "/media/teams/senior-feminine.jpg",
-    title: "Finale Coupe de France 2024",
+    platform: "Instagram" as const,
+    image: "/media/beach/londres.jpg",
+    title: "Beach Handball Xperience — Londres",
     url: instagramUrl,
   },
   {
     id: "ig-2",
-    platform: "Instagram",
-    image: "/media/teams/u13-mixte.jpg",
-    title: "Vie du club et matchs a domicile",
+    platform: "Instagram" as const,
+    image: "/media/beach/alpes.jpg",
+    title: "Tournoi beach Alpes-Maritimes",
     url: instagramUrl,
   },
   {
     id: "fb-1",
-    platform: "Facebook",
-    image: "/media/teams/u18-feminine.jpg",
-    title: "Resultats et annonces officielles",
+    platform: "Facebook" as const,
+    image: "/media/club/stage-sicile.jpg",
+    title: "Stage du club en Sicile",
     url: facebookUrl,
   },
+];
+
+/* ============================================================
+   TÉMOIGNAGES (réassurance)
+   ============================================================ */
+export const testimonials: Testimonial[] = [
+  {
+    id: "t1",
+    quote:
+      "Mes deux enfants ont commencé au baby hand. L'encadrement est bienveillant et tout le monde se connaît. C'est devenu notre deuxième famille.",
+    name: "Sandrine",
+    role: "Maman de deux licenciés",
+  },
+  {
+    id: "t2",
+    quote:
+      "Arrivé débutant à 30 ans en équipe loisirs, j'ai été accueilli les bras ouverts. On joue sérieusement mais toujours dans la bonne humeur.",
+    name: "Maxime",
+    role: "Joueur loisirs",
+  },
+  {
+    id: "t3",
+    quote:
+      "Soulever la Coupe de France à Bercy avec les copains du club, c'est un souvenir pour la vie. Tout ça dans un club créé en famille à Lacanau.",
+    name: "Un senior",
+    role: "Champion de France 2024",
+  },
+];
+
+/* ============================================================
+   CALENDRIER / ÉVÉNEMENTS DU CLUB
+   ============================================================ */
+export const clubEvents: ClubEvent[] = [
+  {
+    id: "e1",
+    date: "Sam.",
+    month: "Sept.",
+    title: "Journées portes ouvertes",
+    type: "Manifestation",
+    location: "Salle de la Cousteyre",
+    highlight: true,
+  },
+  {
+    id: "e2",
+    date: "Sam.",
+    month: "Oct.",
+    title: "Reprise des championnats jeunes",
+    type: "Match",
+    location: "Lacanau & extérieur",
+  },
+  {
+    id: "e3",
+    date: "Dim.",
+    month: "Déc.",
+    title: "Tournoi de Noël du club",
+    type: "Tournoi",
+    location: "Salle de la Cousteyre",
+  },
+  {
+    id: "e4",
+    date: "Été",
+    month: "Juil.",
+    title: "Beach Handball Xperience",
+    type: "Tournoi",
+    location: "Pôle de l'Ardilouse",
+    highlight: true,
+  },
+];
+
+/* ============================================================
+   CATÉGORIES D'ÂGE (recrutement)
+   ============================================================ */
+export const ageCategories: AgeCategory[] = [
+  { label: "Baby & École de hand", age: "5 – 9 ans", note: "Éveil & motricité", accent: "var(--c-jeunes)" },
+  { label: "Jeunes", age: "U11 → U18", note: "Filles & garçons", accent: "var(--c-senior)" },
+  { label: "Seniors", age: "+16 ans", note: "Compétition & loisirs", accent: "var(--c-gardien)" },
+  { label: "Beach handball", age: "Dès U13", note: "Mai → Août", accent: "var(--c-beach)" },
 ];

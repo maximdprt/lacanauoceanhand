@@ -1,0 +1,201 @@
+@import "tailwindcss";
+
+/* ============================================================
+   LACANAU OCÉHAND — Design system
+   Direction : sport premium, géométrique, clair (Apple/Nike).
+   Palette resserrée : encre + blanc + bleu Atlantique,
+   accents catégories utilisés avec parcimonie.
+   ============================================================ */
+
+:root {
+  --ink: #0b0e14;          /* texte / titres */
+  --ink-soft: #565f6e;     /* texte secondaire */
+  --paper: #ffffff;
+  --mist: #f4f6f9;         /* sections claires */
+  --mist-2: #eef1f5;
+  --line: #e3e7ec;         /* bordures fines */
+  --line-strong: #cdd4dd;
+
+  --ocean: #0c5fb0;        /* bleu Atlantique — couleur principale */
+  --ocean-deep: #0a497f;
+  --ocean-tint: #e9f2fb;
+
+  /* accents catégories (utilisés en touches) */
+  --c-senior: #0c5fb0;
+  --c-jeunes: #1f9d6b;
+  --c-beach: #e0922a;
+  --c-gardien: #6d54c8;
+  --c-arbitrage: #d4a017;
+
+  --radius: 16px;
+  --radius-sm: 10px;
+  --radius-lg: 26px;
+
+  --shadow-xs: 0 1px 2px rgba(11, 14, 20, 0.05);
+  --shadow-sm: 0 2px 8px rgba(11, 14, 20, 0.06);
+  --shadow-md: 0 10px 30px -12px rgba(11, 14, 20, 0.18);
+  --shadow-lg: 0 30px 60px -20px rgba(11, 14, 20, 0.28);
+
+  --maxw: 1200px;
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-paper: var(--paper);
+  --color-mist: var(--mist);
+  --color-mist-2: var(--mist-2);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ocean: var(--ocean);
+  --color-ocean-deep: var(--ocean-deep);
+  --color-ocean-tint: var(--ocean-tint);
+  --color-c-senior: var(--c-senior);
+  --color-c-jeunes: var(--c-jeunes);
+  --color-c-beach: var(--c-beach);
+  --color-c-gardien: var(--c-gardien);
+  --color-c-arbitrage: var(--c-arbitrage);
+
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display);
+
+  --radius-card: var(--radius);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-feature-settings: "ss01", "cv01";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ---------- Display type : Archivo, large & serré ---------- */
+.font-display {
+  font-family: var(--font-display), "Arial Narrow", sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 0.96;
+}
+
+.headline {
+  font-family: var(--font-display), sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 0.94;
+  text-transform: uppercase;
+}
+
+/* éléments décoratifs / numéros de section */
+.section-index {
+  font-family: var(--font-display), sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Conteneur ---------- */
+.container-x {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+@media (min-width: 768px) {
+  .container-x { padding-inline: 32px; }
+}
+
+/* ---------- Filet décoratif (grille fine type Apple) ---------- */
+.hairline {
+  height: 1px;
+  background: var(--line);
+}
+
+/* ---------- Carte de base ---------- */
+.card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+/* ---------- Bouton focus accessible ---------- */
+:focus-visible {
+  outline: 2px solid var(--ocean);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+::selection {
+  background: rgba(12, 95, 176, 0.16);
+  color: var(--ink);
+}
+
+/* ---------- Marquee partenaires ---------- */
+.marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 32s linear infinite;
+  will-change: transform;
+}
+.marquee:hover { animation-play-state: paused; }
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ---------- Soulignement animé des liens nav ---------- */
+.nav-link {
+  position: relative;
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  height: 2px;
+  width: 100%;
+  background: var(--ink);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.nav-link:hover::after,
+.nav-link[data-active="true"]::after {
+  transform: scaleX(1);
+}
+
+/* ---------- Scrollbar fine ---------- */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #cbd2dc; border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: #aab4c1; }
+
+/* ---------- Détail diagonale (motif Nike, sobre) ---------- */
+.clip-diagonal-b {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 56px), 0 100%);
+}
+
+/* ---------- Réduction de mouvement ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

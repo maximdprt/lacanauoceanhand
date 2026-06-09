@@ -1,195 +1,270 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 
-import { Reveal } from "@/components/common/reveal";
-import { SectionTitle } from "@/components/common/section-title";
-import { GalleryLightbox } from "@/components/sections/gallery-lightbox";
-import { PageHero } from "@/components/sections/page-hero";
-import { StaffGrid } from "@/components/sections/staff-grid";
-import { Timeline } from "@/components/sections/timeline";
-import { galleryItems, timelineEvents } from "@/data/site";
 import { buildMetadata } from "@/lib/site";
+import { PageHero } from "@/components/sections/page-hero";
+import { SectionTitle } from "@/components/common/section-title";
+import { Reveal } from "@/components/common/reveal";
+import {
+  bureau,
+  federationLogos,
+  palmares,
+  salles,
+  staffMembers,
+  timelineEvents,
+} from "@/data/site";
+import type { StaffMember } from "@/types";
 
-export const metadata: Metadata = buildMetadata({
+export const metadata = buildMetadata({
   title: "Le club",
-  description: "Histoire, staff, infrastructures et palmarès de Lacanau Ocehand.",
+  description:
+    "Né en 2017 à Lacanau, Lacanau Océhand est champion de France 2024. Découvrez l'histoire, le palmarès, le staff et les installations du club de handball en Gironde.",
   path: "/le-club",
+  keywords: ["histoire club handball Lacanau", "palmarès handball Lacanau", "staff handball Lacanau"],
 });
 
-export default function LeClubPage() {
+function initials(name: string) {
+  return name
+    .split(" ")
+    .slice(0, 2)
+    .map((n) => n[0])
+    .join("")
+    .toUpperCase();
+}
+
+function StaffAvatar({ member }: { member: StaffMember }) {
+  if (member.image) {
+    return (
+      <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full">
+        <Image src={member.image} alt={member.name} fill className="object-cover" />
+      </div>
+    );
+  }
   return (
-    <div className="space-y-20">
+    <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-ocean-tint font-display text-base text-ocean">
+      {initials(member.name)}
+    </span>
+  );
+}
+
+export default function ClubPage() {
+  return (
+    <>
       <PageHero
-        eyebrow="Institution"
-        title="Le club"
-        description="« Chaque aventure sportive est avant tout une aventure humaine »"
+        eyebrow="Le club"
+        title="Le club de handball à Lacanau"
+        description="Chaque aventure sportive est avant tout une aventure humaine. Voici la nôtre, depuis 2017."
       />
 
-      <Reveal>
-        <div className="max-w-3xl space-y-5 text-base leading-relaxed text-slate-700 md:text-lg">
-          <p>
-            C&apos;est avec cette conviction chevillée au corps que le club de Lacanau OcéHand a vu le jour le 4 juin
-            2017, fondé par Thierry Mayeur. L&apos;idée était simple mais ambitieuse : offrir aux Canaulaises et aux
-            Canaulais une nouvelle association entièrement dédiée au handball, un sport collectif porteur de valeurs et
-            de liens.
-          </p>
-          <p>
-            Depuis, le club n&apos;a cessé de grandir. Saison après saison, les licenciés sont de plus en plus nombreux,
-            attirés par un projet associatif ambitieux et une atmosphère familiale unique. Ce dynamisme se traduit
-            aujourd&apos;hui par le développement de deux filières complémentaires : le handball en salle, pratiqué
-            toute l&apos;année de la catégorie baby jusqu&apos;aux seniors, et le beach handball, discipline qui prend
-            tout son sens à deux pas de l&apos;océan Atlantique.
-          </p>
-          <p>
-            Porté par des bénévoles passionnés et engagés, Lacanau OcéHand est aujourd&apos;hui bien plus qu&apos;un club
-            de sport : c&apos;est un espace de vie, de partage et de progression pour toutes et tous, quel que soit
-            l&apos;âge ou le niveau.
-          </p>
-        </div>
-      </Reveal>
-
-      <Reveal>
-        <figure className="mx-auto max-w-4xl space-y-3">
-          <div className="overflow-hidden rounded-2xl border border-slate-200 shadow-sm">
-            <Image
-              src="/media/club/heritage-2017.webp"
-              alt="Photo d&apos;archives du club — 2017"
-              width={1600}
-              height={900}
-              className="h-auto w-full object-cover"
-              sizes="(max-width: 896px) 100vw, 896px"
-            />
-          </div>
-          <figcaption className="text-center text-xs text-slate-500">Souvenir du club — juillet 2017</figcaption>
-        </figure>
-      </Reveal>
-
-      <Reveal>
-        <div className="flex flex-wrap items-center justify-center gap-8 rounded-2xl border border-slate-200 bg-slate-50/80 px-4 py-8 sm:gap-12 sm:px-6">
-          <a
-            href="https://www.ffhandball.fr/"
-            target="_blank"
-            rel="noreferrer"
-            className="shrink-0 opacity-90 transition hover:opacity-100"
-          >
-            <Image
-              src="/federation/ffhb.png"
-              alt="Fédération française de handball"
-              width={280}
-              height={112}
-              className="h-12 w-auto max-h-16 max-w-[min(100vw-2rem,280px)] object-contain sm:h-14"
-            />
-          </a>
-          <a
-            href="https://nouvelleaquitaine-handball.org/"
-            target="_blank"
-            rel="noreferrer"
-            className="shrink-0 opacity-90 transition hover:opacity-100"
-          >
-            <Image
-              src="/federation/ligue-nouvelle-aquitaine.png"
-              alt="Ligue Nouvelle-Aquitaine de handball"
-              width={320}
-              height={112}
-              className="h-12 w-auto max-h-16 max-w-[min(100vw-2rem,320px)] object-contain sm:h-14"
-            />
-          </a>
-        </div>
-      </Reveal>
-
-      <Reveal>
-        <figure className="mx-auto max-w-3xl space-y-3">
-          <figcaption className="text-center text-xs font-bold uppercase tracking-wider text-slate-500">
-            Comité directeur — organisation
-          </figcaption>
-          <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-            <Image
-              src="/club/comite-directeur.png"
-              alt="Schéma d'organisation du comité directeur du club"
-              width={1200}
-              height={780}
-              className="h-auto w-full object-contain"
-            />
-          </div>
-        </figure>
-      </Reveal>
-
-      {/* Histoire & Palmarès */}
-      <Reveal>
-        <section className="space-y-8">
-          <SectionTitle
-            eyebrow="Histoire et palmarès"
-            title="Un projet sportif en croissance"
-            description="De la création du club à la conquête de la Coupe de France, l'aventure Ocehand en images."
-          />
-          <Timeline events={timelineEvents} />
-        </section>
-      </Reveal>
-
-      <div className="h-px w-full bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
-
-      {/* Staff */}
-      <Reveal>
-        <section className="space-y-8">
-          <SectionTitle
-            eyebrow="Le staff"
-            title="Encadrement"
-            description="Équipe dirigeante, encadrement sportif et pôle communication."
-          />
-          <StaffGrid />
-        </section>
-      </Reveal>
-
-      <div className="h-px w-full bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
-
-      {/* Salles */}
-      <Reveal>
-        <section className="space-y-8">
-          <SectionTitle
-            eyebrow="Les salles"
-            title="Lieux d'entraînement"
-            description="Deux points d'activité principaux du club sur la commune de Lacanau."
-          />
-          <div className="grid gap-5 lg:grid-cols-2">
-            <div className="overflow-hidden rounded-3xl border border-slate-200 shadow-sm">
-              <p className="border-b border-slate-100 px-5 py-3 text-xs font-bold uppercase tracking-wider text-slate-500">
-                Gymnase — 19 Av Albert François, 33680 Lacanau
-              </p>
-              <iframe
-                title="19 Av Albert François Lacanau"
-                src="https://www.google.com/maps?q=19+Av+Albert+Francois,+33680+Lacanau&output=embed"
-                className="h-72 w-full border-0"
-                loading="lazy"
+      {/* HISTOIRE + DEVISE */}
+      <section className="container-x py-20 md:py-28">
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+          <Reveal>
+            <div>
+              <span className="text-xs font-bold uppercase tracking-[0.22em] text-ink-soft">
+                Notre histoire
+              </span>
+              <blockquote className="mt-5 font-display text-[clamp(1.6rem,3.5vw,2.4rem)] uppercase leading-[1.05] tracking-tight text-ink">
+                «&nbsp;Chaque aventure sportive est avant tout une aventure
+                humaine&nbsp;»
+              </blockquote>
+              <div className="mt-6 space-y-4 text-[16px] leading-relaxed text-ink-soft">
+                <p>
+                  Le 4 juin 2017, Thierry Mayeur fonde Lacanau Océhand, entouré de
+                  sa famille, avec une idée simple : offrir aux Canaulais un club de
+                  handball ouvert à tous, où l'on progresse ensemble dans la bonne
+                  humeur.
+                </p>
+                <p>
+                  En quelques saisons, le club est devenu une référence en Gironde —
+                  triple champion départemental et vainqueur de la Coupe de France
+                  2024 à Bercy — tout en gardant son esprit familial et bénévole.
+                </p>
+              </div>
+            </div>
+          </Reveal>
+          <Reveal delay={0.08}>
+            <div className="relative aspect-4/3 overflow-hidden rounded-(--radius-lg) border border-line">
+              <Image
+                src="/media/club/club-famille.jpg"
+                alt="La famille du club Lacanau Océhand"
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover"
               />
             </div>
-            <div className="overflow-hidden rounded-3xl border border-slate-200 shadow-sm">
-              <p className="border-b border-slate-100 px-5 py-3 text-xs font-bold uppercase tracking-wider text-slate-500">
-                Salle du collège — 1er All. du Collège, 33680 Lacanau
-              </p>
-              <iframe
-                title="1 allée du collège Lacanau"
-                src="https://www.google.com/maps?q=1+allee+du+college,+33680+Lacanau&output=embed"
-                className="h-72 w-full border-0"
-                loading="lazy"
-              />
-            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* TIMELINE */}
+      <section className="border-y border-line bg-mist">
+        <div className="container-x py-20 md:py-28">
+          <Reveal>
+            <SectionTitle
+              index="01"
+              eyebrow="Étapes clés"
+              title="Une ascension rapide"
+            />
+          </Reveal>
+          <div className="mt-12 grid gap-px overflow-hidden rounded-(--radius) border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
+            {timelineEvents.map((ev, i) => (
+              <Reveal key={ev.year} delay={i * 0.06}>
+                <div className="h-full bg-paper p-7">
+                  <span className="section-index text-[clamp(2.4rem,4vw,3.2rem)] text-ocean">
+                    {ev.year}
+                  </span>
+                  <h3 className="mt-3 text-lg font-bold text-ink">{ev.title}</h3>
+                  <p className="mt-2 text-[15px] leading-relaxed text-ink-soft">
+                    {ev.description}
+                  </p>
+                </div>
+              </Reveal>
+            ))}
           </div>
-        </section>
-      </Reveal>
+        </div>
+      </section>
 
-      <div className="h-px w-full bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
-
-      {/* Galerie Coupe de France */}
-      <Reveal>
-        <section className="space-y-8">
+      {/* PALMARÈS */}
+      <section className="container-x py-20 md:py-28">
+        <Reveal>
           <SectionTitle
-            eyebrow="Coupe de France 2024"
-            title="L'épopée de Bercy"
-            description="Retour en images et en émotions sur le parcours historique du club vers le titre national."
+            index="02"
+            eyebrow="Palmarès"
+            title="Nos titres"
+            description="Trois saisons de référence qui ont écrit l'histoire du club."
           />
-          <GalleryLightbox items={galleryItems} />
-        </section>
-      </Reveal>
-    </div>
+        </Reveal>
+        <div className="mt-12 space-y-4">
+          {palmares.map((p, i) => (
+            <Reveal key={p.season} delay={i * 0.06}>
+              <div className="grid gap-4 rounded-(--radius) border border-line bg-white p-6 md:grid-cols-[200px_1fr] md:items-center md:p-8">
+                <span className="font-display text-xl uppercase tracking-tight text-ink">
+                  {p.season}
+                </span>
+                <ul className="space-y-2">
+                  {p.lines.map((line) => (
+                    <li
+                      key={line}
+                      className="flex items-start gap-3 text-[15px] leading-relaxed text-ink-soft"
+                    >
+                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-c-beach" />
+                      {line}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      {/* SALLES */}
+      <section className="border-y border-line bg-mist">
+        <div className="container-x py-20 md:py-28">
+          <Reveal>
+            <SectionTitle
+              index="03"
+              eyebrow="Nos salles"
+              title="Où l'on joue"
+              description="Trois lieux pour pratiquer le handball à Lacanau, en salle comme sur le sable."
+            />
+          </Reveal>
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
+            {salles.map((s, i) => (
+              <Reveal key={s.name} delay={i * 0.06}>
+                <div className="h-full overflow-hidden rounded-(--radius) border border-line bg-paper">
+                  <div className="relative aspect-16/10 overflow-hidden bg-mist-2">
+                    {s.image ? (
+                      <Image
+                        src={s.image}
+                        alt={s.name}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                        className="object-cover"
+                      />
+                    ) : (
+                      <div className="flex h-full items-center justify-center">
+                        <span className="font-display text-5xl uppercase text-line-strong">
+                          {s.name.charAt(0)}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-lg font-bold text-ink">{s.name}</h3>
+                    <p className="mt-2 text-[15px] leading-relaxed text-ink-soft">
+                      {s.usage}
+                    </p>
+                    <p className="mt-3 text-sm font-semibold text-ocean">{s.address}</p>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ENCADREMENT */}
+      <section className="container-x py-20 md:py-28">
+        <Reveal>
+          <SectionTitle
+            index="04"
+            eyebrow="L'équipe"
+            title="Le bureau & l'encadrement"
+            description="Des bénévoles passionnés font vivre le club au quotidien, sur et en dehors du terrain."
+          />
+        </Reveal>
+
+        <h3 className="mt-12 mb-5 text-xs font-bold uppercase tracking-[0.2em] text-ink-soft">
+          Le bureau
+        </h3>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {bureau.map((m, i) => (
+            <Reveal key={m.id} delay={i * 0.05}>
+              <div className="flex h-full items-center gap-4 rounded-(--radius) border border-line bg-white p-5">
+                <StaffAvatar member={m} />
+                <div className="min-w-0">
+                  <p className="font-bold text-ink">{m.name}</p>
+                  <p className="text-sm leading-snug text-ink-soft">{m.role}</p>
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+
+        <h3 className="mt-12 mb-5 text-xs font-bold uppercase tracking-[0.2em] text-ink-soft">
+          Staff technique & encadrement
+        </h3>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {staffMembers.map((m, i) => (
+            <Reveal key={m.id} delay={i * 0.04}>
+              <div className="flex h-full items-center gap-4 rounded-(--radius) border border-line bg-white p-5">
+                <StaffAvatar member={m} />
+                <div className="min-w-0">
+                  <p className="font-bold text-ink">{m.name}</p>
+                  <p className="text-sm leading-snug text-ink-soft">{m.role}</p>
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      {/* FÉDÉRATION */}
+      <section className="border-t border-line bg-mist">
+        <div className="container-x py-14">
+          <p className="mb-8 text-center text-xs font-bold uppercase tracking-[0.22em] text-ink-soft">
+            Club affilié
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-x-14 gap-y-8">
+            {federationLogos.map((f) => (
+              <div key={f.name} className="relative h-14 w-32">
+                <Image src={f.logo} alt={f.name} fill className="object-contain" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
   );
 }

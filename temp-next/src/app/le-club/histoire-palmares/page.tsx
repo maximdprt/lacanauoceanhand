@@ -6,9 +6,11 @@ import { timelineEvents } from "@/data/site";
 import { buildMetadata } from "@/lib/site";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Histoire et Palmares",
-  description: "Timeline interactive du club et des titres de Lacanau Ocehand.",
+  title: "Histoire & Palmarès",
+  description:
+    "De la création du club en 2017 aux finales nationales : timeline interactive de l'histoire et du palmarès de Lacanau Océhand, champion de France 2024.",
   path: "/le-club/histoire-palmares",
+  keywords: ["histoire handball Lacanau", "palmarès handball Lacanau", "fondation club handball Lacanau"],
 });
 
 export default function HistoirePalmaresPage() {

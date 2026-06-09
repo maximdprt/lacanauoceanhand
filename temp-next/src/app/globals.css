@@ -1,29 +1,77 @@
 @import "tailwindcss";
 
+/* ============================================================
+   LACANAU OCÉHAND — Design system
+   Direction : sport premium, géométrique, éditorial.
+   Police unique : Archivo (display + texte).
+   Palette : encre profonde + blanc + bleu Atlantique,
+   accent or « champion » réservé aux moments forts.
+   ============================================================ */
+
 :root {
-  --background: #f4f6fa;
-  --foreground: #0f172a;
-  --ocean: #0a5ea8;
-  --ocean-light: #2a81cf;
-  --ocean-subtle: #e8f3fc;
-  --card: #ffffff;
-  --card-border: #e2e8f0;
-  --radius: 0.75rem;
-  --shadow-sm: 0 1px 3px 0 rgba(15, 23, 42, 0.06), 0 1px 2px -1px rgba(15, 23, 42, 0.06);
-  --shadow-md: 0 4px 16px -2px rgba(15, 23, 42, 0.08), 0 2px 6px -2px rgba(15, 23, 42, 0.06);
-  --shadow-ocean: 0 8px 32px -8px rgba(10, 94, 168, 0.28);
+  --ink: #0a0d13;          /* texte / titres / fonds sombres */
+  --ink-2: #11151f;        /* fond sombre alternatif */
+  --ink-soft: #565f6e;     /* texte secondaire */
+  --paper: #ffffff;
+  --mist: #f5f7fa;         /* sections claires */
+  --mist-2: #eef1f5;
+  --line: #e4e8ee;         /* bordures fines */
+  --line-strong: #ccd3dd;
+
+  --ocean: #0c5fb0;        /* bleu Atlantique — couleur principale */
+  --ocean-deep: #093f76;
+  --ocean-tint: #e9f2fb;
+
+  --gold: #e0a934;         /* accent champion (coupe, stats fortes) */
+  --gold-deep: #b98421;
+  --gold-tint: #fbf3e1;
+
+  /* accents catégories (touches) */
+  --c-senior: #0c5fb0;
+  --c-jeunes: #1f9d6b;
+  --c-beach: #e0922a;
+  --c-gardien: #6d54c8;
+  --c-arbitrage: #d4a017;
+
+  --radius: 16px;
+  --radius-sm: 10px;
+  --radius-lg: 28px;
+  --radius-xl: 36px;
+
+  --shadow-xs: 0 1px 2px rgba(10, 13, 19, 0.05);
+  --shadow-sm: 0 2px 10px rgba(10, 13, 19, 0.06);
+  --shadow-md: 0 14px 36px -16px rgba(10, 13, 19, 0.22);
+  --shadow-lg: 0 36px 70px -24px rgba(10, 13, 19, 0.34);
+  --shadow-gold: 0 18px 40px -18px rgba(224, 169, 52, 0.5);
+
+  --maxw: 1240px;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-soft: var(--ink-soft);
+  --color-paper: var(--paper);
+  --color-mist: var(--mist);
+  --color-mist-2: var(--mist-2);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
   --color-ocean: var(--ocean);
-  --color-ocean-light: var(--ocean-light);
-  --color-ocean-subtle: var(--ocean-subtle);
-  --color-card: var(--card);
-  --color-card-border: var(--card-border);
-  --font-sans: var(--font-body);
-  --font-display: var(--font-display);
+  --color-ocean-deep: var(--ocean-deep);
+  --color-ocean-tint: var(--ocean-tint);
+  --color-gold: var(--gold);
+  --color-gold-deep: var(--gold-deep);
+  --color-gold-tint: var(--gold-tint);
+  --color-c-senior: var(--c-senior);
+  --color-c-jeunes: var(--c-jeunes);
+  --color-c-beach: var(--c-beach);
+  --color-c-gardien: var(--c-gardien);
+  --color-c-arbitrage: var(--c-arbitrage);
+
+  --font-sans: var(--font-archivo);
+  --font-display: var(--font-archivo);
+
+  --radius-card: var(--radius);
 }
 
 *,
@@ -38,47 +86,202 @@ html {
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-body), Arial, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-archivo), system-ui, sans-serif;
+  font-feature-settings: "ss01", "cv01";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
+/* ---------- Type display (Archivo lourd, serré) ---------- */
 .font-display {
-  font-family: var(--font-display), Impact, "Arial Narrow", sans-serif;
-  letter-spacing: 0.02em;
+  font-family: var(--font-archivo), "Arial Narrow", sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 0.96;
 }
 
-/* marquee */
-.marquee-track {
-  animation: marquee 28s linear infinite;
+.headline {
+  font-family: var(--font-archivo), sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.028em;
+  line-height: 0.93;
+  text-transform: uppercase;
+}
+
+.headline-tight {
+  font-family: var(--font-archivo), sans-serif;
+  font-weight: 900;
+  letter-spacing: -0.035em;
+  line-height: 0.88;
+  text-transform: uppercase;
+}
+
+.section-index {
+  font-family: var(--font-archivo), sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* surlignage texte (éditorial) */
+.eyebrow {
+  font-weight: 700;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+}
+
+/* ---------- Conteneur ---------- */
+.container-x {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+@media (min-width: 768px) {
+  .container-x { padding-inline: 32px; }
+}
+
+/* rythme vertical normalisé */
+.section-pad {
+  padding-block: 5rem;
+}
+@media (min-width: 768px) {
+  .section-pad { padding-block: 7rem; }
+}
+
+/* ---------- Filet décoratif ---------- */
+.hairline {
+  height: 1px;
+  background: var(--line);
+}
+
+/* ---------- Carte de base + lift au survol ---------- */
+.card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.card-lift {
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.3s ease;
+}
+.card-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--line-strong);
+}
+
+/* texte doré en filet (champion) */
+.text-gold-grad {
+  background: linear-gradient(100deg, var(--gold) 0%, #f2c969 50%, var(--gold) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ---------- Bouton focus accessible ---------- */
+:focus-visible {
+  outline: 2px solid var(--ocean);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+::selection {
+  background: rgba(12, 95, 176, 0.16);
+  color: var(--ink);
+}
+
+/* ---------- Marquee partenaires ---------- */
+.marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 36s linear infinite;
   will-change: transform;
 }
-.marquee-track:hover {
-  animation-play-state: paused;
-}
-
+.marquee:hover { animation-play-state: paused; }
 @keyframes marquee {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
 
-/* Scrollbar fine */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 99px; }
-::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-
-/* Focus ring global */
-:focus-visible {
-  outline: 2px solid var(--ocean);
-  outline-offset: 2px;
-  border-radius: 4px;
+/* ---------- Soulignement animé des liens nav ---------- */
+.nav-link {
+  position: relative;
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  height: 2px;
+  width: 100%;
+  background: var(--ink);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.nav-link:hover::after,
+.nav-link[data-active="true"]::after {
+  transform: scaleX(1);
 }
 
-/* Selection color */
-::selection {
-  background: rgba(10, 94, 168, 0.18);
-  color: var(--foreground);
+/* ---------- Hero animations (CSS — évite hydration mismatch) ---------- */
+@keyframes hero-zoom {
+  from { transform: scale(1.04); }
+  to   { transform: scale(1); }
+}
+@keyframes hero-fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hero-zoom {
+  animation: hero-zoom 1.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.hero-fade-up {
+  animation: hero-fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+}
+
+/* ---------- Scrollbar fine ---------- */
+::-webkit-scrollbar { width: 9px; height: 9px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #cbd2dc; border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: #aab4c1; }
+
+/* ---------- Motifs / détails géométriques ---------- */
+.clip-diagonal-b {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 56px), 0 100%);
+}
+
+/* grille fine en fond de section sombre */
+.grid-overlay {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* halo radial doux */
+.glow-ocean {
+  background: radial-gradient(60% 60% at 50% 0%, rgba(12, 95, 176, 0.18), transparent 70%);
+}
+.glow-gold {
+  background: radial-gradient(60% 60% at 50% 0%, rgba(224, 169, 52, 0.18), transparent 70%);
+}
+
+/* ---------- Réduction de mouvement ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }
