@@ -8,7 +8,6 @@ import { JoinCta } from "@/components/sections/join-cta";
 import { EventsCalendar } from "@/components/sections/events-calendar";
 import { ScorencoMatchCenter } from "@/components/sections/scorenco-match-center";
 import { NewsPreview } from "@/components/sections/news-preview";
-import { Testimonials } from "@/components/sections/testimonials";
 import { VolunteerPartner } from "@/components/sections/volunteer-partner";
 import { Newsletter } from "@/components/sections/newsletter";
 import { Faq } from "@/components/sections/faq";
@@ -55,12 +54,7 @@ export default function HomePage() {
       {/* FILIÈRES */}
       <section className="container-x section-pad">
         <Reveal>
-          <SectionTitle
-            index="01"
-            eyebrow="Deux façons de jouer"
-            title="Salle & beach handball"
-            description="Le handball à Lacanau se vit toute l'année en salle et l'été sur le sable. Choisissez votre terrain de jeu."
-          />
+          <SectionTitle title="Salle & beach handball" align="center" />
         </Reveal>
         <div className="mt-10 md:mt-14">
           <Reveal delay={0.05}>
@@ -73,12 +67,7 @@ export default function HomePage() {
       <section className="border-y border-line bg-mist">
         <div className="container-x section-pad">
           <Reveal>
-            <SectionTitle
-              index="02"
-              eyebrow="Rejoindre le club"
-              title="Une place pour chacun"
-              description="De 5 ans aux vétérans, filles et garçons, compétiteurs ou joueurs du dimanche : il y a forcément une équipe pour vous à Lacanau Océhand."
-            />
+            <SectionTitle title="Une place pour chacun" align="center" />
           </Reveal>
           <div className="mt-10 md:mt-14">
             <JoinCta />
@@ -89,12 +78,7 @@ export default function HomePage() {
       {/* CALENDRIER & MATCH CENTER */}
       <section className="container-x section-pad">
         <Reveal>
-          <SectionTitle
-            index="03"
-            eyebrow="Agenda"
-            title="Les prochains rendez-vous"
-            description="Matchs, tournois et manifestations : ne manquez aucun temps fort de la saison."
-          />
+          <SectionTitle title="Les prochains rendez-vous" align="center" />
         </Reveal>
         <div className="mt-10 md:mt-14">
           <EventsCalendar />
@@ -115,14 +99,9 @@ export default function HomePage() {
       <section className="border-y border-line bg-mist">
         <div className="container-x section-pad">
           <Reveal>
-            <div className="flex flex-wrap items-end justify-between gap-6">
-              <SectionTitle
-                index="04"
-                eyebrow="Actualités"
-                title="La vie du club"
-                description="Titres, évènements et moments forts de la saison à Lacanau."
-              />
-              <Link href="/evenements" className="hidden sm:block">
+            <SectionTitle title="La vie du club" align="center" />
+            <div className="mt-6 flex justify-center">
+              <Link href="/evenements">
                 <Button variant="ghost" size="md">
                   Toutes les actus <ArrowRight size={16} />
                 </Button>
@@ -135,32 +114,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* TÉMOIGNAGES */}
-      <section className="container-x section-pad">
-        <Reveal>
-          <SectionTitle
-            index="05"
-            eyebrow="Ils en parlent"
-            title="Une deuxième famille"
-            description="Joueurs, parents et bénévoles racontent ce qui les fait revenir au gymnase chaque semaine."
-            align="center"
-          />
-        </Reveal>
-        <div className="mt-10 md:mt-14">
-          <Testimonials />
-        </div>
-      </section>
-
       {/* BÉNÉVOLES & PARTENAIRES */}
       <section className="border-y border-line bg-mist">
         <div className="container-x section-pad">
           <Reveal>
-            <SectionTitle
-              index="06"
-              eyebrow="S'engager"
-              title="Faire vivre le club"
-              description="Le club avance grâce à ses bénévoles et à ses partenaires. Rejoignez l'aventure, à votre façon."
-            />
+            <SectionTitle title="Faire vivre le club" align="center" />
           </Reveal>
           <div className="mt-10 md:mt-14">
             <VolunteerPartner />
@@ -176,15 +134,10 @@ export default function HomePage() {
 
       {/* FAQ */}
       <section className="container-x section-pad">
-        <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
-          <Reveal>
-            <SectionTitle
-              index="07"
-              eyebrow="Questions fréquentes"
-              title="Tout savoir sur le club"
-              description="Inscriptions, âges, lieux d'entraînement : les réponses aux questions les plus posées sur le handball à Lacanau."
-            />
-          </Reveal>
+        <Reveal>
+          <SectionTitle title="Tout savoir sur le club" align="center" />
+        </Reveal>
+        <div className="mx-auto mt-10 max-w-2xl md:mt-14">
           <Reveal delay={0.06}>
             <Faq items={faqItems} />
           </Reveal>

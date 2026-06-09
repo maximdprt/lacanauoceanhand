@@ -3,7 +3,6 @@ import { siteConfig } from "@/lib/site";
 interface EventSchemaItem {
   id: string;
   title: string;
-  date: string;
   month: string;
   location: string;
   type: string;
@@ -53,10 +52,20 @@ export function EventSchema({ events }: { events: EventSchemaItem[] }) {
 }
 
 function monthToNumber(month: string): string {
+  const key = month.toLowerCase().replace(/\./g, "");
   const map: Record<string, string> = {
-    "Jan.": "01", "Fév.": "02", "Mars": "03", "Avr.": "04",
-    "Mai": "05", "Juin": "06", "Juil.": "07", "Août": "08",
-    "Sept.": "09", "Oct.": "10", "Nov.": "11", "Déc.": "12",
+    jan: "01", janvier: "01",
+    fev: "02", fév: "02", fevrier: "02", février: "02",
+    mar: "03", mars: "03",
+    avr: "04", avril: "04",
+    mai: "05",
+    jun: "06", juin: "06",
+    jul: "07", juil: "07", juillet: "07",
+    aou: "08", aoû: "08", aout: "08", août: "08",
+    sep: "09", sept: "09", septembre: "09",
+    oct: "10", octobre: "10",
+    nov: "11", novembre: "11",
+    dec: "12", déc: "12", decembre: "12", décembre: "12",
   };
-  return map[month] ?? "06";
+  return map[key] ?? "06";
 }

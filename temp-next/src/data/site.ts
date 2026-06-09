@@ -12,7 +12,6 @@ import type {
   Salle,
   StaffMember,
   Team,
-  Testimonial,
   TimelineEvent,
 } from "@/types";
 
@@ -556,40 +555,12 @@ export const socialPosts = [
 ];
 
 /* ============================================================
-   TÉMOIGNAGES (réassurance)
-   ============================================================ */
-export const testimonials: Testimonial[] = [
-  {
-    id: "t1",
-    quote:
-      "Mes deux enfants ont commencé au baby hand. L'encadrement est bienveillant et tout le monde se connaît. C'est devenu notre deuxième famille.",
-    name: "Sandrine",
-    role: "Maman de deux licenciés",
-  },
-  {
-    id: "t2",
-    quote:
-      "Arrivé débutant à 30 ans en équipe loisirs, j'ai été accueilli les bras ouverts. On joue sérieusement mais toujours dans la bonne humeur.",
-    name: "Maxime",
-    role: "Joueur loisirs",
-  },
-  {
-    id: "t3",
-    quote:
-      "Soulever la Coupe de France à Bercy avec les copains du club, c'est un souvenir pour la vie. Tout ça dans un club créé en famille à Lacanau.",
-    name: "Un senior",
-    role: "Champion de France 2024",
-  },
-];
-
-/* ============================================================
    CALENDRIER / ÉVÉNEMENTS DU CLUB
    ============================================================ */
 export const clubEvents: ClubEvent[] = [
   {
     id: "e1",
-    date: "Sam.",
-    month: "Sept.",
+    month: "Septembre",
     title: "Journées portes ouvertes",
     type: "Manifestation",
     location: "Salle de la Cousteyre",
@@ -597,24 +568,21 @@ export const clubEvents: ClubEvent[] = [
   },
   {
     id: "e2",
-    date: "Sam.",
-    month: "Oct.",
+    month: "Octobre",
     title: "Reprise des championnats jeunes",
     type: "Match",
     location: "Lacanau & extérieur",
   },
   {
     id: "e3",
-    date: "Dim.",
-    month: "Déc.",
+    month: "Décembre",
     title: "Tournoi de Noël du club",
     type: "Tournoi",
     location: "Salle de la Cousteyre",
   },
   {
     id: "e4",
-    date: "Été",
-    month: "Juil.",
+    month: "Juillet",
     title: "Beach Handball Xperience",
     type: "Tournoi",
     location: "Pôle de l'Ardilouse",

@@ -91,16 +91,8 @@ export type Palmares = {
   lines: string[];
 };
 
-export type Testimonial = {
-  id: string;
-  quote: string;
-  name: string;
-  role: string;
-};
-
 export type ClubEvent = {
   id: string;
-  date: string;
   month: string;
   title: string;
   type: "Match" | "Tournoi" | "Manifestation" | "Stage";
