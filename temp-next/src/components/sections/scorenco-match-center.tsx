@@ -1,28 +1,34 @@
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
 
-import { scorencoClubUrl, scorencoWidgets } from "@/lib/scorenco";
-import { ScorencoWidget } from "@/components/sections/scorenco-widget";
+import { MatchList } from "@/components/sections/matches-widget";
+import { latestResults, upcomingMatches } from "@/data/site";
+import { scorencoClubUrl } from "@/lib/scorenco";
 
 export function ScorencoMatchCenter() {
   return (
     <div className="space-y-4">
-      <div className="grid gap-6 lg:grid-cols-2">
-        <ScorencoWidget
-          widgetId={scorencoWidgets.upcoming}
+      <div className="grid gap-6 lg:grid-cols-2 lg:items-stretch">
+        <MatchList
           title="Prochains matchs"
-          badge="À venir"
-          minHeight={420}
+          matches={upcomingMatches}
+          footerLink={{
+            href: scorencoClubUrl,
+            label: "Voir le calendrier complet →",
+          }}
         />
-        <ScorencoWidget
-          widgetId={scorencoWidgets.results}
+        <MatchList
           title="Derniers résultats"
-          badge="Résultats"
-          minHeight={420}
+          matches={latestResults}
+          isResults
+          footerLink={{
+            href: scorencoClubUrl,
+            label: "Tous les résultats sur Score'n'co →",
+          }}
         />
       </div>
       <p className="text-center text-xs text-ink-soft">
-        Données mises à jour automatiquement via{" "}
+        Données synchronisées avec{" "}
         <Link
           href={scorencoClubUrl}
           target="_blank"
@@ -32,6 +38,7 @@ export function ScorencoMatchCenter() {
           Score&apos;n&apos;co
           <ExternalLink size={11} />
         </Link>
+        {" "}— calendrier officiel de la ligue.
       </p>
     </div>
   );
