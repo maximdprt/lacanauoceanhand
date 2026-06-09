@@ -388,6 +388,7 @@ export const salles: Salle[] = [
     name: "Pôle de l'Ardilouse",
     usage: "Beach handball — terrains sur sable",
     address: "Lacanau-Océan",
+    image: "/media/club/pole-ardilouse.jpg",
   },
 ];
 

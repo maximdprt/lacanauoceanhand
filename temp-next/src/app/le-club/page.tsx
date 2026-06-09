@@ -6,7 +6,6 @@ import { SectionTitle } from "@/components/common/section-title";
 import { Reveal } from "@/components/common/reveal";
 import {
   bureau,
-  federationLogos,
   palmares,
   salles,
   staffMembers,
@@ -247,22 +246,6 @@ export default function ClubPage() {
               </div>
             </Reveal>
           ))}
-        </div>
-      </section>
-
-      {/* FÉDÉRATION */}
-      <section className="border-t border-line bg-mist">
-        <div className="container-x py-14">
-          <p className="mb-8 text-center text-xs font-bold uppercase tracking-[0.22em] text-ink-soft">
-            Club affilié
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-x-14 gap-y-8">
-            {federationLogos.map((f) => (
-              <div key={f.name} className="relative h-14 w-32">
-                <Image src={f.logo} alt={f.name} fill className="object-contain" />
-              </div>
-            ))}
-          </div>
         </div>
       </section>
     </>
