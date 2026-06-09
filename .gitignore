@@ -45,3 +45,5 @@ next-env.d.ts
 
 # ancien dossier de dev (app déplacée à la racine)
 temp-next/
+
+.vercel
