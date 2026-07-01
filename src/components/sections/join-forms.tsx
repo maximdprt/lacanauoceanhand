@@ -10,6 +10,13 @@ import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { clubEmail, playerCategories, volunteerRoles } from "@/data/site";
+import { sendForm } from "@/lib/send-form";
+
+const tabLabel: Record<TabId, string> = {
+  joueur: "Inscription joueur",
+  benevole: "Bénévolat",
+  partenaire: "Partenariat",
+};
 
 type TabId = "joueur" | "benevole" | "partenaire";
 
@@ -79,6 +86,7 @@ export function JoinForms() {
   const [sent, setSent] = useState<TabId | null>(null);
   const [roles, setRoles] = useState<string[]>([]);
   const [consent, setConsent] = useState(false);
+  const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -93,14 +101,36 @@ export function JoinForms() {
       prev.includes(role) ? prev.filter((r) => r !== role) : [...prev, role],
     );
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!consent) {
       setError("Merci d'accepter l'utilisation de vos données pour être recontacté.");
       return;
     }
     setError("");
-    setSent(active);
+    setSending(true);
+
+    const fd = new FormData(e.currentTarget);
+    const entries: Record<string, string> = {};
+    for (const [key, value] of fd.entries()) {
+      if (typeof value === "string" && value.trim()) entries[key] = value;
+    }
+    if (active === "benevole" && roles.length) {
+      entries["Souhaits d'aide"] = roles.join(", ");
+    }
+
+    try {
+      await sendForm(entries, {
+        subject: `${tabLabel[active]} — site Lacanau Océhand`,
+      });
+      setSent(active);
+    } catch {
+      setError(
+        "L'envoi a échoué. Vérifiez votre connexion ou écrivez-nous directement par e-mail.",
+      );
+    } finally {
+      setSending(false);
+    }
   };
 
   const switchTab = (id: TabId) => {
@@ -188,8 +218,8 @@ export function JoinForms() {
                   <Textarea id="j-message" name="message" placeholder="Niveau, expérience, questions…" />
                 </Field>
                 <ConsentRow checked={consent} onChange={setConsent} error={error} />
-                <Button type="submit" variant="ocean" size="lg" className="w-full sm:w-auto">
-                  Envoyer ma demande d'inscription
+                <Button type="submit" variant="ocean" size="lg" className="w-full sm:w-auto" disabled={sending}>
+                  {sending ? "Envoi en cours…" : "Envoyer ma demande d'inscription"}
                 </Button>
               </div>
             )}
@@ -247,8 +277,8 @@ export function JoinForms() {
                   <Textarea id="b-message" name="message" placeholder="Vos disponibilités, vos envies…" />
                 </Field>
                 <ConsentRow checked={consent} onChange={setConsent} error={error} />
-                <Button type="submit" variant="ocean" size="lg" className="w-full sm:w-auto">
-                  Devenir bénévole
+                <Button type="submit" variant="ocean" size="lg" className="w-full sm:w-auto" disabled={sending}>
+                  {sending ? "Envoi en cours…" : "Devenir bénévole"}
                 </Button>
               </div>
             )}
@@ -284,8 +314,8 @@ export function JoinForms() {
                   />
                 </Field>
                 <ConsentRow checked={consent} onChange={setConsent} error={error} />
-                <Button type="submit" variant="ocean" size="lg" className="w-full sm:w-auto">
-                  Proposer un partenariat
+                <Button type="submit" variant="ocean" size="lg" className="w-full sm:w-auto" disabled={sending}>
+                  {sending ? "Envoi en cours…" : "Proposer un partenariat"}
                 </Button>
               </div>
             )}

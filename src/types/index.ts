@@ -28,6 +28,8 @@ export type NewsItem = {
   tags: string[];
   cover: string;
   slug: string;
+  /** Lien "Lire la suite" — affiché uniquement si une page existe. */
+  href?: string;
 };
 
 export type Partner = {

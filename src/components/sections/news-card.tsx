@@ -1,9 +1,10 @@
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import type { NewsItem } from "@/types";
 
 export function NewsCard({ item, large = false }: { item: NewsItem; large?: boolean }) {
-  return (
+  const card = (
     <article className="card-lift group flex h-full flex-col overflow-hidden rounded-(--radius-lg) border border-line bg-white">
       <div className={`relative overflow-hidden ${large ? "aspect-16/10" : "aspect-16/11"}`}>
         <Image
@@ -34,10 +35,22 @@ export function NewsCard({ item, large = false }: { item: NewsItem; large?: bool
         <p className="mt-2 flex-1 text-[15px] leading-relaxed text-ink-soft">
           {item.excerpt}
         </p>
-        <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-ocean">
-          Lire la suite <ArrowUpRight size={15} />
-        </span>
+        {item.href && (
+          <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-ocean transition group-hover:gap-2.5">
+            Lire la suite <ArrowUpRight size={15} />
+          </span>
+        )}
       </div>
     </article>
   );
+
+  if (item.href) {
+    return (
+      <Link href={item.href} className="block h-full" aria-label={item.title}>
+        {card}
+      </Link>
+    );
+  }
+
+  return card;
 }

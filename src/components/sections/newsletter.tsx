@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { CheckCircle2, Send, Users, HandHeart } from "lucide-react";
 
+import { sendForm } from "@/lib/send-form";
+
 type Role = "joueur" | "benevole";
 
 const roles: { id: Role; icon: typeof Users; label: string; desc: string }[] = [
@@ -28,24 +30,37 @@ export function Newsletter() {
   const [message, setMessage] = useState("");
   const [consent, setConsent] = useState(false);
   const [error, setError] = useState("");
+  const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim()) { setError("Merci d'indiquer votre prénom et nom."); return; }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setError("Merci d'indiquer une adresse e-mail valide."); return; }
     if (!consent) { setError("Merci d'accepter les conditions de contact."); return; }
     setError("");
+    setSending(true);
 
-    const subject = encodeURIComponent(
-      `Demande de participation — ${role === "joueur" ? "Joueur" : "Bénévole"} — ${name}`
-    );
-    const body = encodeURIComponent(
-      `Bonjour,\n\nJe souhaite rejoindre le club en tant que ${role === "joueur" ? "joueur / joueuse" : "bénévole"}.\n\nNom : ${name}\nEmail : ${email}\nTéléphone : ${phone || "—"}\n\nMessage :\n${message || "—"}\n\n---\nFormulaire envoyé depuis le site lacanau-ocehand.fr`
-    );
-
-    window.location.href = `mailto:contact@lacanau-ocehand.fr?subject=${subject}&body=${body}`;
-    setSent(true);
+    const roleLabel = role === "joueur" ? "Joueur / joueuse" : "Bénévole";
+    try {
+      await sendForm(
+        {
+          "Souhait": roleLabel,
+          Nom: name,
+          "E-mail": email,
+          Téléphone: phone || "—",
+          Message: message || "—",
+        },
+        { subject: `Demande de participation — ${roleLabel} — ${name}` },
+      );
+      setSent(true);
+    } catch {
+      setError(
+        "L'envoi a échoué. Vérifiez votre connexion ou écrivez-nous à contact@lacanau-ocehand.fr.",
+      );
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -107,8 +122,8 @@ export function Newsletter() {
                 Message envoyé !
               </h3>
               <p className="mt-2 text-[15px] leading-relaxed text-white/70">
-                Votre messagerie s'est ouverte avec le message pré-rempli. Si ce
-                n'est pas le cas, écrivez directement à{" "}
+                Votre demande a bien été transmise au club. Nous vous recontactons
+                rapidement. Une question d'ici là&nbsp;? Écrivez-nous à{" "}
                 <a
                   href="mailto:contact@lacanau-ocehand.fr"
                   className="underline text-gold hover:text-white transition"
@@ -176,9 +191,10 @@ export function Newsletter() {
               {error && <p className="text-[13px] font-medium text-gold">{error}</p>}
               <button
                 type="submit"
-                className="inline-flex h-[52px] w-full items-center justify-center gap-2 rounded-full bg-gold px-7 text-sm font-bold text-ink transition hover:bg-white sm:w-auto"
+                disabled={sending}
+                className="inline-flex h-[52px] w-full items-center justify-center gap-2 rounded-full bg-gold px-7 text-sm font-bold text-ink transition hover:bg-white disabled:opacity-70 sm:w-auto"
               >
-                Envoyer ma demande <Send size={16} />
+                {sending ? "Envoi en cours…" : "Envoyer ma demande"} <Send size={16} />
               </button>
             </form>
           )}

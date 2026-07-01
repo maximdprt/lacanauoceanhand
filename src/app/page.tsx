@@ -6,7 +6,7 @@ import { HeroSection } from "@/components/sections/hero-section";
 import { FiliereCards } from "@/components/sections/filiere-cards";
 import { JoinCta } from "@/components/sections/join-cta";
 import { EventsCalendar } from "@/components/sections/events-calendar";
-import { ScorencoMatchCenter } from "@/components/sections/scorenco-match-center";
+import { ScorencoEmbed } from "@/components/sections/scorenco-embed";
 import { NewsPreview } from "@/components/sections/news-preview";
 import { VolunteerPartner } from "@/components/sections/volunteer-partner";
 import { Newsletter } from "@/components/sections/newsletter";
@@ -84,7 +84,7 @@ export default function HomePage() {
           <EventsCalendar />
         </div>
         <div className="mt-10 md:mt-14">
-          <ScorencoMatchCenter />
+          <ScorencoEmbed />
         </div>
         <div className="mt-8">
           <Link href="/saison">

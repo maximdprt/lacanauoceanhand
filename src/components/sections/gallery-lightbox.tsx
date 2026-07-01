@@ -19,6 +19,7 @@ export function GalleryLightbox({ items }: { items: GalleryItem[] }) {
         {items.map((item, itemIndex) => (
           <button
             key={item.src}
+            type="button"
             className="group aspect-4/3 overflow-hidden rounded-lg border border-white/15"
             onClick={() => setIndex(itemIndex)}
           >

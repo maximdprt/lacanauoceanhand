@@ -490,6 +490,7 @@ export const newsItems: NewsItem[] = [
     tags: ["Seniors", "Coupe de France"],
     cover: "/media/club/champions-2024.jpg",
     slug: "coupe-de-france-2024",
+    href: "/le-club/coupe-de-france-2024",
   },
   {
     id: "n2",

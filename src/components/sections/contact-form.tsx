@@ -8,20 +8,46 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { clubEmail } from "@/data/site";
+import { sendForm } from "@/lib/send-form";
 
 export function ContactForm() {
   const [sent, setSent] = useState(false);
   const [consent, setConsent] = useState(false);
+  const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!consent) {
       setError("Merci d'accepter la collecte de vos données pour être recontacté.");
       return;
     }
     setError("");
-    setSent(true);
+    setSending(true);
+
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+    const nom = String(fd.get("nom") ?? "");
+    const sujet = String(fd.get("sujet") ?? "");
+
+    try {
+      await sendForm(
+        {
+          Nom: nom,
+          "E-mail": String(fd.get("email") ?? ""),
+          Sujet: sujet,
+          Message: String(fd.get("message") ?? ""),
+        },
+        { subject: `Contact site — ${sujet || nom}` },
+      );
+      setSent(true);
+    } catch {
+      setError(
+        "L'envoi a échoué. Vérifiez votre connexion ou écrivez-nous directement par e-mail.",
+      );
+    } finally {
+      setSending(false);
+    }
   };
 
   if (sent) {
@@ -76,8 +102,14 @@ export function ContactForm() {
           </span>
         </label>
         {error && <p className="text-[13px] font-medium text-red-600">{error}</p>}
-        <Button type="submit" variant="ocean" size="lg" className="w-full sm:w-auto">
-          Envoyer le message
+        <Button
+          type="submit"
+          variant="ocean"
+          size="lg"
+          className="w-full sm:w-auto"
+          disabled={sending}
+        >
+          {sending ? "Envoi en cours…" : "Envoyer le message"}
         </Button>
       </div>
     </form>

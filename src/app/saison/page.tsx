@@ -3,7 +3,6 @@ import { Clock, Check } from "lucide-react";
 import { buildMetadata } from "@/lib/site";
 import { PageHero } from "@/components/sections/page-hero";
 import { SectionTitle } from "@/components/common/section-title";
-import { ScorencoMatchCenter } from "@/components/sections/scorenco-match-center";
 import { ScorencoEmbed } from "@/components/sections/scorenco-embed";
 import { Reveal } from "@/components/common/reveal";
 import {
@@ -44,9 +43,6 @@ export default function SeasonPage() {
           />
         </Reveal>
         <div className="mt-10 md:mt-14">
-          <ScorencoMatchCenter />
-        </div>
-        <div className="mt-14">
           <ScorencoEmbed />
         </div>
       </section>
