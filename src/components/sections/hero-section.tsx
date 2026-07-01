@@ -32,8 +32,8 @@ export function HeroSection() {
       <div className="container-x shrink-0 px-4 pb-8 pt-1 md:pb-10 md:pt-2">
         <div className="hero-fade-up mx-auto w-full max-w-3xl text-center">
           <h1 className="flex flex-col items-center gap-0.5 sm:gap-1">
-            <span className="font-display text-[clamp(1.3rem,3.8vw,2.1rem)] font-black uppercase leading-none tracking-tight text-white">
-              Club de handball
+            <span className="font-display text-[clamp(1.3rem,3.8vw,2.1rem)] font-black uppercase leading-tight tracking-tight text-white">
+              Club de handball et de beach handball
             </span>
             <span className="font-display text-[clamp(1.6rem,4.8vw,2.75rem)] font-black uppercase leading-none tracking-tight text-gold">
               à Lacanau
