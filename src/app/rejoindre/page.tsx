@@ -6,7 +6,7 @@ import { Reveal } from "@/components/common/reveal";
 export const metadata = buildMetadata({
   title: "Rejoindre le club",
   description:
-    "Inscriptions ouvertes à Lacanau Océhand ! Joueur, bénévole ou partenaire — rejoignez le club de handball de Lacanau (Gironde) dès aujourd'hui.",
+    "Inscriptions ouvertes à Lacanau Océhand ! Joueur, bénévole ou partenaire, rejoignez le club de handball de Lacanau (Gironde) dès aujourd'hui.",
   path: "/rejoindre",
   keywords: ["inscription handball Lacanau", "rejoindre club handball Lacanau", "licence handball Gironde", "bénévole handball Lacanau"],
 });

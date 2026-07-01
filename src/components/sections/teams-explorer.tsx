@@ -73,7 +73,7 @@ export function TeamsExplorer({ teams }: { teams: Team[] }) {
         >
           {/* Intro de groupe */}
           {groupIntros[active] && (
-            <p className="mb-8 max-w-3xl text-[17px] leading-relaxed text-ink-soft">
+            <p className="mb-8 max-w-3xl text-lg leading-relaxed text-ink-soft">
               {groupIntros[active]}
             </p>
           )}
@@ -109,7 +109,7 @@ function TeamCard({ team, color }: { team: Team; color: string }) {
       <div className="p-6">
         <h3 className="text-xl font-bold text-ink">{team.name}</h3>
         <p className="mt-1 text-sm font-medium text-ink-soft">{team.age}</p>
-        <p className="mt-3 text-[15px] leading-relaxed text-ink-soft">{team.description}</p>
+        <p className="mt-3 text-base leading-relaxed text-ink-soft">{team.description}</p>
         <p className="mt-4 border-t border-line pt-3 text-sm text-ink">
           <span className="text-ink-soft">Encadrement · </span>
           {team.coach}
@@ -153,7 +153,7 @@ function FeaturedTeam({
               <p className="text-sm text-ink-soft">Une discipline à part entière au club</p>
             </div>
           </div>
-          <p className="mt-6 text-[16px] leading-relaxed text-ink-soft">{team.description}</p>
+          <p className="mt-6 text-base leading-relaxed text-ink-soft">{team.description}</p>
           <div className="mt-7 grid grid-cols-2 gap-3 sm:grid-cols-4">
             {meta.map((m) => (
               <div key={m.label} className="rounded-xl bg-mist p-4">

@@ -24,10 +24,6 @@ export function SiteHeader() {
   }, []);
 
   useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
-
-  useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
@@ -123,6 +119,7 @@ export function SiteHeader() {
                 >
                   <Link
                     href={item.href}
+                    onClick={() => setOpen(false)}
                     className={cn(
                       "flex items-center justify-between border-b border-line py-4 text-2xl font-semibold text-ink",
                       isActive(item.href) && "text-ocean",
@@ -139,6 +136,7 @@ export function SiteHeader() {
                 href={beachXperienceUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => setOpen(false)}
                 className="mt-4 flex items-center justify-between rounded-2xl border border-ocean/25 bg-ocean-tint px-4 py-4 text-ocean transition hover:border-ocean"
               >
                 <span className="font-display text-lg uppercase">Beach Xperience</span>

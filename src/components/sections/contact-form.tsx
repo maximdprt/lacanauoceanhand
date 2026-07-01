@@ -38,7 +38,7 @@ export function ContactForm() {
           Sujet: sujet,
           Message: String(fd.get("message") ?? ""),
         },
-        { subject: `Contact site — ${sujet || nom}` },
+        { subject: `Contact site · ${sujet || nom}` },
       );
       setSent(true);
     } catch {
@@ -59,7 +59,7 @@ export function ContactForm() {
         <h3 className="mt-5 font-display text-2xl uppercase tracking-tight text-ink">
           Message envoyé
         </h3>
-        <p className="mt-2 max-w-sm text-[15px] leading-relaxed text-ink-soft">
+        <p className="mt-2 max-w-sm text-base leading-relaxed text-ink-soft">
           Merci, nous vous répondrons rapidement. Vous pouvez aussi nous écrire à{" "}
           <a href={`mailto:${clubEmail}`} className="font-semibold text-ocean">
             {clubEmail}
@@ -89,7 +89,7 @@ export function ContactForm() {
         <Field label="Message" htmlFor="c-message">
           <Textarea id="c-message" name="message" required placeholder="Votre message…" />
         </Field>
-        <label className="flex items-start gap-2.5 text-[13px] leading-relaxed text-ink-soft">
+        <label className="flex items-start gap-2.5 text-sm leading-relaxed text-ink-soft">
           <input
             type="checkbox"
             checked={consent}
@@ -97,11 +97,11 @@ export function ContactForm() {
             className="mt-0.5 h-4 w-4 shrink-0 rounded border-line-strong accent-ocean"
           />
           <span>
-            J'accepte que mes données soient utilisées pour traiter ma demande. Elles
+            J’accepte que mes données soient utilisées pour traiter ma demande. Elles
             ne seront jamais cédées à des tiers.
           </span>
         </label>
-        {error && <p className="text-[13px] font-medium text-red-600">{error}</p>}
+        {error && <p className="text-sm font-medium text-red-600">{error}</p>}
         <Button
           type="submit"
           variant="ocean"

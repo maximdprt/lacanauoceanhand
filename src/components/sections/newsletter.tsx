@@ -51,7 +51,7 @@ export function Newsletter() {
           Téléphone: phone || "—",
           Message: message || "—",
         },
-        { subject: `Demande de participation — ${roleLabel} — ${name}` },
+        { subject: `Demande de participation · ${roleLabel} · ${name}` },
       );
       setSent(true);
     } catch {
@@ -78,8 +78,8 @@ export function Newsletter() {
           <h2 className="headline mt-5 text-[clamp(1.9rem,4.5vw,3rem)] text-white">
             Prêt à nous rejoindre&nbsp;?
           </h2>
-          <p className="mt-4 max-w-md text-[16px] leading-relaxed text-white/70">
-            Joueur, joueuse ou bénévole — remplissez ce formulaire et votre message
+          <p className="mt-4 max-w-md text-base leading-relaxed text-white/70">
+            Joueur, joueuse ou bénévole, remplissez ce formulaire et votre message
             sera envoyé directement au président du club. Nous vous recontactons
             rapidement.
           </p>
@@ -121,9 +121,9 @@ export function Newsletter() {
               <h3 className="mt-4 font-display text-xl uppercase tracking-tight">
                 Message envoyé !
               </h3>
-              <p className="mt-2 text-[15px] leading-relaxed text-white/70">
+              <p className="mt-2 text-base leading-relaxed text-white/70">
                 Votre demande a bien été transmise au club. Nous vous recontactons
-                rapidement. Une question d'ici là&nbsp;? Écrivez-nous à{" "}
+                rapidement. Une question d’ici là&nbsp;? Écrivez-nous à{" "}
                 <a
                   href="mailto:contact@lacanau-ocehand.fr"
                   className="underline text-gold hover:text-white transition"
@@ -142,7 +142,7 @@ export function Newsletter() {
                 placeholder="Votre prénom et nom"
                 aria-label="Prénom et nom"
                 autoComplete="name"
-                className="h-[52px] w-full rounded-2xl border border-white/20 bg-white/10 px-5 text-[15px] text-white placeholder:text-white/40 transition focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/30"
+                className="h-[52px] w-full rounded-2xl border border-white/20 bg-white/10 px-5 text-base text-white placeholder:text-white/40 transition focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/30"
               />
               <div className="grid gap-3 sm:grid-cols-2">
                 <input
@@ -152,7 +152,7 @@ export function Newsletter() {
                   placeholder="votre@email.fr"
                   aria-label="Adresse e-mail"
                   autoComplete="email"
-                  className="h-[52px] w-full rounded-2xl border border-white/20 bg-white/10 px-5 text-[15px] text-white placeholder:text-white/40 transition focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/30"
+                  className="h-[52px] w-full rounded-2xl border border-white/20 bg-white/10 px-5 text-base text-white placeholder:text-white/40 transition focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/30"
                 />
                 <input
                   type="tel"
@@ -161,7 +161,7 @@ export function Newsletter() {
                   placeholder="Téléphone (facultatif)"
                   aria-label="Numéro de téléphone"
                   autoComplete="tel"
-                  className="h-[52px] w-full rounded-2xl border border-white/20 bg-white/10 px-5 text-[15px] text-white placeholder:text-white/40 transition focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/30"
+                  className="h-[52px] w-full rounded-2xl border border-white/20 bg-white/10 px-5 text-base text-white placeholder:text-white/40 transition focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/30"
                 />
               </div>
               <textarea
@@ -174,9 +174,9 @@ export function Newsletter() {
                 }
                 aria-label="Message"
                 rows={3}
-                className="w-full resize-none rounded-2xl border border-white/20 bg-white/10 px-5 py-4 text-[15px] text-white placeholder:text-white/40 transition focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/30"
+                className="w-full resize-none rounded-2xl border border-white/20 bg-white/10 px-5 py-4 text-base text-white placeholder:text-white/40 transition focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/30"
               />
-              <label className="flex items-start gap-2.5 text-[13px] leading-relaxed text-white/65">
+              <label className="flex items-start gap-2.5 text-sm leading-relaxed text-white/65">
                 <input
                   type="checkbox"
                   checked={consent}
@@ -184,11 +184,11 @@ export function Newsletter() {
                   className="mt-0.5 h-4 w-4 shrink-0 rounded border-white/30 accent-gold"
                 />
                 <span>
-                  J'accepte que mes coordonnées soient transmises au club et ne soient
+                  J’accepte que mes coordonnées soient transmises au club et ne soient
                   jamais cédées à des tiers.
                 </span>
               </label>
-              {error && <p className="text-[13px] font-medium text-gold">{error}</p>}
+              {error && <p className="text-sm font-medium text-gold">{error}</p>}
               <button
                 type="submit"
                 disabled={sending}

@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
 
   title: {
-    default: "Lacanau Océhand — Club de handball à Lacanau",
+    default: "Lacanau Océhand · Club de handball à Lacanau",
     template: "%s | Lacanau Océhand",
   },
   description: siteConfig.description,
@@ -79,7 +79,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "fr_FR",
-    title: "Lacanau Océhand — Club de handball à Lacanau",
+    title: "Lacanau Océhand · Club de handball à Lacanau",
     description: siteConfig.description,
     siteName: siteConfig.name,
     url: siteConfig.url,
@@ -88,7 +88,7 @@ export const metadata: Metadata = {
         url: `${siteConfig.url}/media/club/hero-coupe-bercy.jpg`,
         width: 1200,
         height: 630,
-        alt: "Lacanau Océhand — Champions de France 2024",
+        alt: "Lacanau Océhand · Champions de France 2024",
       },
     ],
   },
@@ -96,7 +96,7 @@ export const metadata: Metadata = {
   // Twitter / X Cards
   twitter: {
     card: "summary_large_image",
-    title: "Lacanau Océhand — Club de handball à Lacanau",
+    title: "Lacanau Océhand · Club de handball à Lacanau",
     description: siteConfig.description,
     images: [`${siteConfig.url}/media/club/hero-coupe-bercy.jpg`],
     site: "@lacanauocehand",

@@ -47,7 +47,7 @@ export function SiteFooter() {
               Lacanau<span className="text-ocean"> Océhand</span>
             </span>
           </div>
-          <p className="mt-4 max-w-sm text-[15px] leading-relaxed text-ink-soft">
+          <p className="mt-4 max-w-sm text-base leading-relaxed text-ink-soft">
             Le club de handball à Lacanau. Handball en salle et beach handball, du
             baby hand aux seniors, dans une ambiance familiale.
           </p>
@@ -83,7 +83,7 @@ export function SiteFooter() {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="text-[15px] text-ink/80 transition hover:text-ocean"
+                  className="text-base text-ink/80 transition hover:text-ocean"
                 >
                   {item.label}
                 </Link>
@@ -97,7 +97,7 @@ export function SiteFooter() {
           <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-ink-soft">
             Contact
           </p>
-          <ul className="space-y-3 text-[15px] text-ink/80">
+          <ul className="space-y-3 text-base text-ink/80">
             <li className="flex items-start gap-2.5">
               <MapPin size={18} className="mt-0.5 shrink-0 text-ocean" />
               <span>Salle de la Cousteyre, Lacanau (Gironde)</span>
@@ -117,7 +117,7 @@ export function SiteFooter() {
           >
             <div className="min-w-0 flex-1">
               <p className="text-sm font-semibold text-ink">Lacanau Beach Handball Xperience</p>
-              <p className="mt-1 text-xs text-ink-soft">Tournoi & événement beach — site dédié</p>
+              <p className="mt-1 text-xs text-ink-soft">Tournoi & événement beach, site dédié</p>
             </div>
             <ExternalLink size={16} className="mt-0.5 shrink-0 text-ocean" />
           </a>
@@ -126,7 +126,7 @@ export function SiteFooter() {
 
       <div className="border-t border-line">
         <div className="container-x flex flex-col items-center justify-between gap-2 py-5 text-xs text-ink-soft sm:flex-row">
-          <p>© {year} Lacanau Océhand — Site officiel du handball à Lacanau.</p>
+          <p>© {year} Lacanau Océhand · Site officiel du handball à Lacanau.</p>
           <p>Champions de France 2024 · ⚫⚪</p>
         </div>
       </div>

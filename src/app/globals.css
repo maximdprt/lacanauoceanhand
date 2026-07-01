@@ -147,10 +147,10 @@ body {
 
 /* rythme vertical normalisé */
 .section-pad {
-  padding-block: 5rem;
+  padding-block: 4rem;
 }
 @media (min-width: 768px) {
-  .section-pad { padding-block: 7rem; }
+  .section-pad { padding-block: 6rem; }
 }
 
 /* ---------- Filet décoratif ---------- */

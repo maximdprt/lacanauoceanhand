@@ -60,7 +60,7 @@ export function SocialFeedPlaceholder() {
             href={instagramUrl}
             target="_blank"
             rel="noreferrer"
-            className="block w-full rounded-full border border-slate-200 py-2.5 text-center text-[11px] font-semibold uppercase tracking-wider text-slate-600 transition hover:border-[#E1306C]/50 hover:text-[#E1306C]"
+            className="block w-full rounded-full border border-slate-200 py-2.5 text-center text-xs font-semibold uppercase tracking-wider text-slate-600 transition hover:border-[#E1306C]/50 hover:text-[#E1306C]"
           >
             Voir le profil Instagram
           </a>
@@ -93,7 +93,7 @@ export function SocialFeedPlaceholder() {
             href={facebookUrl}
             target="_blank"
             rel="noreferrer"
-            className="block w-full rounded-full border border-slate-200 py-2.5 text-center text-[11px] font-semibold uppercase tracking-wider text-slate-600 transition hover:border-[#1877F2]/50 hover:text-[#1877F2]"
+            className="block w-full rounded-full border border-slate-200 py-2.5 text-center text-xs font-semibold uppercase tracking-wider text-slate-600 transition hover:border-[#1877F2]/50 hover:text-[#1877F2]"
           >
             Voir la page Facebook
           </a>

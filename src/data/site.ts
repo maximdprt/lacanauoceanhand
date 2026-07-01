@@ -195,7 +195,7 @@ export const teams: Team[] = [
     slug: "ecole-de-hand",
     name: "Baby & École de hand",
     group: "jeunes",
-    age: "5 – 9 ans · Samedi matin",
+    age: "5 à 9 ans · Samedi matin",
     schedule: ["Samedi 09h00"],
     coach: "Guillaume Giraudet-Bacchiolelli",
     description:
@@ -206,7 +206,7 @@ export const teams: Team[] = [
     slug: "u11-mixtes",
     name: "U11 mixtes",
     group: "jeunes",
-    age: "9 – 11 ans · Mercredi + samedi",
+    age: "9 à 11 ans · Mercredi + samedi",
     schedule: ["Mercredi 16h30", "Samedi 10h00"],
     coach: "Steeve Martin-Pavailler",
     description:
@@ -217,7 +217,7 @@ export const teams: Team[] = [
     slug: "u13-filles",
     name: "U13 filles",
     group: "jeunes",
-    age: "11 – 13 ans",
+    age: "11 à 13 ans",
     schedule: ["Mardi 18h00", "Vendredi 18h30"],
     coach: "Christophe Suire",
     description:
@@ -228,7 +228,7 @@ export const teams: Team[] = [
     slug: "u13-garcons",
     name: "U13 garçons",
     group: "jeunes",
-    age: "11 – 13 ans",
+    age: "11 à 13 ans",
     schedule: ["Mardi 18h00", "Vendredi 18h30"],
     coach: "Christophe Suire",
     description:
@@ -239,7 +239,7 @@ export const teams: Team[] = [
     slug: "u15-filles",
     name: "U15 filles",
     group: "jeunes",
-    age: "13 – 15 ans",
+    age: "13 à 15 ans",
     schedule: ["Lundi 18h30", "Jeudi 18h30"],
     coach: "Fabien Boulanger",
     description:
@@ -250,7 +250,7 @@ export const teams: Team[] = [
     slug: "u15-garcons",
     name: "U15 garçons",
     group: "jeunes",
-    age: "13 – 15 ans",
+    age: "13 à 15 ans",
     schedule: ["Lundi 18h30", "Jeudi 18h30"],
     coach: "Fabien Boulanger",
     description:
@@ -261,7 +261,7 @@ export const teams: Team[] = [
     slug: "u18",
     name: "U18 (entente Bruges)",
     group: "jeunes",
-    age: "15 – 18 ans · Lundi + jeudi",
+    age: "15 à 18 ans · Lundi + jeudi",
     schedule: ["Lundi 19h00", "Jeudi 19h00"],
     coach: "Yann Bidon",
     description:
@@ -274,7 +274,7 @@ export const teams: Team[] = [
     slug: "beach-handball",
     name: "Beach handball",
     group: "beach",
-    age: "Dès U13 · Mai – Août",
+    age: "Dès U13 · Mai à Août",
     schedule: ["Format 4 + 1 joueurs"],
     coach: "Bénévoles dédiés",
     description:
@@ -349,22 +349,22 @@ export const timelineEvents: TimelineEvent[] = [
 
 export const palmares: Palmares[] = [
   {
-    season: "2023 – 2024",
+    season: "2023 à 2024",
     lines: [
       "Vainqueurs de la Coupe de France départementale (30-29 vs Ste Gemmes sur Loire)",
-      "Champions de Gironde — Seniors garçons (22V · 0N · 0D)",
+      "Champions de Gironde, Seniors garçons (22V · 0N · 0D)",
     ],
   },
   {
-    season: "2022 – 2023",
+    season: "2022 à 2023",
     lines: [
-      "Champions de Gironde — Seniors garçons (27V · 0N · 0D)",
+      "Champions de Gironde, Seniors garçons (27V · 0N · 0D)",
       "1/4 de finaliste Coupe de France (top 8 / 1 000 équipes)",
     ],
   },
   {
-    season: "2021 – 2022",
-    lines: ["Champions de Gironde — Promotion (15V · 3N · 1D)"],
+    season: "2021 à 2022",
+    lines: ["Champions de Gironde, Promotion (15V · 3N · 1D)"],
   },
 ];
 
@@ -374,7 +374,7 @@ export const palmares: Palmares[] = [
 export const salles: Salle[] = [
   {
     name: "Salle de la Cousteyre",
-    usage: "Salle omnisports — entraînements & matchs à domicile",
+    usage: "Salle omnisports, entraînements & matchs à domicile",
     address: "Lacanau",
     image: "/media/club/gymnase-cousteyre.jpg",
   },
@@ -386,7 +386,7 @@ export const salles: Salle[] = [
   },
   {
     name: "Pôle de l'Ardilouse",
-    usage: "Beach handball — terrains sur sable",
+    usage: "Beach handball, terrains sur sable",
     address: "Lacanau-Océan",
     image: "/media/club/pole-ardilouse.jpg",
   },
@@ -447,8 +447,8 @@ export const staffMembers: StaffMember[] = [
    équipement inclus, renouvellement par email fédéral.
    ============================================================ */
 export const licensePricing: PricingRow[] = [
-  { category: "Baby hand (U7 – U9)", fee: "Sur demande" },
-  { category: "Jeunes (U11 – U18)", fee: "Sur demande" },
+  { category: "Baby hand (U7 à U9)", fee: "Sur demande" },
+  { category: "Jeunes (U11 à U18)", fee: "Sur demande" },
   { category: "Seniors", fee: "Sur demande" },
   { category: "Beach handball", fee: "Sur demande" },
 ];
@@ -497,7 +497,7 @@ export const newsItems: NewsItem[] = [
     title: "La formation des jeunes, cœur du projet",
     excerpt:
       "Des U9 aux U18, filles et garçons enchaînent les rencontres départementales et régionales chaque week-end.",
-    date: "Saison 2024 – 2025",
+    date: "Saison 2024 à 2025",
     tags: ["Jeunes", "Formation"],
     cover: "/media/action/duel-1.jpg",
     slug: "formation-jeunes",
@@ -557,7 +557,7 @@ export const partners: Partner[] = [
   { id: "p1", name: "VitalParc Hôtel & Spa", website: "https://www.vitalparc.com/", logo: "/partners/vitalparc.png" },
   { id: "p2", name: "Briconautes Lacanau", website: "https://magasin.leclub-bricolage.fr/38-briconautes-lacanau", logo: "/partners/briconautes.png" },
   { id: "p3", name: "Médoc Atlantique", website: "https://www.medoc-atlantique.com/", logo: "/partners/medoc-atlantique.png" },
-  { id: "p4", name: "Efficity — Julie & David", website: "#", logo: "/partners/efficity.png" },
+  { id: "p4", name: "Efficity, Julie & David", website: "#", logo: "/partners/efficity.png" },
   { id: "p5", name: "209 Agency", website: "https://www.209-agency.com/", logo: "/partners/209-agency.png" },
   { id: "p6", name: "Désirs2Rêves", website: "https://desirs2reves.com/", logo: "/partners/desirs2reves.jpg" },
   { id: "p7", name: "HandShoot", website: "#", logo: "/partners/handshoot.png" },
@@ -588,7 +588,7 @@ export const socialPosts = [
     id: "ig-1",
     platform: "Instagram" as const,
     image: "/media/beach/londres.jpg",
-    title: "Beach Handball Xperience — Londres",
+    title: "Beach Handball Xperience, Londres",
     url: instagramUrl,
   },
   {
@@ -647,7 +647,7 @@ export const clubEvents: ClubEvent[] = [
    CATÉGORIES D'ÂGE (recrutement)
    ============================================================ */
 export const ageCategories: AgeCategory[] = [
-  { label: "Baby & École de hand", age: "5 – 9 ans", note: "Éveil & motricité", accent: "var(--c-jeunes)" },
+  { label: "Baby & École de hand", age: "5 à 9 ans", note: "Éveil & motricité", accent: "var(--c-jeunes)" },
   { label: "Jeunes", age: "U11 → U18", note: "Filles & garçons", accent: "var(--c-senior)" },
   { label: "Seniors", age: "+16 ans", note: "Compétition & loisirs", accent: "var(--c-gardien)" },
   { label: "Beach handball", age: "Dès U13", note: "Mai → Août", accent: "var(--c-beach)" },

@@ -50,7 +50,7 @@ export function VolunteerPartner() {
               <div className="relative aspect-video overflow-hidden">
                 <Image
                   src={b.image}
-                  alt={`${b.title} — Lacanau Océhand`}
+                  alt={`${b.title} · Lacanau Océhand`}
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
                   loading="lazy"
@@ -67,7 +67,7 @@ export function VolunteerPartner() {
               <div className="flex flex-1 flex-col p-7">
                 <span className="eyebrow text-ink-soft">{b.eyebrow}</span>
                 <h3 className="mt-2 headline text-2xl text-ink">{b.title}</h3>
-                <p className="mt-3 flex-1 text-[15px] leading-relaxed text-ink-soft">
+                <p className="mt-3 flex-1 text-base leading-relaxed text-ink-soft">
                   {b.text}
                 </p>
                 <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold text-ink transition group-hover:text-ocean">

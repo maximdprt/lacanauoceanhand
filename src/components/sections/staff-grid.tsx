@@ -36,7 +36,7 @@ function StaffCard({ member }: { member: StaffMember }) {
           {member.name}
         </h3>
         <p className="mt-0.5 text-sm text-ocean">{member.role}</p>
-        <p className="mt-0.5 text-[11px] font-bold uppercase tracking-wider text-ink-soft">
+        <p className="mt-0.5 text-xs font-bold uppercase tracking-wider text-ink-soft">
           {member.pole}
         </p>
       </div>

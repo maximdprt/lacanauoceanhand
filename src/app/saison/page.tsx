@@ -33,7 +33,7 @@ export default function SeasonPage() {
       />
 
       {/* MATCH CENTER */}
-      <section className="container-x py-20 md:py-28">
+      <section className="container-x py-16 md:py-24">
         <Reveal>
           <SectionTitle
             index="01"
@@ -49,7 +49,7 @@ export default function SeasonPage() {
 
       {/* ENTRAÎNEMENTS */}
       <section className="border-y border-line bg-mist">
-        <div className="container-x py-20 md:py-28">
+        <div className="container-x py-16 md:py-24">
           <Reveal>
             <SectionTitle
               index="02"
@@ -68,7 +68,7 @@ export default function SeasonPage() {
                     {t.schedule.map((s) => (
                       <li
                         key={s}
-                        className="flex items-center gap-2.5 text-[15px] text-ink"
+                        className="flex items-center gap-2.5 text-base text-ink"
                       >
                         <Clock size={15} className="shrink-0 text-ocean" />
                         {s}
@@ -83,7 +83,7 @@ export default function SeasonPage() {
       </section>
 
       {/* TARIFS */}
-      <section className="container-x py-20 md:py-28">
+      <section className="container-x py-16 md:py-24">
         <Reveal>
           <SectionTitle
             index="03"
@@ -108,7 +108,7 @@ export default function SeasonPage() {
                     key={row.category}
                     className="flex items-center justify-between gap-4 px-6 py-4"
                   >
-                    <span className="text-[15px] font-semibold text-ink">
+                    <span className="text-base font-semibold text-ink">
                       {row.category}
                     </span>
                     <span className="font-display text-lg uppercase tracking-tight text-ocean">
@@ -128,7 +128,7 @@ export default function SeasonPage() {
               </h3>
               <ul className="mt-5 space-y-3.5">
                 {pricingPerks.map((perk) => (
-                  <li key={perk} className="flex items-start gap-3 text-[15px] text-ink">
+                  <li key={perk} className="flex items-start gap-3 text-base text-ink">
                     <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-ocean text-white">
                       <Check size={12} strokeWidth={3} />
                     </span>

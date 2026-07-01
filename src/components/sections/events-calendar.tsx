@@ -82,13 +82,13 @@ function EventCard({ ev, index }: { ev: ClubEvent; index: number }) {
         />
 
         <span
-          className="inline-flex w-fit items-center rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-white"
+          className="inline-flex w-fit items-center rounded-full px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-white"
           style={{ background: accent }}
         >
           {ev.type}
         </span>
 
-        <h3 className="mt-4 font-display text-[1.05rem] uppercase leading-snug tracking-tight text-ink sm:text-lg">
+        <h3 className="mt-4 font-display text-base uppercase leading-snug tracking-tight text-ink sm:text-lg">
           {ev.title}
         </h3>
 

@@ -86,7 +86,7 @@ export function ScorencoWidget({
           <h3 className="font-display text-lg uppercase tracking-tight text-ink">
             {title}
           </h3>
-          <span className="text-[10px] font-semibold uppercase tracking-wider text-ink-soft">
+          <span className="text-xs font-semibold uppercase tracking-wider text-ink-soft">
             {badge}
           </span>
         </div>

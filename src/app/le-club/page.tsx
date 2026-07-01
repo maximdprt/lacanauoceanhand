@@ -55,7 +55,7 @@ export default function ClubPage() {
       />
 
       {/* HISTOIRE + DEVISE */}
-      <section className="container-x py-20 md:py-28">
+      <section className="container-x py-16 md:py-24">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <Reveal>
             <div>
@@ -66,17 +66,17 @@ export default function ClubPage() {
                 «&nbsp;Chaque aventure sportive est avant tout une aventure
                 humaine&nbsp;»
               </blockquote>
-              <div className="mt-6 space-y-4 text-[16px] leading-relaxed text-ink-soft">
+              <div className="mt-6 space-y-4 text-base leading-relaxed text-ink-soft">
                 <p>
                   Le 4 juin 2017, Thierry Mayeur fonde Lacanau Océhand, entouré de
                   sa famille, avec une idée simple : offrir aux Canaulais un club de
-                  handball ouvert à tous, où l'on progresse ensemble dans la bonne
+                  handball ouvert à tous, où l’on progresse ensemble dans la bonne
                   humeur.
                 </p>
                 <p>
-                  En quelques saisons, le club est devenu une référence en Gironde —
+                  En quelques saisons, le club est devenu une référence en Gironde,
                   triple champion départemental et vainqueur de la Coupe de France
-                  2024 à Bercy — tout en gardant son esprit familial et bénévole.
+                  2024 à Bercy, tout en gardant son esprit familial et bénévole.
                 </p>
               </div>
             </div>
@@ -97,7 +97,7 @@ export default function ClubPage() {
 
       {/* TIMELINE */}
       <section className="border-y border-line bg-mist">
-        <div className="container-x py-20 md:py-28">
+        <div className="container-x py-16 md:py-24">
           <Reveal>
             <SectionTitle
               index="01"
@@ -113,7 +113,7 @@ export default function ClubPage() {
                     {ev.year}
                   </span>
                   <h3 className="mt-3 text-lg font-bold text-ink">{ev.title}</h3>
-                  <p className="mt-2 text-[15px] leading-relaxed text-ink-soft">
+                  <p className="mt-2 text-base leading-relaxed text-ink-soft">
                     {ev.description}
                   </p>
                 </div>
@@ -124,7 +124,7 @@ export default function ClubPage() {
       </section>
 
       {/* PALMARÈS */}
-      <section className="container-x py-20 md:py-28">
+      <section className="container-x py-16 md:py-24">
         <Reveal>
           <SectionTitle
             index="02"
@@ -144,7 +144,7 @@ export default function ClubPage() {
                   {p.lines.map((line) => (
                     <li
                       key={line}
-                      className="flex items-start gap-3 text-[15px] leading-relaxed text-ink-soft"
+                      className="flex items-start gap-3 text-base leading-relaxed text-ink-soft"
                     >
                       <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-c-beach" />
                       {line}
@@ -159,7 +159,7 @@ export default function ClubPage() {
 
       {/* SALLES */}
       <section className="border-y border-line bg-mist">
-        <div className="container-x py-20 md:py-28">
+        <div className="container-x py-16 md:py-24">
           <Reveal>
             <SectionTitle
               index="03"
@@ -191,7 +191,7 @@ export default function ClubPage() {
                   </div>
                   <div className="p-6">
                     <h3 className="text-lg font-bold text-ink">{s.name}</h3>
-                    <p className="mt-2 text-[15px] leading-relaxed text-ink-soft">
+                    <p className="mt-2 text-base leading-relaxed text-ink-soft">
                       {s.usage}
                     </p>
                     <p className="mt-3 text-sm font-semibold text-ocean">{s.address}</p>
@@ -204,7 +204,7 @@ export default function ClubPage() {
       </section>
 
       {/* ENCADREMENT */}
-      <section className="container-x py-20 md:py-28">
+      <section className="container-x py-16 md:py-24">
         <Reveal>
           <SectionTitle
             index="04"

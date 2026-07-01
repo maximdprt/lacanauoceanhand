@@ -35,9 +35,9 @@ function SuccessPanel({ onReset }: { onReset: () => void }) {
       <h3 className="mt-5 font-display text-2xl uppercase tracking-tight text-ink">
         Merci&nbsp;!
       </h3>
-      <p className="mt-2 max-w-sm text-[15px] leading-relaxed text-ink-soft">
+      <p className="mt-2 max-w-sm text-base leading-relaxed text-ink-soft">
         Votre demande a bien été prise en compte. Le club revient vers vous très
-        vite. Une question d'ici là&nbsp;?{" "}
+        vite. Une question d’ici là&nbsp;?{" "}
         <a href={`mailto:${clubEmail}`} className="font-semibold text-ocean">
           {clubEmail}
         </a>
@@ -64,7 +64,7 @@ function ConsentRow({
 }) {
   return (
     <>
-      <label className="flex items-start gap-2.5 text-[13px] leading-relaxed text-ink-soft">
+      <label className="flex items-start gap-2.5 text-sm leading-relaxed text-ink-soft">
         <input
           type="checkbox"
           checked={checked}
@@ -72,11 +72,11 @@ function ConsentRow({
           className="mt-0.5 h-4 w-4 shrink-0 rounded border-line-strong accent-ocean"
         />
         <span>
-          J'accepte que les informations saisies soient utilisées par le club pour
+          J’accepte que les informations saisies soient utilisées par le club pour
           traiter ma demande. Elles ne seront jamais cédées à des tiers.
         </span>
       </label>
-      {error && <p className="text-[13px] font-medium text-red-600">{error}</p>}
+      {error && <p className="text-sm font-medium text-red-600">{error}</p>}
     </>
   );
 }
@@ -121,7 +121,7 @@ export function JoinForms() {
 
     try {
       await sendForm(entries, {
-        subject: `${tabLabel[active]} — site Lacanau Océhand`,
+        subject: `${tabLabel[active]} · site Lacanau Océhand`,
       });
       setSent(active);
     } catch {
@@ -177,7 +177,7 @@ export function JoinForms() {
             {/* JOUEUR */}
             {active === "joueur" && (
               <div className="space-y-5">
-                <div className="rounded-xl bg-ocean-tint px-5 py-4 text-[14px] leading-relaxed text-ink">
+                <div className="rounded-xl bg-ocean-tint px-5 py-4 text-sm leading-relaxed text-ink">
                   Les licenciés de la saison précédente recevront directement un
                   e-mail de la fédération pour renouveler leur licence.
                 </div>
@@ -227,7 +227,7 @@ export function JoinForms() {
             {/* BÉNÉVOLE */}
             {active === "benevole" && (
               <div className="space-y-5">
-                <p className="text-[15px] leading-relaxed text-ink-soft">
+                <p className="text-base leading-relaxed text-ink-soft">
                   Le club fonctionne grâce à ses bénévoles. Indiquez vos
                   préférences, nous trouverons ensemble comment vous impliquer.
                 </p>
@@ -253,7 +253,7 @@ export function JoinForms() {
                         <label
                           key={role}
                           className={cn(
-                            "flex cursor-pointer items-center gap-3 rounded-xl border px-4 py-3 text-[15px] transition",
+                            "flex cursor-pointer items-center gap-3 rounded-xl border px-4 py-3 text-base transition",
                             checked
                               ? "border-ocean bg-ocean-tint text-ink"
                               : "border-line text-ink hover:border-ink",
@@ -286,7 +286,7 @@ export function JoinForms() {
             {/* PARTENAIRE */}
             {active === "partenaire" && (
               <div className="space-y-5">
-                <p className="text-[15px] leading-relaxed text-ink-soft">
+                <p className="text-base leading-relaxed text-ink-soft">
                   Associez votre image à un club ambitieux et ancré sur son
                   territoire. Parlons de votre projet de partenariat.
                 </p>

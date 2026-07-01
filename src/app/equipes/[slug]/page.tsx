@@ -33,7 +33,7 @@ export async function generateMetadata({
 
   return buildMetadata({
     title: team.name,
-    description: `${team.name} de Lacanau Océhand — ${team.description} Rejoignez le club de handball de Lacanau (Gironde).`,
+    description: `${team.name} de Lacanau Océhand · ${team.description} Rejoignez le club de handball de Lacanau (Gironde).`,
     path: `/equipes/${team.slug}`,
     keywords: [`${team.name} handball Lacanau`, `handball ${team.age} Lacanau`],
   });
@@ -95,9 +95,9 @@ export default async function TeamDetailPage({
             <span className="text-sm text-ink-soft">{team.age}</span>
           </div>
           <h1 className="headline text-4xl text-ink md:text-5xl">{team.name}</h1>
-          <p className="max-w-3xl text-[17px] leading-relaxed text-ink-soft">{team.description}</p>
+          <p className="max-w-3xl text-lg leading-relaxed text-ink-soft">{team.description}</p>
           <a
-            href={`mailto:${teamSignupEmail}?subject=${encodeURIComponent(`Inscription — ${team.name}`)}`}
+            href={`mailto:${teamSignupEmail}?subject=${encodeURIComponent(`Inscription · ${team.name}`)}`}
             className="inline-flex items-center gap-2 rounded-full bg-ocean px-6 py-3 text-sm font-semibold text-white transition hover:bg-ocean-deep"
           >
             <Mail size={15} />
@@ -136,7 +136,7 @@ export default async function TeamDetailPage({
         <Card>
           <CardContent>
             <h2 className="font-display text-2xl uppercase text-ink">Matchs & résultats</h2>
-            <p className="mt-2 text-[15px] leading-relaxed text-ink-soft">
+            <p className="mt-2 text-base leading-relaxed text-ink-soft">
               Consultez le calendrier complet de toutes les équipes sur{" "}
               <Link href="/saison" className="font-semibold text-ocean hover:underline">
                 la page saison

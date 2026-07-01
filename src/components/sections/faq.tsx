@@ -37,7 +37,7 @@ export function Faq({ items }: { items: FaqItem[] }) {
                 className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
                 aria-expanded={isOpen}
               >
-                <span className="text-[17px] font-semibold text-ink">{it.question}</span>
+                <span className="text-lg font-semibold text-ink">{it.question}</span>
                 <span
                   className={cn(
                     "flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-line transition-all duration-300",
@@ -56,7 +56,7 @@ export function Faq({ items }: { items: FaqItem[] }) {
                     transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                     className="overflow-hidden"
                   >
-                    <p className="px-6 pb-6 text-[15px] leading-relaxed text-ink-soft">
+                    <p className="px-6 pb-6 text-base leading-relaxed text-ink-soft">
                       {it.answer}
                     </p>
                   </motion.div>

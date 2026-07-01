@@ -29,8 +29,8 @@ export default function NotFound() {
       <h1 className="headline mt-2 text-[clamp(1.8rem,5vw,2.8rem)] text-ink">
         Page introuvable
       </h1>
-      <p className="mt-4 max-w-md text-[16px] leading-relaxed text-ink-soft">
-        Cette page n'existe pas ou a été déplacée. Voici quelques raccourcis
+      <p className="mt-4 max-w-md text-base leading-relaxed text-ink-soft">
+        Cette page n’existe pas ou a été déplacée. Voici quelques raccourcis
         pour retrouver le handball à Lacanau.
       </p>
 

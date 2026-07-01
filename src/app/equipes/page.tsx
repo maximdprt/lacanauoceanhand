@@ -27,10 +27,10 @@ export default function TeamsPage() {
 
       <section className="container-x py-16 md:py-24">
         <Reveal>
-          <p className="max-w-3xl text-[17px] leading-relaxed text-ink-soft">
-            Du baby handball à l'équipe senior, notre club accueille les joueurs et
+          <p className="max-w-3xl text-lg leading-relaxed text-ink-soft">
+            Du baby handball à l’équipe senior, notre club accueille les joueurs et
             joueuses de tous les âges dans une ambiance familiale et bienveillante.
-            Chaque équipe bénéficie d'un encadrement assuré par des bénévoles
+            Chaque équipe bénéficie d’un encadrement assuré par des bénévoles
             passionnés. Sélectionnez une catégorie pour en savoir plus.
           </p>
         </Reveal>
@@ -47,13 +47,13 @@ export default function TeamsPage() {
             <h2 className="font-display text-2xl uppercase tracking-tight text-ink md:text-3xl">
               Vous voulez essayer&nbsp;?
             </h2>
-            <p className="mt-2 text-[15px] text-ink-soft">
+            <p className="mt-2 text-base text-ink-soft">
               Premier entraînement découverte offert, toutes catégories.
             </p>
           </div>
           <Link href="/rejoindre">
             <Button variant="ocean" size="lg">
-              S'inscrire au club <ArrowRight size={18} />
+              S’inscrire au club <ArrowRight size={18} />
             </Button>
           </Link>
         </div>

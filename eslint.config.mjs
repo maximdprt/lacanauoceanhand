@@ -12,6 +12,12 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Dossiers générés / sauvegardes à ne jamais linter
+    "node_modules/**",
+    "temp-next/**",
+    ".vercel/**",
+    "lacanau-ocehand_zip_extracted/**",
+    "wetransfer_assets/**",
   ]),
 ]);
 

@@ -18,7 +18,7 @@ export function EventSchema({ events }: { events: EventSchemaItem[] }) {
     "@graph": events.map((ev) => ({
       "@type": "Event",
       name: ev.title,
-      description: `${ev.type} — ${ev.title} à ${ev.location}. Lacanau Océhand, club de handball à Lacanau (Gironde).`,
+      description: `${ev.type} · ${ev.title} à ${ev.location}. Lacanau Océhand, club de handball à Lacanau (Gironde).`,
       eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
       eventStatus: "https://schema.org/EventScheduled",
       startDate: `2025-${monthToNumber(ev.month)}-01`,

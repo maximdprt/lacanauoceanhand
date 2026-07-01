@@ -12,7 +12,7 @@ export function TeamCard({ team }: { team: Team }) {
       <div className="relative aspect-4/3 overflow-hidden sm:aspect-3/2">
         <Image
           src={team.image}
-          alt={`${team.name} — Lacanau Océhand, club de handball à Lacanau`}
+          alt={`${team.name} · Lacanau Océhand, club de handball à Lacanau`}
           fill
           className="object-cover object-[center_25%] transition-transform duration-700 group-hover:scale-105"
           sizes="(max-width: 1024px) 50vw, 33vw"
@@ -32,7 +32,7 @@ export function TeamCard({ team }: { team: Team }) {
         </p>
         <Link
           href={`/equipes/${team.slug}`}
-          className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-ink transition hover:text-ocean"
+          className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-ink transition hover:text-ocean [&>svg]:transition-transform group-hover:[&>svg]:translate-x-1"
         >
           Voir l&apos;équipe <ArrowRight size={12} />
         </Link>

@@ -15,7 +15,7 @@ const filieres = [
     accent: "var(--c-senior)",
   },
   {
-    tag: "Mai – Août",
+    tag: "Mai à Août",
     title: "Beach handball",
     text: "Le handball sur le sable, à deux pas de l'océan Atlantique. Découvrez aussi le tournoi Beach Xperience.",
     image: "/media/beach/amsterdam.jpg",
@@ -31,7 +31,7 @@ function FiliereCard({ f }: { f: (typeof filieres)[number] }) {
       <div className="relative aspect-4/3 overflow-hidden sm:aspect-16/10">
         <Image
           src={f.image}
-          alt={`${f.title} à Lacanau — Lacanau Océhand`}
+          alt={`${f.title} à Lacanau · Lacanau Océhand`}
           fill
           sizes="(max-width: 768px) 100vw, 50vw"
           className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -46,7 +46,7 @@ function FiliereCard({ f }: { f: (typeof filieres)[number] }) {
               <ArrowUpRight size={20} />
             </span>
           </div>
-          <p className="mt-3 max-w-md text-[15px] leading-relaxed text-white/80">{f.text}</p>
+          <p className="mt-3 max-w-md text-base leading-relaxed text-white/80">{f.text}</p>
         </div>
       </div>
     </>

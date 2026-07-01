@@ -91,7 +91,7 @@ export function JoinCta() {
               <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-c-jeunes/12 text-c-jeunes">
                 <Check size={14} strokeWidth={3} />
               </span>
-              <span className="text-[15px] leading-relaxed text-ink-soft">{perk}</span>
+              <span className="text-base leading-relaxed text-ink-soft">{perk}</span>
             </motion.li>
           ))}
         </ul>

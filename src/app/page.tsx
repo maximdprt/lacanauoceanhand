@@ -25,13 +25,13 @@ import {
 export const metadata: Metadata = {
   title: {
     absolute:
-      "Lacanau Océhand — Club de handball à Lacanau | Champions de France 2024",
+      "Lacanau Océhand · Club de handball à Lacanau | Champions de France 2024",
   },
   description:
     "Rejoignez Lacanau Océhand, le club de handball à Lacanau (Gironde). Baby hand, jeunes, seniors, beach handball. Vainqueurs de la Coupe de France 2024. Inscriptions ouvertes.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "Lacanau Océhand — Club de handball à Lacanau",
+    title: "Lacanau Océhand · Club de handball à Lacanau",
     description:
       "Baby hand, jeunes, seniors, beach handball en Gironde. Champions de France 2024. Inscriptions ouvertes.",
     url: "https://lacanau-ocehand.fr",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
         url: "https://lacanau-ocehand.fr/media/club/hero-coupe-bercy.jpg",
         width: 1200,
         height: 630,
-        alt: "Lacanau Océhand — Champions de France 2024",
+        alt: "Lacanau Océhand · Champions de France 2024",
       },
     ],
   },
@@ -115,7 +115,7 @@ export default function HomePage() {
       </section>
 
       {/* BÉNÉVOLES & PARTENAIRES */}
-      <section className="border-y border-line bg-mist">
+      <section className="border-t border-line">
         <div className="container-x section-pad">
           <Reveal>
             <SectionTitle title="Faire vivre le club" align="center" />

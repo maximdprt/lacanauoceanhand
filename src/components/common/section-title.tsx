@@ -52,7 +52,7 @@ export function SectionTitle({
       {description && (
         <p
           className={cn(
-            "mt-4 text-[17px] leading-relaxed",
+            "mt-4 text-lg leading-relaxed",
             light ? "text-white/70" : "text-ink-soft",
           )}
         >

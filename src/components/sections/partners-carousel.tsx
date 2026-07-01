@@ -15,7 +15,7 @@ export function PartnersCarousel({ partners }: { partners: Partner[] }) {
             "card-lift flex h-24 w-44 shrink-0 items-center justify-center rounded-2xl border border-line bg-white p-5";
           const inner = (
             <span className="relative h-full w-full">
-              <Image src={p.logo} alt={`Logo ${p.name} — partenaire Lacanau Océhand`} fill className="object-contain" loading="lazy" />
+              <Image src={p.logo} alt={`Logo ${p.name} · partenaire Lacanau Océhand`} fill className="object-contain" loading="lazy" />
             </span>
           );
           return hasSite ? (

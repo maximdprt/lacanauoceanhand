@@ -39,7 +39,7 @@ export default function ContactPage() {
                   </span>
                   <div>
                     <p className="font-semibold text-ink">Salle de la Cousteyre</p>
-                    <p className="text-[15px] text-ink-soft">Lacanau, Gironde (33)</p>
+                    <p className="text-base text-ink-soft">Lacanau, Gironde (33)</p>
                   </div>
                 </li>
                 <li className="flex items-start gap-4">
@@ -50,7 +50,7 @@ export default function ContactPage() {
                     <p className="font-semibold text-ink">E-mail</p>
                     <a
                       href={`mailto:${clubEmail}`}
-                      className="text-[15px] text-ink-soft transition hover:text-ocean"
+                      className="text-base text-ink-soft transition hover:text-ocean"
                     >
                       {clubEmail}
                     </a>
@@ -87,7 +87,7 @@ export default function ContactPage() {
               {/* Carte */}
               <div className="mt-8 overflow-hidden rounded-(--radius) border border-line">
                 <iframe
-                  title="Carte — Lacanau"
+                  title="Carte · Lacanau"
                   src="https://www.google.com/maps?q=Lacanau%2C+Gironde&output=embed"
                   width="100%"
                   height="260"
