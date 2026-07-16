@@ -7,21 +7,17 @@ import { Field } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { FormPrivacyNotice } from "@/components/common/form-privacy-notice";
 import { clubEmail } from "@/data/site";
 import { sendForm } from "@/lib/send-form";
 
 export function ContactForm() {
   const [sent, setSent] = useState(false);
-  const [consent, setConsent] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!consent) {
-      setError("Merci d'accepter la collecte de vos données pour être recontacté.");
-      return;
-    }
     setError("");
     setSending(true);
 
@@ -52,7 +48,10 @@ export function ContactForm() {
 
   if (sent) {
     return (
-      <div className="flex flex-col items-center rounded-(--radius) border border-line bg-white px-6 py-14 text-center">
+      <div
+        role="status"
+        className="flex flex-col items-center rounded-(--radius) border border-line bg-white px-6 py-14 text-center"
+      >
         <span className="flex h-14 w-14 items-center justify-center rounded-full bg-ocean-tint text-ocean">
           <CheckCircle2 size={28} />
         </span>
@@ -89,19 +88,12 @@ export function ContactForm() {
         <Field label="Message" htmlFor="c-message">
           <Textarea id="c-message" name="message" required placeholder="Votre message…" />
         </Field>
-        <label className="flex items-start gap-2.5 text-sm leading-relaxed text-ink-soft">
-          <input
-            type="checkbox"
-            checked={consent}
-            onChange={(e) => setConsent(e.target.checked)}
-            className="mt-0.5 h-4 w-4 shrink-0 rounded border-line-strong accent-ocean"
-          />
-          <span>
-            J’accepte que mes données soient utilisées pour traiter ma demande. Elles
-            ne seront jamais cédées à des tiers.
-          </span>
-        </label>
-        {error && <p className="text-sm font-medium text-red-600">{error}</p>}
+        <FormPrivacyNotice />
+        {error && (
+          <p role="alert" className="text-sm font-medium text-red-600">
+            {error}
+          </p>
+        )}
         <Button
           type="submit"
           variant="ocean"

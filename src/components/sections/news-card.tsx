@@ -12,7 +12,7 @@ export function NewsCard({ item, large = false }: { item: NewsItem; large?: bool
           alt={`${item.title} · Lacanau Océhand`}
           fill
           sizes="(max-width: 768px) 100vw, 33vw"
-          className="object-cover transition-transform duration-700 group-hover:scale-105"
+          className="img-zoom object-cover"
         />
         <div className="absolute left-4 top-4 flex flex-wrap gap-2">
           {item.tags.slice(0, 1).map((t) => (

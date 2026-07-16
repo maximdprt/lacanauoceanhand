@@ -3,6 +3,7 @@
 import { motion, type Variants } from "framer-motion";
 import { MapPin } from "lucide-react";
 
+import { SPRING } from "@/lib/animations";
 import { clubEvents } from "@/data/site";
 import type { ClubEvent } from "@/types";
 
@@ -13,60 +14,42 @@ const typeAccent: Record<ClubEvent["type"], string> = {
   Stage: "var(--c-gardien)",
 };
 
-const cardSpring: Variants = {
-  hidden: { opacity: 0, y: 48, rotate: -2, scale: 0.94 },
+// Entrée sobre : opacity + y uniquement (fadeUp + SPRING.soft).
+// Le tilt reste STATIQUE (via style) et n'est animé qu'au survol.
+const cardEntry: Variants = {
+  hidden: { opacity: 0, y: 24 },
   show: (i: number) => ({
     opacity: 1,
     y: 0,
-    rotate: i % 2 === 0 ? -1.25 : 1.25,
-    scale: 1,
-    transition: {
-      type: "spring",
-      stiffness: 260,
-      damping: 22,
-      delay: i * 0.1,
-    },
+    transition: { ...SPRING.soft, delay: i * 0.08 },
   }),
 };
 
 function EventCard({ ev, index }: { ev: ClubEvent; index: number }) {
   const accent = typeAccent[ev.type];
+  const tilt = index % 2 === 0 ? -1.25 : 1.25; // léger tilt décoratif statique
 
   return (
     <motion.article
       custom={index}
-      variants={cardSpring}
+      variants={cardEntry}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true, margin: "-40px" }}
-      whileHover={{
-        y: -10,
-        rotate: 0,
-        scale: 1.02,
-        transition: { type: "spring", stiffness: 400, damping: 25 },
-      }}
+      viewport={{ once: true, amount: 0.1 }}
+      style={{ rotate: tilt }}
+      whileHover={{ y: -10, rotate: 0, scale: 1.02, transition: SPRING.snappy }}
       className="group relative flex min-w-[260px] snap-center flex-col sm:min-w-0"
     >
-      {/* Onglet mois */}
-      <motion.div
+      {/* Onglet mois — statique, entre avec la carte */}
+      <div
         className="relative z-10 mx-5 w-fit rounded-t-2xl px-5 py-2.5 shadow-md"
         style={{ background: accent }}
-        initial={{ scaleX: 0.6, opacity: 0 }}
-        whileInView={{ scaleX: 1, opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ type: "spring", stiffness: 320, damping: 20, delay: index * 0.1 + 0.15 }}
       >
         <span className="font-display text-xl uppercase tracking-tight text-white sm:text-2xl">
           {ev.month}
         </span>
-        <motion.span
-          className="absolute -bottom-1 left-4 right-4 h-1 rounded-full bg-white/40"
-          initial={{ scaleX: 0 }}
-          whileInView={{ scaleX: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: index * 0.1 + 0.35, duration: 0.5 }}
-        />
-      </motion.div>
+        <span className="absolute -bottom-1 left-4 right-4 h-1 rounded-full bg-white/40" />
+      </div>
 
       {/* Corps de la carte */}
       <div
@@ -76,7 +59,8 @@ function EventCard({ ev, index }: { ev: ClubEvent; index: number }) {
             : "border-line bg-white shadow-sm"
         }`}
       >
-        <motion.div
+        {/* Glow — purement hover, jamais animé au scroll */}
+        <div
           className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-30"
           style={{ background: accent }}
         />
@@ -97,13 +81,10 @@ function EventCard({ ev, index }: { ev: ClubEvent; index: number }) {
           {ev.location}
         </p>
 
-        <motion.div
-          className="absolute bottom-0 left-0 right-0 h-1 origin-left rounded-full"
+        {/* Accent bas — décor statique */}
+        <div
+          className="absolute bottom-0 left-0 right-0 h-1 rounded-full"
           style={{ background: accent }}
-          initial={{ scaleX: 0 }}
-          whileInView={{ scaleX: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: index * 0.1 + 0.4, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         />
       </div>
     </motion.article>
@@ -113,7 +94,13 @@ function EventCard({ ev, index }: { ev: ClubEvent; index: number }) {
 export function EventsCalendar() {
   return (
     <div className="relative">
-      <div className="-mx-4 flex gap-5 overflow-x-auto px-4 pb-3 pt-2 snap-x snap-mandatory sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-4 lg:gap-6">
+      {/* Zone défilable au clavier : focalisable pour permettre le scroll aux flèches */}
+      <div
+        tabIndex={0}
+        role="region"
+        aria-label="Prochains événements du club"
+        className="-mx-4 flex gap-5 overflow-x-auto px-4 pb-3 pt-2 snap-x snap-mandatory focus-visible:outline-2 focus-visible:outline-ocean sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-4 lg:gap-6"
+      >
         {clubEvents.map((ev, i) => (
           <EventCard key={ev.id} ev={ev} index={i} />
         ))}

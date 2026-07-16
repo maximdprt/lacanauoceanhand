@@ -1,8 +1,13 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { Mail, MapPin } from "lucide-react";
 import { InstagramIcon, FacebookIcon } from "@/components/icons/social";
 
+import { stagger, fadeUp, VIEWPORT } from "@/lib/animations";
+import { openConsentBanner } from "@/lib/consent";
 import {
   beachXperienceUrl,
   clubEmail,
@@ -20,21 +25,34 @@ export function SiteFooter() {
     <footer className="mt-24 border-t border-line bg-mist">
       {/* Bande fédération (logos en couleur) */}
       <div className="border-b border-line">
-        <div className="container-x flex flex-wrap items-center justify-center gap-x-10 gap-y-6 py-9">
+        <motion.div
+          variants={stagger}
+          initial="hidden"
+          whileInView="show"
+          viewport={VIEWPORT}
+          className="container-x flex flex-wrap items-center justify-center gap-x-10 gap-y-6 py-9"
+        >
           {federationLogos.map((f) => (
-            <div
+            <motion.div
               key={f.name}
-              className="relative h-14 w-32 rounded-xl bg-white p-2 shadow-(--shadow-xs)"
+              variants={fadeUp}
+              className="relative h-16 w-40 rounded-xl bg-white px-4 py-3 shadow-(--shadow-xs)"
             >
-              <Image src={f.logo} alt={f.name} fill className="object-contain p-1" />
-            </div>
+              <Image src={f.logo} alt={f.name} fill sizes="160px" className="object-contain" />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
 
-      <div className="container-x grid gap-12 py-14 md:grid-cols-[1.4fr_1fr_1fr]">
+      <motion.div
+        variants={stagger}
+        initial="hidden"
+        whileInView="show"
+        viewport={VIEWPORT}
+        className="container-x grid gap-12 py-14 md:grid-cols-[1.4fr_1fr_1fr]"
+      >
         {/* Marque */}
-        <div>
+        <motion.div variants={fadeUp}>
           <div className="flex items-center gap-2.5">
             <Image
               src="/brand/logo-color.png"
@@ -71,29 +89,31 @@ export function SiteFooter() {
               <FacebookIcon size={18} />
             </a>
           </div>
-        </div>
+        </motion.div>
 
         {/* Navigation */}
-        <div>
+        <motion.div variants={fadeUp}>
           <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-ink-soft">
             Navigation
           </p>
-          <ul className="space-y-2.5">
-            {navItems.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className="text-base text-ink/80 transition hover:text-ocean"
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
+          <nav aria-label="Pied de page">
+            <ul className="space-y-2.5">
+              {navItems.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="text-base text-ink/80 transition hover:text-ocean"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </motion.div>
 
         {/* Contact */}
-        <div>
+        <motion.div variants={fadeUp}>
           <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-ink-soft">
             Contact
           </p>
@@ -121,13 +141,33 @@ export function SiteFooter() {
             </div>
             <ExternalLink size={16} className="mt-0.5 shrink-0 text-ocean" />
           </a>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       <div className="border-t border-line">
-        <div className="container-x flex flex-col items-center justify-between gap-2 py-5 text-xs text-ink-soft sm:flex-row">
+        <div className="container-x flex flex-col items-center justify-between gap-3 py-5 text-xs text-ink-soft sm:flex-row">
           <p>© {year} Lacanau Océhand · Site officiel du handball à Lacanau.</p>
-          <p>Champions de France 2024 · ⚫⚪</p>
+          <ul className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
+            <li>
+              <Link href="/mentions-legales" className="transition hover:text-ocean">
+                Mentions légales
+              </Link>
+            </li>
+            <li>
+              <Link href="/politique-confidentialite" className="transition hover:text-ocean">
+                Confidentialité
+              </Link>
+            </li>
+            <li>
+              <button
+                type="button"
+                onClick={openConsentBanner}
+                className="cursor-pointer transition hover:text-ocean"
+              >
+                Gérer mes cookies
+              </button>
+            </li>
+          </ul>
         </div>
       </div>
     </footer>

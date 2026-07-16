@@ -64,6 +64,7 @@ export function StaffGrid() {
           <button
             key={pole}
             type="button"
+            aria-pressed={activePole === pole}
             onClick={() => setActivePole(pole)}
             className={cn(
               "rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-wider transition",

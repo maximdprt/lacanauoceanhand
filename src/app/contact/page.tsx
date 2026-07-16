@@ -12,7 +12,6 @@ export const metadata = buildMetadata({
   description:
     "Contactez Lacanau Océhand : club de handball à Lacanau (33680, Gironde). E-mail, réseaux sociaux, salle de la Cousteyre. Nous répondons rapidement.",
   path: "/contact",
-  keywords: ["contact handball Lacanau", "adresse club handball Lacanau", "email handball Lacanau"],
 });
 
 export default function ContactPage() {

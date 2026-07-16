@@ -23,12 +23,12 @@ export function GalleryLightbox({ items }: { items: GalleryItem[] }) {
             className="group aspect-4/3 overflow-hidden rounded-lg border border-white/15"
             onClick={() => setIndex(itemIndex)}
           >
-            <div className="relative h-full w-full transition group-hover:scale-105">
+            <div className="relative h-full w-full">
               <Image
                 src={item.src}
                 alt={item.alt}
                 fill
-                className="object-cover"
+                className="object-cover img-zoom"
                 sizes="(max-width: 1024px) 50vw, 25vw"
               />
             </div>

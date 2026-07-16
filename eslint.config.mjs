@@ -18,6 +18,8 @@ const eslintConfig = defineConfig([
     ".vercel/**",
     "lacanau-ocehand_zip_extracted/**",
     "wetransfer_assets/**",
+    // Scripts tiers self-hébergés (minifiés)
+    "public/vendor/**",
   ]),
 ]);
 

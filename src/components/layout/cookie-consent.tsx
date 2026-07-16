@@ -1,31 +1,36 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { Cookie } from "lucide-react";
 
-const STORAGE_KEY = "ocehand-cookie-consent";
+import {
+  CONSENT_OPEN_EVENT,
+  readConsent,
+  writeConsent,
+  type ConsentValue,
+} from "@/lib/consent";
 
 export function CookieConsent() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    try {
-      if (!localStorage.getItem(STORAGE_KEY)) {
-        const t = setTimeout(() => setVisible(true), 1200);
-        return () => clearTimeout(t);
-      }
-    } catch {
-      /* localStorage indisponible : on n'affiche rien */
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    if (readConsent() === null) {
+      timer = setTimeout(() => setVisible(true), 1200);
     }
+    // Ré-affichage via « Gérer mes cookies » (footer / politique de confidentialité)
+    const onOpen = () => setVisible(true);
+    window.addEventListener(CONSENT_OPEN_EVENT, onOpen);
+    return () => {
+      if (timer) clearTimeout(timer);
+      window.removeEventListener(CONSENT_OPEN_EVENT, onOpen);
+    };
   }, []);
 
-  const decide = (value: "accepted" | "refused") => {
-    try {
-      localStorage.setItem(STORAGE_KEY, value);
-    } catch {
-      /* ignore */
-    }
+  const decide = (value: ConsentValue) => {
+    writeConsent(value);
     setVisible(false);
   };
 
@@ -37,17 +42,24 @@ export function CookieConsent() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 40 }}
           transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          role="dialog"
+          role="region"
           aria-label="Gestion des cookies"
           className="fixed inset-x-3 bottom-3 z-60 mx-auto max-w-3xl rounded-2xl border border-line bg-white p-5 shadow-(--shadow-lg) sm:inset-x-4 sm:bottom-4 sm:p-6"
         >
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
             <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-ocean-tint text-ocean">
-              <Cookie size={20} />
+              <Cookie size={20} aria-hidden="true" />
             </span>
             <p className="flex-1 text-sm leading-relaxed text-ink-soft">
-              Ce site utilise des cookies pour améliorer votre expérience et mesurer
-              son audience. Vous pouvez les accepter ou les refuser.
+              Avec votre accord, nous utilisons des cookies de mesure
+              d&apos;audience (Google Analytics, Microsoft Clarity) pour
+              améliorer le site. Refuser n&apos;empêche pas de naviguer.{" "}
+              <Link
+                href="/politique-confidentialite"
+                className="font-semibold text-ocean underline underline-offset-2 hover:text-ocean-deep"
+              >
+                En savoir plus
+              </Link>
             </p>
             <div className="flex shrink-0 gap-2">
               <button

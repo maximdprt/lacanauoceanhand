@@ -9,16 +9,16 @@ export const metadata: Metadata = buildMetadata({
   description:
     "Encadrement sportif, médical et direction de Lacanau Océhand. Découvrez les bénévoles, entraîneurs et dirigeants du club de handball de Lacanau.",
   path: "/le-club/staff",
-  keywords: ["staff handball Lacanau", "entraîneurs handball Lacanau", "bénévoles handball Gironde"],
 });
 
 export default function StaffPage() {
   return (
-    <div className="space-y-8">
+    <div className="container-x space-y-10 py-16 md:space-y-12 md:py-24">
       <SectionTitle
+        as="h1"
         eyebrow="Le Club"
         title="Le Staff"
-        description="Grille filtrable des profils qui pilotent le projet sportif du club."
+        description="Entraîneurs, dirigeants et bénévoles : rencontrez les femmes et les hommes qui font vivre le club et portent son projet sportif au quotidien."
       />
       <StaffGrid />
     </div>

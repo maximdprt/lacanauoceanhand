@@ -5,7 +5,7 @@ import { buildMetadata } from "@/lib/site";
 import { PageHero } from "@/components/sections/page-hero";
 import { TeamsExplorer } from "@/components/sections/teams-explorer";
 import { Reveal } from "@/components/common/reveal";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { teams } from "@/data/site";
 
 export const metadata = buildMetadata({
@@ -13,7 +13,6 @@ export const metadata = buildMetadata({
   description:
     "Du baby handball aux seniors, beach handball, école de gardien et d'arbitrage : toutes les équipes de Lacanau Océhand en Gironde. Trouvez votre catégorie.",
   path: "/equipes",
-  keywords: ["équipes handball Lacanau", "baby handball Lacanau", "handball jeunes Gironde", "seniors handball Lacanau"],
 });
 
 export default function TeamsPage() {
@@ -51,10 +50,8 @@ export default function TeamsPage() {
               Premier entraînement découverte offert, toutes catégories.
             </p>
           </div>
-          <Link href="/rejoindre">
-            <Button variant="ocean" size="lg">
-              S’inscrire au club <ArrowRight size={18} />
-            </Button>
+          <Link href="/rejoindre" className={buttonVariants({ variant: "ocean", size: "lg" })}>
+            S’inscrire au club <ArrowRight size={18} aria-hidden="true" />
           </Link>
         </div>
       </section>

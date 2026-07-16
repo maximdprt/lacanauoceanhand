@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { FormPrivacyNotice } from "@/components/common/form-privacy-notice";
 import { clubEmail, playerCategories, volunteerRoles } from "@/data/site";
 import { sendForm } from "@/lib/send-form";
 
@@ -28,7 +29,10 @@ const tabs: { id: TabId; label: string; icon: typeof User }[] = [
 
 function SuccessPanel({ onReset }: { onReset: () => void }) {
   return (
-    <div className="flex flex-col items-center rounded-(--radius) border border-line bg-white px-6 py-14 text-center">
+    <div
+      role="status"
+      className="flex flex-col items-center rounded-(--radius) border border-line bg-white px-6 py-14 text-center"
+    >
       <span className="flex h-14 w-14 items-center justify-center rounded-full bg-ocean-tint text-ocean">
         <CheckCircle2 size={28} />
       </span>
@@ -53,30 +57,15 @@ function SuccessPanel({ onReset }: { onReset: () => void }) {
   );
 }
 
-function ConsentRow({
-  checked,
-  onChange,
-  error,
-}: {
-  checked: boolean;
-  onChange: (v: boolean) => void;
-  error: string;
-}) {
+function PrivacyRow({ error, minors = false }: { error: string; minors?: boolean }) {
   return (
     <>
-      <label className="flex items-start gap-2.5 text-sm leading-relaxed text-ink-soft">
-        <input
-          type="checkbox"
-          checked={checked}
-          onChange={(e) => onChange(e.target.checked)}
-          className="mt-0.5 h-4 w-4 shrink-0 rounded border-line-strong accent-ocean"
-        />
-        <span>
-          J’accepte que les informations saisies soient utilisées par le club pour
-          traiter ma demande. Elles ne seront jamais cédées à des tiers.
-        </span>
-      </label>
-      {error && <p className="text-sm font-medium text-red-600">{error}</p>}
+      <FormPrivacyNotice minors={minors} />
+      {error && (
+        <p role="alert" className="text-sm font-medium text-red-600">
+          {error}
+        </p>
+      )}
     </>
   );
 }
@@ -85,7 +74,6 @@ export function JoinForms() {
   const [active, setActive] = useState<TabId>("joueur");
   const [sent, setSent] = useState<TabId | null>(null);
   const [roles, setRoles] = useState<string[]>([]);
-  const [consent, setConsent] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
 
@@ -103,10 +91,6 @@ export function JoinForms() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!consent) {
-      setError("Merci d'accepter l'utilisation de vos données pour être recontacté.");
-      return;
-    }
     setError("");
     setSending(true);
 
@@ -136,7 +120,6 @@ export function JoinForms() {
   const switchTab = (id: TabId) => {
     setActive(id);
     setSent(null);
-    setConsent(false);
     setError("");
   };
 
@@ -151,6 +134,7 @@ export function JoinForms() {
             <button
               key={t.id}
               type="button"
+              aria-pressed={on}
               onClick={() => switchTab(t.id)}
               className={cn(
                 "inline-flex items-center gap-2 rounded-full border px-5 py-2.5 text-sm font-semibold transition-all",
@@ -217,7 +201,7 @@ export function JoinForms() {
                 <Field label="Message (facultatif)" htmlFor="j-message">
                   <Textarea id="j-message" name="message" placeholder="Niveau, expérience, questions…" />
                 </Field>
-                <ConsentRow checked={consent} onChange={setConsent} error={error} />
+                <PrivacyRow error={error} minors />
                 <Button type="submit" variant="ocean" size="lg" className="w-full sm:w-auto" disabled={sending}>
                   {sending ? "Envoi en cours…" : "Envoyer ma demande d'inscription"}
                 </Button>
@@ -276,7 +260,7 @@ export function JoinForms() {
                 <Field label="Message (facultatif)" htmlFor="b-message">
                   <Textarea id="b-message" name="message" placeholder="Vos disponibilités, vos envies…" />
                 </Field>
-                <ConsentRow checked={consent} onChange={setConsent} error={error} />
+                <PrivacyRow error={error} />
                 <Button type="submit" variant="ocean" size="lg" className="w-full sm:w-auto" disabled={sending}>
                   {sending ? "Envoi en cours…" : "Devenir bénévole"}
                 </Button>
@@ -313,7 +297,7 @@ export function JoinForms() {
                     placeholder="Type de partenariat envisagé, budget, attentes…"
                   />
                 </Field>
-                <ConsentRow checked={consent} onChange={setConsent} error={error} />
+                <PrivacyRow error={error} />
                 <Button type="submit" variant="ocean" size="lg" className="w-full sm:w-auto" disabled={sending}>
                   {sending ? "Envoi en cours…" : "Proposer un partenariat"}
                 </Button>

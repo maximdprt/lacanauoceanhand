@@ -1,15 +1,24 @@
+"use client";
+
+import { motion } from "framer-motion";
 import { NewsCard } from "@/components/sections/news-card";
-import { Reveal } from "@/components/common/reveal";
+import { stagger, fadeUp, VIEWPORT } from "@/lib/animations";
 import type { NewsItem } from "@/types";
 
 export function NewsPreview({ items }: { items: NewsItem[] }) {
   return (
-    <div className="grid gap-6 md:grid-cols-3">
-      {items.map((item, i) => (
-        <Reveal key={item.id} delay={i * 0.08}>
+    <motion.div
+      variants={stagger}
+      initial="hidden"
+      whileInView="show"
+      viewport={VIEWPORT}
+      className="grid gap-6 md:grid-cols-3"
+    >
+      {items.map((item) => (
+        <motion.div key={item.id} variants={fadeUp}>
           <NewsCard item={item} />
-        </Reveal>
+        </motion.div>
       ))}
-    </div>
+    </motion.div>
   );
 }

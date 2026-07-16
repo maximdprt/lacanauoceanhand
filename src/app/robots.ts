@@ -22,7 +22,8 @@ export default function robots(): MetadataRoute.Robots {
         disallow: "/",
       },
     ],
+    // NB : pas de champ host — directive non standard, ignorée par
+    // Google/Bing ; la canonicalisation passe par les balises canonical.
     sitemap: `${siteConfig.url}/sitemap.xml`,
-    host: siteConfig.url,
   };
 }

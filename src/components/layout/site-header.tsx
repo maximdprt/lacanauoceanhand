@@ -8,8 +8,9 @@ import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 
 import { navItems, beachXperienceUrl } from "@/data/site";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { SPRING } from "@/lib/animations";
 
 export function SiteHeader() {
   const pathname = usePathname();
@@ -30,6 +31,16 @@ export function SiteHeader() {
     };
   }, [open]);
 
+  // Fermer le menu mobile à la touche Échap
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [open]);
+
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
@@ -42,49 +53,73 @@ export function SiteHeader() {
           : "border-b border-transparent bg-white/0",
       )}
     >
-      <div className="container-x flex h-[68px] items-center justify-between gap-6">
+      <div
+        className={cn(
+          "container-x flex items-center justify-between gap-6 transition-all duration-300",
+          scrolled ? "h-[56px]" : "h-[68px]",
+        )}
+      >
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2.5" aria-label="Accueil Lacanau Océhand">
-          <Image
-            src="/brand/logo-color.png"
-            alt="Logo Lacanau Océhand"
-            width={40}
-            height={40}
-            className="h-10 w-10 object-contain"
-          />
-          <span className="font-display text-xl uppercase tracking-tight text-ink">
-            Lacanau<span className="text-ocean"> Océhand</span>
-          </span>
+        <Link href="/" aria-label="Accueil Lacanau Océhand">
+          <motion.span
+            className="flex items-center gap-2.5"
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            transition={SPRING.snappy}
+          >
+            <Image
+              src="/brand/logo-color.png"
+              alt="Logo Lacanau Océhand"
+              width={40}
+              height={40}
+              className={cn(
+                "h-10 w-10 object-contain transition-transform duration-300",
+                scrolled && "scale-95",
+              )}
+            />
+            <span className="font-display text-xl uppercase tracking-tight text-ink">
+              Lacanau<span className="text-ocean"> Océhand</span>
+            </span>
+          </motion.span>
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden items-center gap-7 lg:flex">
+        <nav aria-label="Navigation principale" className="hidden items-center gap-7 lg:flex">
           {navItems.slice(0, -1).map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              data-active={isActive(item.href)}
               className={cn(
-                "nav-link text-sm font-semibold text-ink/80 transition hover:text-ink",
+                "nav-link relative text-sm font-semibold text-ink/80 transition hover:text-ink",
                 isActive(item.href) && "text-ink",
               )}
             >
               {item.label}
+              {isActive(item.href) && (
+                <motion.span
+                  layoutId="nav-underline"
+                  className="absolute -bottom-1 left-0 h-0.5 w-full bg-ink"
+                  transition={SPRING.soft}
+                />
+              )}
             </Link>
           ))}
           <Link
-            href="/rejoindre"
-            className="rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-ocean"
+            href="/contact"
+            className="btn-press rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-ocean"
           >
-            Rejoindre
+            Contact
           </Link>
-          <a href={beachXperienceUrl} target="_blank" rel="noopener noreferrer">
-            <Button
-              variant="ocean"
-              className="rounded-full px-5 py-2.5 text-sm"
-            >
-              Beach Xperience
-            </Button>
+          <a
+            href={beachXperienceUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cn(
+              buttonVariants({ variant: "ocean" }),
+              "btn-press rounded-full px-5 py-2.5 text-sm",
+            )}
+          >
+            Beach Xperience
           </a>
         </nav>
 
@@ -94,8 +129,10 @@ export function SiteHeader() {
           onClick={() => setOpen((v) => !v)}
           className="flex h-10 w-10 items-center justify-center rounded-full border border-line text-ink lg:hidden"
           aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
+          aria-expanded={open}
+          aria-controls="menu-mobile"
         >
-          {open ? <X size={20} /> : <Menu size={20} />}
+          {open ? <X size={20} aria-hidden="true" /> : <Menu size={20} aria-hidden="true" />}
         </button>
       </div>
 
@@ -107,9 +144,10 @@ export function SiteHeader() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
+            id="menu-mobile"
             className="fixed inset-0 top-[68px] z-40 bg-white lg:hidden"
           >
-            <nav className="container-x flex flex-col gap-1 py-6">
+            <nav aria-label="Menu mobile" className="container-x flex flex-col gap-1 py-6">
               {navItems.map((item, i) => (
                 <motion.div
                   key={item.href}

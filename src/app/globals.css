@@ -177,6 +177,22 @@ body {
   border-color: var(--line-strong);
 }
 
+/* ---------- Retour tactile « enfoncé » pour tout élément cliquable ---------- */
+.btn-press {
+  transition: transform 0.15s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.btn-press:active {
+  transform: scale(0.97);
+}
+
+/* Zoom d'image standard au survol d'une carte (conteneur en overflow-hidden) */
+.img-zoom {
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.group:hover .img-zoom {
+  transform: scale(1.05);
+}
+
 /* texte doré en filet (champion) */
 .text-gold-grad {
   background: linear-gradient(100deg, var(--gold) 0%, #f2c969 50%, var(--gold) 100%);
@@ -204,7 +220,8 @@ body {
   animation: marquee 36s linear infinite;
   will-change: transform;
 }
-.marquee:hover { animation-play-state: paused; }
+.marquee:hover,
+.marquee:focus-within { animation-play-state: paused; }
 @keyframes marquee {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
@@ -297,14 +314,41 @@ body {
   background: radial-gradient(60% 60% at 50% 0%, rgba(224, 169, 52, 0.18), transparent 70%);
 }
 
-/* ---------- Réduction de mouvement ---------- */
+/* ---------- Filet de sécurité : JS désactivé ----------
+   Si le JavaScript ne s'exécute pas, les blocs animés au scroll
+   (initial opacity:0 côté SSR) doivent rester visibles. */
+@media (scripting: none) {
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ---------- Réduction de mouvement ----------
+   On coupe les grosses animations d'ambiance et les apparitions au
+   scroll, mais on CONSERVE les micro-interactions courtes (hover, press,
+   soulignement) plafonnées à 150 ms — plus confortable qu'un gel total.
+   Les animations framer-motion sont gérées via <MotionConfig reducedMotion="user">. */
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .marquee {
+    animation: none;
+    transform: none;
+  }
+  .hero-zoom,
+  .hero-fade-up {
+    animation: none !important;
+  }
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
   *,
   *::before,
   *::after {
-    animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-    scroll-behavior: auto !important;
+    transition-duration: 150ms !important;
   }
 }

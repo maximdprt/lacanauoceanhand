@@ -9,7 +9,6 @@ export const metadata = buildMetadata({
   description:
     "Toute l'actualité du club de handball de Lacanau : résultats, titres, tournois et moments forts de la saison à Lacanau Océhand en Gironde.",
   path: "/evenements",
-  keywords: ["actualités handball Lacanau", "événements handball Lacanau", "tournoi handball Gironde"],
 });
 
 export default function NewsPage() {

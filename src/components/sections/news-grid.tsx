@@ -1,23 +1,32 @@
+"use client";
+
+import { motion } from "framer-motion";
 import { NewsCard } from "@/components/sections/news-card";
-import { Reveal } from "@/components/common/reveal";
+import { stagger, fadeUp, VIEWPORT } from "@/lib/animations";
 import type { NewsItem } from "@/types";
 
 export function NewsGrid({ items }: { items: NewsItem[] }) {
   const [first, ...rest] = items;
   return (
-    <div className="grid gap-6">
+    <motion.div
+      variants={stagger}
+      initial="hidden"
+      whileInView="show"
+      viewport={VIEWPORT}
+      className="grid gap-6"
+    >
       {first && (
-        <Reveal>
+        <motion.div variants={fadeUp}>
           <NewsCard item={first} large />
-        </Reveal>
+        </motion.div>
       )}
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {rest.map((item, i) => (
-          <Reveal key={item.id} delay={i * 0.06}>
+      <motion.div variants={stagger} className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {rest.map((item) => (
+          <motion.div key={item.id} variants={fadeUp}>
             <NewsCard item={item} />
-          </Reveal>
+          </motion.div>
         ))}
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }

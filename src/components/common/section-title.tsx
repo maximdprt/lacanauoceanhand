@@ -7,6 +7,7 @@ export function SectionTitle({
   description,
   align = "left",
   light = false,
+  as: Tag = "h2",
 }: {
   index?: string;
   eyebrow?: string;
@@ -14,6 +15,8 @@ export function SectionTitle({
   description?: string;
   align?: "left" | "center";
   light?: boolean;
+  /** "h1" quand le SectionTitle sert de titre principal de page (un seul h1 par page). */
+  as?: "h1" | "h2";
 }) {
   return (
     <div className={cn("max-w-2xl", align === "center" && "mx-auto text-center")}>
@@ -41,14 +44,14 @@ export function SectionTitle({
           )}
         </div>
       )}
-      <h2
+      <Tag
         className={cn(
           "headline text-[clamp(1.9rem,5vw,3.25rem)]",
           light ? "text-white" : "text-ink",
         )}
       >
         {title}
-      </h2>
+      </Tag>
       {description && (
         <p
           className={cn(

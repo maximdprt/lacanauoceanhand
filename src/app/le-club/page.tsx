@@ -1,4 +1,6 @@
 import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 import { buildMetadata } from "@/lib/site";
 import { PageHero } from "@/components/sections/page-hero";
@@ -16,10 +18,22 @@ import type { StaffMember } from "@/types";
 export const metadata = buildMetadata({
   title: "Le club",
   description:
-    "Né en 2017 à Lacanau, Lacanau Océhand est champion de France 2024. Découvrez l'histoire, le palmarès, le staff et les installations du club de handball en Gironde.",
+    "Né en 2017, Lacanau Océhand est champion de France 2024. Histoire, palmarès, staff et salles du club de handball de Lacanau, en Gironde.",
   path: "/le-club",
-  keywords: ["histoire club handball Lacanau", "palmarès handball Lacanau", "staff handball Lacanau"],
 });
+
+/** Lien de fin de section vers la page détaillée (maillage interne). */
+function SectionLink({ href, label }: { href: string; label: string }) {
+  return (
+    <Link
+      href={href}
+      className="mt-10 inline-flex items-center gap-2 text-sm font-semibold text-ocean transition hover:text-ocean-deep"
+    >
+      {label}
+      <ArrowRight size={15} aria-hidden="true" />
+    </Link>
+  );
+}
 
 function initials(name: string) {
   return name
@@ -120,6 +134,10 @@ export default function ClubPage() {
               </Reveal>
             ))}
           </div>
+          <SectionLink
+            href="/le-club/histoire-palmares"
+            label="Voir l'histoire et le palmarès en détail"
+          />
         </div>
       </section>
 
@@ -200,6 +218,7 @@ export default function ClubPage() {
               </Reveal>
             ))}
           </div>
+          <SectionLink href="/le-club/salles" label="Adresses et plans d'accès des salles" />
         </div>
       </section>
 
@@ -247,6 +266,7 @@ export default function ClubPage() {
             </Reveal>
           ))}
         </div>
+        <SectionLink href="/le-club/staff" label="Découvrir tout le staff du club" />
       </section>
     </>
   );

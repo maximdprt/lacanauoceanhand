@@ -16,7 +16,6 @@ export const metadata = buildMetadata({
   description:
     "Calendrier des matchs, résultats, horaires d'entraînement et tarifs des licences du club de handball de Lacanau. Toutes les infos pratiques.",
   path: "/saison",
-  keywords: ["calendrier handball Lacanau", "résultats handball Lacanau", "matchs handball Gironde"],
 });
 
 export default function SeasonPage() {

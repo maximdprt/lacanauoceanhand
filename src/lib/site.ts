@@ -1,41 +1,9 @@
 import type { Metadata } from "next";
 
 /* ============================================================
-   MOTS-CLÉS SEO — référencement local + thématique sport
-   ============================================================ */
-export const seoKeywords = [
-  // Local — ville
-  "Lacanau handball",
-  "handball Lacanau",
-  "club de handball Lacanau",
-  "Lacanau Océhand",
-  "association sportive Lacanau",
-  "sport collectif Lacanau",
-  "club sportif Lacanau",
-  // Local — département / région
-  "handball Gironde",
-  "handball Nouvelle-Aquitaine",
-  "handball Médoc",
-  "club handball Médoc",
-  "handball Gironde loisirs",
-  // Pratiques
-  "beach handball Lacanau",
-  "école de handball Lacanau",
-  "baby handball Lacanau",
-  "handball jeunes Lacanau",
-  "handball loisirs Lacanau",
-  "handball seniors Lacanau",
-  // Inscriptions
-  "s'inscrire handball Lacanau",
-  "inscription handball Lacanau",
-  "licence handball Lacanau",
-  // Palmares
-  "champions de France handball 2024",
-  "coupe de france handball departementale",
-];
-
-/* ============================================================
    CONFIGURATION DU SITE
+   NB : pas de meta keywords — ignorée par Google depuis 2009,
+   elle ne fait que révéler la stratégie SEO aux concurrents.
    ============================================================ */
 export const siteConfig = {
   name: "Lacanau Océhand",
@@ -43,7 +11,6 @@ export const siteConfig = {
   description:
     "Club de handball à Lacanau, champion de France 2024. Du baby hand aux seniors, en salle et en beach handball. Rejoignez Lacanau Océhand en Gironde.",
   url: "https://lacanau-ocehand.fr",
-  keywords: seoKeywords,
   locale: "fr_FR",
   locality: "Lacanau",
   postalCode: "33680",
@@ -56,8 +23,9 @@ export const siteConfig = {
   facebook: "https://www.facebook.com/lacanau.OceHand/",
   xperienceUrl: "https://site-lbhx.vercel.app",
   xperienceLabel: "Lacanau Beach Handball Xperience",
-  // Image OG par défaut (photo champions de Bercy, 1200×630 idéal)
-  ogImage: "/media/club/hero-coupe-bercy.jpg",
+  // Image OG par défaut : recadrage dédié 1200×630 (< 200 Ko),
+  // généré depuis la photo des champions de Bercy.
+  ogImage: "/media/og-image.jpg",
 };
 
 /* ============================================================
@@ -70,28 +38,23 @@ export function buildMetadata({
   description,
   path = "/",
   image,
-  keywords,
   noIndex = false,
 }: {
   title: string;
   description: string;
   path?: string;
-  /** Chemin absolu vers l'image OG (/media/...). Par défaut : photo des champions. */
+  /** Chemin absolu vers l'image OG (/media/...). Par défaut : recadrage 1200×630. */
   image?: string;
-  /** Mots-clés supplémentaires spécifiques à la page. */
-  keywords?: string[];
   /** Passer à true pour noindex (pages orphelines, etc.). */
   noIndex?: boolean;
 }): Metadata {
   const fullTitle = `${title} | ${siteConfig.name}`;
   const canonical = `${siteConfig.url}${path}`;
   const ogImage = `${siteConfig.url}${image ?? siteConfig.ogImage}`;
-  const allKeywords = [...seoKeywords, ...(keywords ?? [])];
 
   return {
     title: { absolute: fullTitle },
     description,
-    keywords: allKeywords,
     authors: [{ name: siteConfig.name, url: siteConfig.url }],
     creator: siteConfig.name,
     publisher: siteConfig.name,

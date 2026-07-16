@@ -3,7 +3,9 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 import { HeroSection } from "@/components/sections/hero-section";
+import { StatsBar } from "@/components/sections/stats-bar";
 import { FiliereCards } from "@/components/sections/filiere-cards";
+import { BeachSection } from "@/components/sections/beach-section";
 import { JoinCta } from "@/components/sections/join-cta";
 import { EventsCalendar } from "@/components/sections/events-calendar";
 import { ScorencoEmbed } from "@/components/sections/scorenco-embed";
@@ -14,42 +16,31 @@ import { Faq } from "@/components/sections/faq";
 import { PartnersCarousel } from "@/components/sections/partners-carousel";
 import { SectionTitle } from "@/components/common/section-title";
 import { Reveal } from "@/components/common/reveal";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
+import { buildMetadata } from "@/lib/site";
 
 import {
+  clubStats,
   faqItems,
   newsItems,
   partners,
 } from "@/data/site";
 
-export const metadata: Metadata = {
-  title: {
-    absolute:
-      "Lacanau Océhand · Club de handball à Lacanau | Champions de France 2024",
-  },
+export const metadata: Metadata = buildMetadata({
+  // Title ≤ 60 caractères, description 120-155 : non tronqués en SERP.
+  title: "Club de handball à Lacanau",
   description:
-    "Rejoignez Lacanau Océhand, le club de handball à Lacanau (Gironde). Baby hand, jeunes, seniors, beach handball. Vainqueurs de la Coupe de France 2024. Inscriptions ouvertes.",
-  alternates: { canonical: "/" },
-  openGraph: {
-    title: "Lacanau Océhand · Club de handball à Lacanau",
-    description:
-      "Baby hand, jeunes, seniors, beach handball en Gironde. Champions de France 2024. Inscriptions ouvertes.",
-    url: "https://lacanau-ocehand.fr",
-    images: [
-      {
-        url: "https://lacanau-ocehand.fr/media/club/hero-coupe-bercy.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Lacanau Océhand · Champions de France 2024",
-      },
-    ],
-  },
-};
+    "Club de handball à Lacanau (Gironde), vainqueur de la Coupe de France 2024. Baby hand, jeunes, seniors, beach handball : inscriptions ouvertes.",
+  path: "/",
+});
 
 export default function HomePage() {
   return (
     <>
       <HeroSection />
+
+      {/* CHIFFRES CLÉS */}
+      <StatsBar stats={clubStats} />
 
       {/* FILIÈRES */}
       <section className="container-x section-pad">
@@ -62,6 +53,9 @@ export default function HomePage() {
           </Reveal>
         </div>
       </section>
+
+      {/* BEACH HANDBALL */}
+      <BeachSection />
 
       {/* REJOINDRE LE CLUB */}
       <section className="border-y border-line bg-mist">
@@ -87,10 +81,8 @@ export default function HomePage() {
           <ScorencoEmbed />
         </div>
         <div className="mt-8">
-          <Link href="/saison">
-            <Button variant="outline" size="md">
-              Voir toute la saison <ArrowRight size={16} />
-            </Button>
+          <Link href="/saison" className={buttonVariants({ variant: "outline", size: "md" })}>
+            Voir toute la saison <ArrowRight size={16} />
           </Link>
         </div>
       </section>
@@ -101,10 +93,8 @@ export default function HomePage() {
           <Reveal>
             <SectionTitle title="La vie du club" align="center" />
             <div className="mt-6 flex justify-center">
-              <Link href="/evenements">
-                <Button variant="ghost" size="md">
-                  Toutes les actus <ArrowRight size={16} />
-                </Button>
+              <Link href="/evenements" className={buttonVariants({ variant: "ghost", size: "md" })}>
+                Toutes les actus <ArrowRight size={16} />
               </Link>
             </div>
           </Reveal>

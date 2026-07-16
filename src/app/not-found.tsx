@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Page introuvable (404)",
@@ -34,10 +35,11 @@ export default function NotFound() {
         pour retrouver le handball à Lacanau.
       </p>
 
-      <Link href="/" className="mt-8">
-        <Button variant="primary" size="lg">
-          <ArrowLeft size={18} /> Retour à l&apos;accueil
-        </Button>
+      <Link
+        href="/"
+        className={cn(buttonVariants({ variant: "primary", size: "lg" }), "mt-8")}
+      >
+        <ArrowLeft size={18} aria-hidden="true" /> Retour à l&apos;accueil
       </Link>
 
       {/* Maillage interne — aide le crawl Google et l'UX */}

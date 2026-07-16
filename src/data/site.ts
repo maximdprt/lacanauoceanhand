@@ -48,62 +48,10 @@ export const clubStats: ClubStat[] = [
 ];
 
 /* ============================================================
-   MATCH CENTER
-   ⚠️ À mettre à jour avec le calendrier réel de la saison.
-   « latestResults » ci-dessous reprend le parcours réel
-   de la Coupe de France 2024 (exacts).
+   RÉSULTATS RÉCENTS (championnat) — données de secours.
+   Le calendrier et les scores en direct sont fournis par les
+   widgets Score'n'co ; « latestResults » n'est pas affiché tel quel.
    ============================================================ */
-export const upcomingMatches: MatchItem[] = [
-  {
-    id: "u1",
-    date: "À confirmer",
-    competition: "Seniors masculins",
-    opponent: "Adversaire à définir",
-    location: "Salle de la Cousteyre",
-    isHome: true,
-  },
-  {
-    id: "u2",
-    date: "À confirmer",
-    competition: "U18 masculins",
-    opponent: "Adversaire à définir",
-    location: "À définir",
-    isHome: false,
-  },
-  {
-    id: "u3",
-    date: "À confirmer",
-    competition: "U15 masculins",
-    opponent: "Adversaire à définir",
-    location: "À définir",
-    isHome: true,
-  },
-  {
-    id: "u4",
-    date: "À confirmer",
-    competition: "U13 masculins",
-    opponent: "Adversaire à définir",
-    location: "À définir",
-    isHome: false,
-  },
-  {
-    id: "u5",
-    date: "À confirmer",
-    competition: "U13 féminines",
-    opponent: "Adversaire à définir",
-    location: "Salle de la Cousteyre",
-    isHome: true,
-  },
-  {
-    id: "u6",
-    date: "À confirmer",
-    competition: "U11 masculins",
-    opponent: "Adversaire à définir",
-    location: "À définir",
-    isHome: false,
-  },
-];
-
 export const latestResults: MatchItem[] = [
   {
     id: "r1",
@@ -302,7 +250,7 @@ export const teams: Team[] = [
     group: "arbitrage",
     age: "Dès 13 ans",
     schedule: ["Formation continue"],
-    coach: "Céline",
+    coach: "Céline Dirson",
     description:
       "Apprendre à arbitrer, comprendre les règles et accompagner les rencontres du club avec confiance.",
     image: "/media/teams/ecole-arbitrage.jpg",
@@ -349,21 +297,21 @@ export const timelineEvents: TimelineEvent[] = [
 
 export const palmares: Palmares[] = [
   {
-    season: "2023 à 2024",
+    season: "Saison 2023-2024",
     lines: [
       "Vainqueurs de la Coupe de France départementale (30-29 vs Ste Gemmes sur Loire)",
       "Champions de Gironde, Seniors garçons (22V · 0N · 0D)",
     ],
   },
   {
-    season: "2022 à 2023",
+    season: "Saison 2022-2023",
     lines: [
       "Champions de Gironde, Seniors garçons (27V · 0N · 0D)",
       "1/4 de finaliste Coupe de France (top 8 / 1 000 équipes)",
     ],
   },
   {
-    season: "2021 à 2022",
+    season: "Saison 2021-2022",
     lines: ["Champions de Gironde, Promotion (15V · 3N · 1D)"],
   },
 ];
@@ -376,13 +324,13 @@ export const salles: Salle[] = [
     name: "Salle de la Cousteyre",
     usage: "Salle omnisports, entraînements & matchs à domicile",
     address: "Lacanau",
-    image: "/media/club/gymnase-cousteyre.jpg",
+    image: "/media/club/salle-cousteyre.jpg",
   },
   {
     name: "Le Cosec",
     usage: "Créneaux d'entraînement complémentaires",
     address: "Lacanau",
-    image: "/media/club/salle-cousteyre.jpg",
+    image: "/media/club/gymnase-cousteyre.jpg",
   },
   {
     name: "Pôle de l'Ardilouse",
@@ -433,10 +381,10 @@ export const staffMembers: StaffMember[] = [
   { id: "s4", name: "Steeve Lozano", role: "Entraîneur U11", pole: "Technique", image: "/media/staff/steeve-lozano.jpg" },
   { id: "s5", name: "Sandrine Blanc", role: "Dirigeante", pole: "Loisirs", image: "/media/staff/sandrine-blanc.jpg" },
   { id: "s6", name: "Fabien Boulanger", role: "Entraîneur U15", pole: "Technique" },
-  { id: "s7", name: "Christophe Suire", role: "Entraîneur U13", pole: "Technique" },
+  { id: "s7", name: "Christophe Suire", role: "Entraîneur U13", pole: "Technique", image: "/media/staff/christophe-suire.jpg" },
   { id: "s8", name: "Yann Bidon", role: "Entraîneur U18 (entente Bruges)", pole: "Technique", image: "/media/staff/yann-bidon.jpg" },
   { id: "s9", name: "Guillaume Giraudet-Bacchiolelli", role: "Entraîneur U9 / Baby", pole: "Technique", image: "/media/staff/guillaume-giraudet.jpg" },
-  { id: "s10", name: "Céline", role: "École d'arbitrage", pole: "Arbitrage", image: "/media/staff/celine-ecole-arbitrage.jpg" },
+  { id: "s10", name: "Céline Dirson", role: "École d'arbitrage", pole: "Arbitrage", image: "/media/staff/celine-ecole-arbitrage.jpg" },
   { id: "s11", name: "Carine Laborde", role: "Dirigeante loisirs", pole: "Loisirs", image: "/media/staff/carine-laborde.jpg" },
   { id: "s12", name: "Jean-Gilles Féron", role: "Podologue / Thérapeute", pole: "Santé", image: "/media/staff/jean-gilles-feron.jpg" },
 ];
@@ -497,7 +445,7 @@ export const newsItems: NewsItem[] = [
     title: "La formation des jeunes, cœur du projet",
     excerpt:
       "Des U9 aux U18, filles et garçons enchaînent les rencontres départementales et régionales chaque week-end.",
-    date: "Saison 2024 à 2025",
+    date: "Saison 2024-2025",
     tags: ["Jeunes", "Formation"],
     cover: "/media/action/duel-1.jpg",
     slug: "formation-jeunes",
@@ -581,30 +529,6 @@ export const galleryItems = [
   { src: "/media/action/jump-2.jpg", alt: "Jeune joueur en suspension à Lacanau" },
   { src: "/media/action/run-1.jpg", alt: "Jeune joueur en contre-attaque" },
   { src: "/media/club/nathand-fluo.jpg", alt: "Soirée NatHand Fluo au gymnase" },
-];
-
-export const socialPosts = [
-  {
-    id: "ig-1",
-    platform: "Instagram" as const,
-    image: "/media/beach/londres.jpg",
-    title: "Beach Handball Xperience, Londres",
-    url: instagramUrl,
-  },
-  {
-    id: "ig-2",
-    platform: "Instagram" as const,
-    image: "/media/beach/alpes.jpg",
-    title: "Tournoi beach Alpes-Maritimes",
-    url: instagramUrl,
-  },
-  {
-    id: "fb-1",
-    platform: "Facebook" as const,
-    image: "/media/club/stage-sicile.jpg",
-    title: "Stage du club en Sicile",
-    url: facebookUrl,
-  },
 ];
 
 /* ============================================================

@@ -6,6 +6,7 @@ import { ArrowLeft, Mail } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { JsonLd } from "@/components/common/json-ld";
 import { ScorencoWidget } from "@/components/sections/scorenco-widget";
 import { teamGroups, teamSignupEmail, teams } from "@/data/site";
 import { buildMetadata, siteConfig } from "@/lib/site";
@@ -15,8 +16,19 @@ type Params = {
   slug: string;
 };
 
+/* Tous les slugs viennent de teams : un slug inconnu rend directement
+   le 404 au lieu d'être résolu à la demande. */
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return teams.map((team) => ({ slug: team.slug }));
+}
+
+/** Borne la description à ~155 caractères (coupure Google) sans couper un mot. */
+function truncateDescription(text: string, max = 155): string {
+  if (text.length <= max) return text;
+  const cut = text.slice(0, max - 1);
+  return `${cut.slice(0, cut.lastIndexOf(" ")).trimEnd()}…`;
 }
 
 export async function generateMetadata({
@@ -28,14 +40,15 @@ export async function generateMetadata({
   const team = teams.find((item) => item.slug === slug);
 
   if (!team) {
-    return { title: "Équipe introuvable" };
+    return { title: "Équipe introuvable", robots: { index: false, follow: false } };
   }
 
   return buildMetadata({
-    title: team.name,
-    description: `${team.name} de Lacanau Océhand · ${team.description} Rejoignez le club de handball de Lacanau (Gironde).`,
+    title: `${team.name} · Handball Lacanau`,
+    description: truncateDescription(
+      `${team.name} à Lacanau Océhand (${team.age}). ${team.description}`,
+    ),
     path: `/equipes/${team.slug}`,
-    keywords: [`${team.name} handball Lacanau`, `handball ${team.age} Lacanau`],
   });
 }
 
@@ -66,10 +79,7 @@ export default async function TeamDetailPage({
 
   return (
     <div className="container-x space-y-10 py-10 md:py-14">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
+      <JsonLd data={breadcrumbSchema} />
       <Link
         href="/equipes"
         className="inline-flex items-center gap-2 text-sm font-semibold text-ink-soft transition hover:text-ocean"

@@ -1,3 +1,4 @@
+import { JsonLd } from "@/components/common/json-ld";
 import { siteConfig } from "@/lib/site";
 
 interface EventSchemaItem {
@@ -13,15 +14,23 @@ interface EventSchemaItem {
  * À placer en server component sur les pages evenements / saison.
  */
 export function EventSchema({ events }: { events: EventSchemaItem[] }) {
+  const now = new Date();
+  const currentMonth = now.getMonth() + 1;
+  const currentYear = now.getFullYear();
+
   const schema = {
     "@context": "https://schema.org",
-    "@graph": events.map((ev) => ({
+    "@graph": events.map((ev) => {
+      // Prochaine occurrence : si le mois est déjà passé cette année, viser l'an prochain.
+      const month = monthToNumber(ev.month);
+      const year = Number(month) < currentMonth ? currentYear + 1 : currentYear;
+      return {
       "@type": "Event",
       name: ev.title,
       description: `${ev.type} · ${ev.title} à ${ev.location}. Lacanau Océhand, club de handball à Lacanau (Gironde).`,
       eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
       eventStatus: "https://schema.org/EventScheduled",
-      startDate: `2025-${monthToNumber(ev.month)}-01`,
+      startDate: `${year}-${month}-01`,
       location: {
         "@type": "Place",
         name: ev.location,
@@ -40,15 +49,11 @@ export function EventSchema({ events }: { events: EventSchemaItem[] }) {
         url: siteConfig.url,
       },
       url: `${siteConfig.url}/evenements`,
-    })),
+      };
+    }),
   };
 
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
-  );
+  return <JsonLd data={schema} />;
 }
 
 function monthToNumber(month: string): string {

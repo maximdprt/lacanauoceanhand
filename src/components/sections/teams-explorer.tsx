@@ -8,6 +8,7 @@ import { Waves, Users, Shield, Flag } from "lucide-react";
 import type { Team, TeamCategory } from "@/types";
 import { teamGroups } from "@/data/site";
 import { cn } from "@/lib/utils";
+import { stagger, fadeUp } from "@/lib/animations";
 
 const groupIntros: Record<TeamCategory, string> = {
   seniors:
@@ -45,9 +46,10 @@ export function TeamsExplorer({ teams }: { teams: Team[] }) {
               <button
                 key={g.id}
                 type="button"
+                aria-pressed={on}
                 onClick={() => setActive(g.id)}
                 className={cn(
-                  "shrink-0 rounded-full border px-5 py-2.5 text-sm font-semibold transition-all",
+                  "shrink-0 rounded-full border px-5 py-2.5 text-sm font-semibold transition-all active:scale-95",
                   on ? "text-white" : "border-line text-ink hover:border-ink",
                 )}
                 style={
@@ -81,11 +83,19 @@ export function TeamsExplorer({ teams }: { teams: Team[] }) {
           {isFeatured ? (
             <FeaturedTeam team={list[0]} color={group.color} Icon={Icon} />
           ) : (
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <motion.div
+              key={active}
+              variants={stagger}
+              initial="hidden"
+              animate="show"
+              className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
+            >
               {list.map((t) => (
-                <TeamCard key={t.slug} team={t} color={group.color} />
+                <motion.div key={t.slug} variants={fadeUp}>
+                  <TeamCard team={t} color={group.color} />
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           )}
         </motion.div>
       </AnimatePresence>
@@ -95,14 +105,14 @@ export function TeamsExplorer({ teams }: { teams: Team[] }) {
 
 function TeamCard({ team, color }: { team: Team; color: string }) {
   return (
-    <div className="overflow-hidden rounded-(--radius) border border-line bg-white transition hover:shadow-(--shadow-md)">
+    <div className="card-lift group overflow-hidden rounded-(--radius) border border-line bg-white">
       <div className="relative aspect-16/10 overflow-hidden">
         <Image
           src={team.image}
           alt={team.name}
           fill
           sizes="(max-width: 768px) 100vw, 33vw"
-          className="object-cover"
+          className="img-zoom object-cover"
         />
         <div className="absolute left-0 top-0 h-1.5 w-full" style={{ background: color }} />
       </div>
@@ -140,7 +150,7 @@ function FeaturedTeam({
       style={{ borderColor: color }}
     >
       <div className="grid lg:grid-cols-[1.3fr_1fr]">
-        <div className="p-7 md:p-9">
+        <div className="flex flex-col justify-center p-7 md:p-9">
           <div className="flex items-center gap-4">
             <span
               className="flex h-12 w-12 items-center justify-center rounded-full"
@@ -165,8 +175,14 @@ function FeaturedTeam({
             ))}
           </div>
         </div>
-        <div className="relative min-h-[260px] lg:min-h-full">
-          <Image src={team.image} alt={team.name} fill className="object-cover" />
+        <div className="relative min-h-[280px] lg:min-h-[420px]">
+          <Image
+            src={team.image}
+            alt={team.name}
+            fill
+            sizes="(max-width: 1024px) 100vw, 40vw"
+            className="object-cover"
+          />
         </div>
       </div>
     </div>

@@ -12,8 +12,9 @@ declare global {
   }
 }
 
-const RESIZER_SRC =
-  "https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.3.9/iframeResizer.min.js";
+// Self-hébergé (public/vendor) : évite une origine tierce, un point de
+// défaillance externe et un risque supply-chain sans contrôle d'intégrité.
+const RESIZER_SRC = "/vendor/iframe-resizer-4.3.9.min.js";
 
 function loadIframeResizer(): Promise<void> {
   if (typeof window === "undefined") return Promise.resolve();

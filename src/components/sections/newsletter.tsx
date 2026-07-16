@@ -4,6 +4,7 @@ import { useState } from "react";
 import { CheckCircle2, Send, Users, HandHeart } from "lucide-react";
 
 import { sendForm } from "@/lib/send-form";
+import { FormPrivacyNotice } from "@/components/common/form-privacy-notice";
 
 type Role = "joueur" | "benevole";
 
@@ -28,7 +29,6 @@ export function Newsletter() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
-  const [consent, setConsent] = useState(false);
   const [error, setError] = useState("");
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
@@ -37,7 +37,6 @@ export function Newsletter() {
     e.preventDefault();
     if (!name.trim()) { setError("Merci d'indiquer votre prénom et nom."); return; }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setError("Merci d'indiquer une adresse e-mail valide."); return; }
-    if (!consent) { setError("Merci d'accepter les conditions de contact."); return; }
     setError("");
     setSending(true);
 
@@ -93,6 +92,7 @@ export function Newsletter() {
                 <button
                   key={r.id}
                   type="button"
+                  aria-pressed={active}
                   onClick={() => setRole(r.id)}
                   className={`flex flex-1 items-center gap-3 rounded-2xl border px-5 py-4 text-left transition ${
                     active
@@ -114,7 +114,10 @@ export function Newsletter() {
         {/* Formulaire droite */}
         <div>
           {sent ? (
-            <div className="flex flex-col items-start rounded-2xl border border-white/15 bg-white/5 p-7 text-white">
+            <div
+              role="status"
+              className="flex flex-col items-start rounded-2xl border border-white/15 bg-white/5 p-7 text-white"
+            >
               <span className="flex h-12 w-12 items-center justify-center rounded-full bg-gold/20 text-gold">
                 <CheckCircle2 size={26} />
               </span>
@@ -142,7 +145,7 @@ export function Newsletter() {
                 placeholder="Votre prénom et nom"
                 aria-label="Prénom et nom"
                 autoComplete="name"
-                className="h-[52px] w-full rounded-2xl border border-white/20 bg-white/10 px-5 text-base text-white placeholder:text-white/40 transition focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/30"
+                className="h-[52px] w-full rounded-2xl border border-white/20 bg-white/10 px-5 text-base text-white placeholder:text-white/60 transition focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/30"
               />
               <div className="grid gap-3 sm:grid-cols-2">
                 <input
@@ -152,7 +155,7 @@ export function Newsletter() {
                   placeholder="votre@email.fr"
                   aria-label="Adresse e-mail"
                   autoComplete="email"
-                  className="h-[52px] w-full rounded-2xl border border-white/20 bg-white/10 px-5 text-base text-white placeholder:text-white/40 transition focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/30"
+                  className="h-[52px] w-full rounded-2xl border border-white/20 bg-white/10 px-5 text-base text-white placeholder:text-white/60 transition focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/30"
                 />
                 <input
                   type="tel"
@@ -161,7 +164,7 @@ export function Newsletter() {
                   placeholder="Téléphone (facultatif)"
                   aria-label="Numéro de téléphone"
                   autoComplete="tel"
-                  className="h-[52px] w-full rounded-2xl border border-white/20 bg-white/10 px-5 text-base text-white placeholder:text-white/40 transition focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/30"
+                  className="h-[52px] w-full rounded-2xl border border-white/20 bg-white/10 px-5 text-base text-white placeholder:text-white/60 transition focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/30"
                 />
               </div>
               <textarea
@@ -174,21 +177,14 @@ export function Newsletter() {
                 }
                 aria-label="Message"
                 rows={3}
-                className="w-full resize-none rounded-2xl border border-white/20 bg-white/10 px-5 py-4 text-base text-white placeholder:text-white/40 transition focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/30"
+                className="w-full resize-none rounded-2xl border border-white/20 bg-white/10 px-5 py-4 text-base text-white placeholder:text-white/60 transition focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/30"
               />
-              <label className="flex items-start gap-2.5 text-sm leading-relaxed text-white/65">
-                <input
-                  type="checkbox"
-                  checked={consent}
-                  onChange={(e) => setConsent(e.target.checked)}
-                  className="mt-0.5 h-4 w-4 shrink-0 rounded border-white/30 accent-gold"
-                />
-                <span>
-                  J’accepte que mes coordonnées soient transmises au club et ne soient
-                  jamais cédées à des tiers.
-                </span>
-              </label>
-              {error && <p className="text-sm font-medium text-gold">{error}</p>}
+              <FormPrivacyNotice dark minors={role === "joueur"} />
+              {error && (
+                <p role="alert" className="text-sm font-medium text-gold">
+                  {error}
+                </p>
+              )}
               <button
                 type="submit"
                 disabled={sending}

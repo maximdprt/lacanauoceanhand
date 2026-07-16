@@ -1,30 +1,34 @@
 import type { Metadata } from "next";
 import { Archivo } from "next/font/google";
-import Script from "next/script";
 
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { PageTransition } from "@/components/layout/page-transition";
+import { MotionProvider } from "@/components/layout/motion-provider";
 import { CookieConsent } from "@/components/layout/cookie-consent";
+import { AnalyticsScripts } from "@/components/layout/analytics-scripts";
+import { JsonLd } from "@/components/common/json-ld";
 import { facebookUrl, instagramUrl, beachXperienceUrl } from "@/data/site";
-import { siteConfig, seoKeywords } from "@/lib/site";
+import { siteConfig } from "@/lib/site";
 
 import "./globals.css";
 
 /* ============================================================
    POLICE UNIQUE DU SITE : Archivo (display + corps)
+   Police variable : un seul fichier woff2 couvre les graisses
+   400 à 900 (6 fichiers préchargés sinon → LCP dégradé).
    ============================================================ */
 const archivo = Archivo({
-  subsets: ["latin", "latin-ext"],
+  subsets: ["latin"],
   variable: "--font-archivo",
-  weight: ["400", "500", "600", "700", "800", "900"],
   display: "swap",
   preload: true,
 });
 
 /* ============================================================
    MÉTADONNÉES GLOBALES (racine)
-   Chaque page peut surcharger title et description.
+   Chaque page surcharge title/description/canonical via
+   buildMetadata (src/lib/site.ts).
    ============================================================ */
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -34,7 +38,6 @@ export const metadata: Metadata = {
     template: "%s | Lacanau Océhand",
   },
   description: siteConfig.description,
-  keywords: seoKeywords,
   authors: [{ name: siteConfig.name, url: siteConfig.url }],
   creator: siteConfig.name,
   publisher: siteConfig.name,
@@ -52,10 +55,9 @@ export const metadata: Metadata = {
     },
   },
 
-  // Canonical racine
+  // Canonical racine (site 100 % francophone : pas de hreflang)
   alternates: {
     canonical: "/",
-    languages: { "fr-FR": "/" },
   },
 
   // Favicons / icons (Next.js App Router)
@@ -85,7 +87,7 @@ export const metadata: Metadata = {
     url: siteConfig.url,
     images: [
       {
-        url: `${siteConfig.url}/media/club/hero-coupe-bercy.jpg`,
+        url: `${siteConfig.url}${siteConfig.ogImage}`,
         width: 1200,
         height: 630,
         alt: "Lacanau Océhand · Champions de France 2024",
@@ -98,15 +100,15 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Lacanau Océhand · Club de handball à Lacanau",
     description: siteConfig.description,
-    images: [`${siteConfig.url}/media/club/hero-coupe-bercy.jpg`],
+    images: [`${siteConfig.url}${siteConfig.ogImage}`],
     site: "@lacanauocehand",
     creator: "@lacanauocehand",
   },
 
-  // Google Search Console — remplacer par la valeur réelle
-  verification: {
-    google: process.env.NEXT_PUBLIC_GSC_VERIFY ?? "",
-  },
+  // Google Search Console — n'émettre la balise que si la valeur existe
+  ...(process.env.NEXT_PUBLIC_GSC_VERIFY
+    ? { verification: { google: process.env.NEXT_PUBLIC_GSC_VERIFY } }
+    : {}),
 
   // App info
   applicationName: siteConfig.name,
@@ -115,13 +117,15 @@ export const metadata: Metadata = {
 
 /* ============================================================
    DONNÉES STRUCTURÉES SCHEMA.ORG
-   SportsOrganization + LocalBusiness fusionnés (@graph)
+   SportsClub (sous-type LocalBusiness le plus spécifique —
+   requis par Google pour le traitement « local business »)
+   + SportsOrganization pour la propriété sport.
    ============================================================ */
 const schemaGraph = {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": ["SportsOrganization", "LocalBusiness"],
+      "@type": ["SportsClub", "SportsOrganization"],
       "@id": `${siteConfig.url}/#organization`,
       name: "Lacanau Océhand",
       alternateName: ["Lacanau Océhand Handball", "Club de handball de Lacanau", "Océhand"],
@@ -134,7 +138,7 @@ const schemaGraph = {
         width: 400,
         height: 400,
       },
-      image: `${siteConfig.url}/media/club/hero-coupe-bercy.jpg`,
+      image: `${siteConfig.url}${siteConfig.ogImage}`,
       foundingDate: "2017-06-04",
       email: siteConfig.email,
       address: {
@@ -179,21 +183,16 @@ const schemaGraph = {
       },
     },
     {
+      // Sitelinks searchbox (SearchAction) retiré par Google fin 2024 :
+      // le nœud WebSite ne sert plus qu'au « site name » dans les SERP.
       "@type": "WebSite",
       "@id": `${siteConfig.url}/#website`,
       url: siteConfig.url,
       name: siteConfig.name,
+      alternateName: "Océhand",
       description: siteConfig.description,
       publisher: { "@id": `${siteConfig.url}/#organization` },
       inLanguage: "fr-FR",
-      potentialAction: {
-        "@type": "SearchAction",
-        target: {
-          "@type": "EntryPoint",
-          urlTemplate: `${siteConfig.url}/equipes?q={search_term_string}`,
-        },
-        "query-input": "required name=search_term_string",
-      },
     },
   ],
 };
@@ -204,80 +203,30 @@ const schemaGraph = {
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  // IDs analytics (env vars — à renseigner en production)
-  const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
-  const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
-
   return (
     <html lang="fr" className={archivo.variable}>
       <head>
-        {/* Préconnexions pour les ressources critiques */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-
         {/* Données structurées globales */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaGraph) }}
-        />
-
-        {/* Google Tag Manager — tête de page */}
-        {gtmId && (
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','${gtmId}');`,
-            }}
-          />
-        )}
+        <JsonLd data={schemaGraph} />
       </head>
       <body className="min-h-screen bg-paper text-ink antialiased">
-        {/* GTM noscript fallback */}
-        {gtmId && (
-          <noscript>
-            <iframe
-              src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`}
-              height="0"
-              width="0"
-              style={{ display: "none", visibility: "hidden" }}
-            />
-          </noscript>
-        )}
+        {/* Lien d'évitement (WCAG 2.4.1) */}
+        <a
+          href="#contenu"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-ink focus:px-5 focus:py-3 focus:text-sm focus:font-semibold focus:text-white"
+        >
+          Aller au contenu
+        </a>
 
-        <SiteHeader />
-        <PageTransition>{children}</PageTransition>
-        <SiteFooter />
-        <CookieConsent />
+        <MotionProvider>
+          <SiteHeader />
+          <PageTransition>{children}</PageTransition>
+          <SiteFooter />
+          <CookieConsent />
+        </MotionProvider>
 
-        {/* Google Analytics 4 — afterInteractive pour ne pas bloquer le LCP */}
-        {gaMeasurementId && (
-          <>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`}
-              strategy="afterInteractive"
-            />
-            <Script id="ga4-init" strategy="afterInteractive">
-              {`window.dataLayer=window.dataLayer||[];
-function gtag(){dataLayer.push(arguments);}
-gtag('js',new Date());
-gtag('config','${gaMeasurementId}',{page_path:window.location.pathname});`}
-            </Script>
-          </>
-        )}
-
-        {/* Microsoft Clarity — lazyOnload pour performance maximale */}
-        {process.env.NEXT_PUBLIC_CLARITY_ID && (
-          <Script id="clarity-init" strategy="lazyOnload">
-            {`(function(c,l,a,r,i,t,y){
-c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-})(window,document,"clarity","script","${process.env.NEXT_PUBLIC_CLARITY_ID}");`}
-          </Script>
-        )}
+        {/* Mesure d'audience — chargée uniquement après consentement (CNIL) */}
+        <AnalyticsScripts />
       </body>
     </html>
   );

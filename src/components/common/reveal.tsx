@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { fadeUp } from "@/lib/animations";
+import { fadeUp, VIEWPORT } from "@/lib/animations";
 
 export function Reveal({
   children,
@@ -14,11 +14,12 @@ export function Reveal({
 }) {
   return (
     <motion.div
+      data-reveal
       className={className}
       variants={fadeUp}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true, margin: "-80px" }}
+      viewport={VIEWPORT}
       transition={{ delay }}
     >
       {children}

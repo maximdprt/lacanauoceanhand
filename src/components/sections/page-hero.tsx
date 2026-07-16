@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 
+import { JsonLd } from "@/components/common/json-ld";
 import { siteConfig } from "@/lib/site";
 
 interface Crumb {
@@ -48,10 +49,7 @@ export function PageHero({
   return (
     <section className="relative overflow-hidden border-b border-line bg-mist">
       {/* Données structurées BreadcrumbList */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
+      <JsonLd data={breadcrumbSchema} />
 
       {/* motif géométrique discret */}
       <div className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full border border-line" />
