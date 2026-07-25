@@ -167,6 +167,7 @@ body {
 }
 
 .card-lift {
+  box-shadow: var(--shadow-md);
   transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
     border-color 0.3s ease;

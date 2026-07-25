@@ -1,14 +1,8 @@
 import type {
   AgeCategory,
-  ClubEvent,
-  ClubStat,
   FaqItem,
-  MatchItem,
   NavItem,
-  NewsItem,
-  Palmares,
   Partner,
-  PricingRow,
   Salle,
   StaffMember,
   Team,
@@ -25,88 +19,16 @@ export const teamSignupEmail = "inscription-equipe@lacanau-ocehand.fr";
 export const beachXperienceUrl = "https://site-lbhx.vercel.app";
 
 /* ============================================================
-   NAVIGATION
+   NAVIGATION — 5 onglets essentiels d'un club de handball.
+   « Contact » et « Beach Xperience » restent des boutons du
+   header (cf. site-header) ; le pied de page reprend ces liens.
    ============================================================ */
 export const navItems: NavItem[] = [
   { label: "Accueil", href: "/" },
-  { label: "Le club", href: "/le-club" },
   { label: "Nos équipes", href: "/equipes" },
-  { label: "La saison", href: "/saison" },
-  { label: "Actualités", href: "/evenements" },
+  { label: "Beach", href: "/beach" },
+  { label: "Le club", href: "/le-club" },
   { label: "Rejoindre", href: "/rejoindre" },
-  { label: "Contact", href: "/contact" },
-];
-
-/* ============================================================
-   CHIFFRES CLÉS (réels)
-   ============================================================ */
-export const clubStats: ClubStat[] = [
-  { label: "Coupe de France", value: 1, suffix: "" },
-  { label: "Licenciés", value: 150, suffix: "+" },
-  { label: "Équipes", value: 12 },
-  { label: "Titres de Gironde", value: 3, suffix: "×" },
-];
-
-/* ============================================================
-   RÉSULTATS RÉCENTS (championnat) — données de secours.
-   Le calendrier et les scores en direct sont fournis par les
-   widgets Score'n'co ; « latestResults » n'est pas affiché tel quel.
-   ============================================================ */
-export const latestResults: MatchItem[] = [
-  {
-    id: "r1",
-    date: "Championnat",
-    competition: "Seniors masculins",
-    opponent: "Médoc Handball",
-    location: "Extérieur",
-    isHome: false,
-    score: "32 - 14",
-  },
-  {
-    id: "r2",
-    date: "Championnat",
-    competition: "U18 masculins",
-    opponent: "Andernos Handball Nord Bassin",
-    location: "Domicile",
-    isHome: true,
-    score: "30 - 44",
-  },
-  {
-    id: "r3",
-    date: "Championnat",
-    competition: "U15 masculins",
-    opponent: "Portes de l'Entre 2 Mers HB U15",
-    location: "Extérieur",
-    isHome: false,
-    score: "32 - 17",
-  },
-  {
-    id: "r4",
-    date: "Championnat",
-    competition: "U13 masculins",
-    opponent: "Handball Cubzaguais",
-    location: "Domicile",
-    isHome: true,
-    score: "26 - 27",
-  },
-  {
-    id: "r5",
-    date: "Championnat",
-    competition: "U13 féminines",
-    opponent: "ES Blanquefortaise HBC 2",
-    location: "Domicile",
-    isHome: true,
-    score: "25 - 19",
-  },
-  {
-    id: "r6",
-    date: "Championnat",
-    competition: "U11 masculins",
-    opponent: "HBC Audengeois",
-    location: "Extérieur",
-    isHome: false,
-    score: "17 - 6",
-  },
 ];
 
 /* ============================================================
@@ -274,45 +196,28 @@ export const timelineEvents: TimelineEvent[] = [
     title: "Naissance du club",
     description:
       "Le 4 juin 2017, Thierry Mayeur fonde Lacanau Océhand en famille pour offrir aux Canaulais un club de handball.",
+    image: "/media/club/histoire-club.jpg",
   },
   {
     year: "2022",
     title: "Premier titre majeur",
     description:
       "Les seniors deviennent champions de Gironde, point de départ d'une domination départementale.",
+    image: "/media/teams/seniors-groupe.jpg",
   },
   {
     year: "2023",
     title: "Top 8 national",
     description:
       "Quart de finaliste de la Coupe de France : le club termine dans les 8 meilleurs sur 1 000 équipes engagées.",
+    image: "/media/action/duel-1.jpg",
   },
   {
     year: "2024",
     title: "Champions de France à Bercy",
     description:
       "Sacre en Coupe de France départementale face à Ste Gemmes sur Loire (30-29), à l'Accor Arena.",
-  },
-];
-
-export const palmares: Palmares[] = [
-  {
-    season: "Saison 2023-2024",
-    lines: [
-      "Vainqueurs de la Coupe de France départementale (30-29 vs Ste Gemmes sur Loire)",
-      "Champions de Gironde, Seniors garçons (22V · 0N · 0D)",
-    ],
-  },
-  {
-    season: "Saison 2022-2023",
-    lines: [
-      "Champions de Gironde, Seniors garçons (27V · 0N · 0D)",
-      "1/4 de finaliste Coupe de France (top 8 / 1 000 équipes)",
-    ],
-  },
-  {
-    season: "Saison 2021-2022",
-    lines: ["Champions de Gironde, Promotion (15V · 3N · 1D)"],
+    image: "/media/club/champions-2024.jpg",
   },
 ];
 
@@ -390,17 +295,10 @@ export const staffMembers: StaffMember[] = [
 ];
 
 /* ============================================================
-   TARIFS — montants indicatifs, à confirmer par le club.
-   Faits réels conservés : forfait famille -15 €, Pass'Sport,
+   LICENCE — avantages inclus (montants communiqués par le club
+   sur demande). Faits réels : forfait famille −15 €, Pass'Sport,
    équipement inclus, renouvellement par email fédéral.
    ============================================================ */
-export const licensePricing: PricingRow[] = [
-  { category: "Baby hand (U7 à U9)", fee: "Sur demande" },
-  { category: "Jeunes (U11 à U18)", fee: "Sur demande" },
-  { category: "Seniors", fee: "Sur demande" },
-  { category: "Beach handball", fee: "Sur demande" },
-];
-
 export const pricingPerks: string[] = [
   "Forfait famille : −15 € par licence supplémentaire d'une même famille",
   "Pass'Sport accepté",
@@ -423,43 +321,6 @@ export const volunteerRoles = [
   "Restauration",
   "Communication",
   "Pas de préférence",
-];
-
-/* ============================================================
-   ACTUALITÉS (basées sur de vrais évènements)
-   ============================================================ */
-export const newsItems: NewsItem[] = [
-  {
-    id: "n1",
-    title: "Lacanau remporte la Coupe de France 2024",
-    excerpt:
-      "Après 60 minutes intenses, nos seniors s'imposent 30-29 face à Ste Gemmes sur Loire, à Bercy.",
-    date: "22 avril 2024",
-    tags: ["Seniors", "Coupe de France"],
-    cover: "/media/club/champions-2024.jpg",
-    slug: "coupe-de-france-2024",
-    href: "/le-club/coupe-de-france-2024",
-  },
-  {
-    id: "n2",
-    title: "La formation des jeunes, cœur du projet",
-    excerpt:
-      "Des U9 aux U18, filles et garçons enchaînent les rencontres départementales et régionales chaque week-end.",
-    date: "Saison 2024-2025",
-    tags: ["Jeunes", "Formation"],
-    cover: "/media/action/duel-1.jpg",
-    slug: "formation-jeunes",
-  },
-  {
-    id: "n3",
-    title: "La section beach handball reprend",
-    excerpt:
-      "Dès l'U13 et pour les adultes, le beach handball revient sur le sable du Pôle de l'Ardilouse.",
-    date: "Saison estivale",
-    tags: ["Beach handball"],
-    cover: "/media/beach/stage-sable.jpg",
-    slug: "beach-handball",
-  },
 ];
 
 /* ============================================================
@@ -522,49 +383,13 @@ export const federationLogos = [
 ];
 
 /* ============================================================
-   GALERIE — photos d'action uniques
+   GALERIE — photos d'action uniques (page Coupe de France 2024)
    ============================================================ */
 export const galleryItems = [
   { src: "/media/action/jump-1.jpg", alt: "Joueuse à la lutte au tir en suspension" },
   { src: "/media/action/jump-2.jpg", alt: "Jeune joueur en suspension à Lacanau" },
   { src: "/media/action/run-1.jpg", alt: "Jeune joueur en contre-attaque" },
   { src: "/media/club/nathand-fluo.jpg", alt: "Soirée NatHand Fluo au gymnase" },
-];
-
-/* ============================================================
-   CALENDRIER / ÉVÉNEMENTS DU CLUB
-   ============================================================ */
-export const clubEvents: ClubEvent[] = [
-  {
-    id: "e1",
-    month: "Septembre",
-    title: "Journées portes ouvertes",
-    type: "Manifestation",
-    location: "Salle de la Cousteyre",
-    highlight: true,
-  },
-  {
-    id: "e2",
-    month: "Octobre",
-    title: "Reprise des championnats jeunes",
-    type: "Match",
-    location: "Lacanau & extérieur",
-  },
-  {
-    id: "e3",
-    month: "Décembre",
-    title: "Tournoi de Noël du club",
-    type: "Tournoi",
-    location: "Salle de la Cousteyre",
-  },
-  {
-    id: "e4",
-    month: "Juillet",
-    title: "Beach Handball Xperience",
-    type: "Tournoi",
-    location: "Pôle de l'Ardilouse",
-    highlight: true,
-  },
 ];
 
 /* ============================================================

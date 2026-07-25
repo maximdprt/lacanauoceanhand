@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { CheckCircle2, User, HeartHandshake, Handshake } from "lucide-react";
+import { CheckCircle2, User, HeartHandshake, Handshake, ClipboardList } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Field } from "@/components/ui/field";
@@ -16,15 +16,30 @@ import { sendForm } from "@/lib/send-form";
 const tabLabel: Record<TabId, string> = {
   joueur: "Inscription joueur",
   benevole: "Bénévolat",
+  entraineur: "Candidature entraîneur",
   partenaire: "Partenariat",
 };
 
-type TabId = "joueur" | "benevole" | "partenaire";
+type TabId = "joueur" | "benevole" | "entraineur" | "partenaire";
 
 const tabs: { id: TabId; label: string; icon: typeof User }[] = [
   { id: "joueur", label: "Joueur", icon: User },
   { id: "benevole", label: "Bénévole", icon: HeartHandshake },
+  { id: "entraineur", label: "Entraîneur", icon: ClipboardList },
   { id: "partenaire", label: "Partenaire", icon: Handshake },
+];
+
+/** Catégories proposées à un futur entraîneur / éducateur. */
+const coachAreas = [
+  "École de hand / Baby",
+  "U11",
+  "U13",
+  "U15",
+  "U18",
+  "Seniors",
+  "Beach handball",
+  "École de gardien",
+  "Peu importe",
 ];
 
 function SuccessPanel({ onReset }: { onReset: () => void }) {
@@ -79,7 +94,12 @@ export function JoinForms() {
 
   useEffect(() => {
     const hash = window.location.hash.replace("#", "");
-    if (hash === "benevole" || hash === "partenaire" || hash === "joueur") {
+    if (
+      hash === "benevole" ||
+      hash === "partenaire" ||
+      hash === "joueur" ||
+      hash === "entraineur"
+    ) {
       setActive(hash);
     }
   }, []);
@@ -300,6 +320,56 @@ export function JoinForms() {
                 <PrivacyRow error={error} />
                 <Button type="submit" variant="ocean" size="lg" className="w-full sm:w-auto" disabled={sending}>
                   {sending ? "Envoi en cours…" : "Proposer un partenariat"}
+                </Button>
+              </div>
+            )}
+
+            {/* ENTRAÎNEUR */}
+            {active === "entraineur" && (
+              <div className="space-y-5">
+                <p className="text-base leading-relaxed text-ink-soft">
+                  Envie d&apos;encadrer une équipe&nbsp;? Le club recherche
+                  régulièrement des entraîneurs et éducateurs, diplômés ou en
+                  formation. Parlez-nous de vous, on s&apos;occupe du reste.
+                </p>
+                <div className="grid gap-5 sm:grid-cols-2">
+                  <Field label="Prénom & nom" htmlFor="e-nom">
+                    <Input id="e-nom" name="nom" required autoComplete="name" />
+                  </Field>
+                  <Field label="E-mail" htmlFor="e-email">
+                    <Input id="e-email" name="email" type="email" required autoComplete="email" />
+                  </Field>
+                </div>
+                <div className="grid gap-5 sm:grid-cols-2">
+                  <Field label="Téléphone" htmlFor="e-tel">
+                    <Input id="e-tel" name="tel" type="tel" autoComplete="tel" />
+                  </Field>
+                  <Field label="Catégorie souhaitée" htmlFor="e-categorie">
+                    <Select id="e-categorie" name="categorie" defaultValue="">
+                      <option value="" disabled>
+                        Sélectionner…
+                      </option>
+                      {coachAreas.map((c) => (
+                        <option key={c} value={c}>
+                          {c}
+                        </option>
+                      ))}
+                    </Select>
+                  </Field>
+                </div>
+                <Field label="Diplômes & expérience (facultatif)" htmlFor="e-experience">
+                  <Input
+                    id="e-experience"
+                    name="experience"
+                    placeholder="Diplôme fédéral, expérience d'encadrement…"
+                  />
+                </Field>
+                <Field label="Message (facultatif)" htmlFor="e-message">
+                  <Textarea id="e-message" name="message" placeholder="Vos disponibilités, vos motivations…" />
+                </Field>
+                <PrivacyRow error={error} />
+                <Button type="submit" variant="ocean" size="lg" className="w-full sm:w-auto" disabled={sending}>
+                  {sending ? "Envoi en cours…" : "Proposer ma candidature"}
                 </Button>
               </div>
             )}

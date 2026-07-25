@@ -10,7 +10,9 @@ export const siteConfig = {
   shortName: "Océhand",
   description:
     "Club de handball à Lacanau, champion de France 2024. Du baby hand aux seniors, en salle et en beach handball. Rejoignez Lacanau Océhand en Gironde.",
-  url: "https://lacanau-ocehand.fr",
+  // Domaine canonique : surchargeable via NEXT_PUBLIC_SITE_URL sur Vercel
+  // (sans slash final). Sert aux canonical, sitemap, OG et JSON-LD.
+  url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://lacanau-ocehand.fr").replace(/\/+$/, ""),
   locale: "fr_FR",
   locality: "Lacanau",
   postalCode: "33680",

@@ -77,9 +77,39 @@ export default async function TeamDetailPage({
     ],
   };
 
+  const teamSchema = {
+    "@context": "https://schema.org",
+    "@type": "SportsTeam",
+    name: `${team.name} · Lacanau Océhand`,
+    sport: team.group === "beach" ? "Beach Handball" : "Handball",
+    url: `${siteConfig.url}/equipes/${team.slug}`,
+    image: `${siteConfig.url}${team.image}`,
+    coach: { "@type": "Person", name: team.coach },
+    memberOf: {
+      "@type": "SportsClub",
+      name: "Lacanau Océhand",
+      url: siteConfig.url,
+    },
+    location: {
+      "@type": "Place",
+      name:
+        team.group === "beach"
+          ? "Pôle de l'Ardilouse, Lacanau-Océan"
+          : "Salle de la Cousteyre, Lacanau",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Lacanau",
+        postalCode: "33680",
+        addressRegion: "Gironde",
+        addressCountry: "FR",
+      },
+    },
+  };
+
   return (
     <div className="container-x space-y-10 py-10 md:py-14">
       <JsonLd data={breadcrumbSchema} />
+      <JsonLd data={teamSchema} />
       <Link
         href="/equipes"
         className="inline-flex items-center gap-2 text-sm font-semibold text-ink-soft transition hover:text-ocean"
@@ -148,10 +178,6 @@ export default async function TeamDetailPage({
             <h2 className="font-display text-2xl uppercase text-ink">Matchs & résultats</h2>
             <p className="mt-2 text-base leading-relaxed text-ink-soft">
               Consultez le calendrier complet de toutes les équipes sur{" "}
-              <Link href="/saison" className="font-semibold text-ocean hover:underline">
-                la page saison
-              </Link>{" "}
-              ou sur{" "}
               <a
                 href={scorencoClubUrl}
                 target="_blank"

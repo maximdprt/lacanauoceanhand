@@ -16,22 +16,18 @@ type Route = {
   d'autres moteurs — conservés à titre indicatif.
 */
 
-/* Pages statiques principales */
+/* Pages statiques principales (5 onglets + contact) */
 const staticRoutes: Route[] = [
-  { path: "/",             priority: 1.0, changeFrequency: "weekly" },
-  { path: "/le-club",      priority: 0.9, changeFrequency: "monthly" },
-  { path: "/equipes",      priority: 0.9, changeFrequency: "monthly" },
-  { path: "/saison",       priority: 0.8, changeFrequency: "weekly" },
-  { path: "/evenements",   priority: 0.8, changeFrequency: "weekly" },
-  { path: "/rejoindre",    priority: 0.9, changeFrequency: "monthly" },
-  { path: "/contact",      priority: 0.6, changeFrequency: "yearly" },
+  { path: "/",          priority: 1.0, changeFrequency: "weekly" },
+  { path: "/equipes",   priority: 0.9, changeFrequency: "monthly" },
+  { path: "/beach",     priority: 0.8, changeFrequency: "monthly" },
+  { path: "/le-club",   priority: 0.9, changeFrequency: "monthly" },
+  { path: "/rejoindre", priority: 0.9, changeFrequency: "monthly" },
+  { path: "/contact",   priority: 0.6, changeFrequency: "yearly" },
 ];
 
-/* Sous-pages du club */
+/* Sous-page du club (récit détaillé, reliée depuis /le-club) */
 const clubSubRoutes: Route[] = [
-  { path: "/le-club/histoire-palmares",    priority: 0.7, changeFrequency: "yearly" },
-  { path: "/le-club/staff",                priority: 0.6, changeFrequency: "monthly" },
-  { path: "/le-club/salles",               priority: 0.6, changeFrequency: "yearly" },
   { path: "/le-club/coupe-de-france-2024", priority: 0.8, changeFrequency: "yearly" },
 ];
 

@@ -18,6 +18,7 @@ export default function ContactPage() {
   return (
     <>
       <PageHero
+        image="/media/club/salle-cousteyre.jpg"
         eyebrow="Contact"
         title="Nous contacter"
         description="Une question sur le club, les inscriptions ou un partenariat ? Écrivez-nous, on vous répond vite."

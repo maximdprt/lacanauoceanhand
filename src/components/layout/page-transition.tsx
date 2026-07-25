@@ -23,9 +23,9 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
       key={pathname}
       id="contenu"
       tabIndex={-1}
-      initial={mounted ? { opacity: 0, y: 8 } : false}
+      initial={mounted ? { opacity: 0, y: 18 } : false}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
       className="min-h-[60vh] focus:outline-none"
     >
       {children}

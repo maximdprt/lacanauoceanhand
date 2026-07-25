@@ -61,6 +61,8 @@ export type TimelineEvent = {
   year: string;
   title: string;
   description: string;
+  /** Image marquante illustrant l'étape (facultatif). */
+  image?: string;
 };
 
 export type StaffMember = {

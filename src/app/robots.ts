@@ -5,25 +5,16 @@ export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
       {
-        // Moteurs principaux : accès complet sauf pages techniques
+        // Accès complet pour TOUS les robots — moteurs classiques ET
+        // IA génératives (GPTBot, OAI-SearchBot, ChatGPT-User, PerplexityBot,
+        // Google-Extended/Gemini, ClaudeBot, CCBot…). Objectif : être
+        // indexé ET cité dans les réponses IA (SEO + GEO). On NE bloque PAS
+        // /_next/ : Google en a besoin pour rendre les pages et évaluer les
+        // Core Web Vitals.
         userAgent: "*",
         allow: "/",
-        disallow: [
-          "/_next/",
-          "/api/",
-          "/*.json$",
-          "/admin",
-          "/private",
-        ],
-      },
-      {
-        // Bloquer les crawlers d'IA/scraping commerciaux
-        userAgent: ["GPTBot", "ChatGPT-User", "Google-Extended", "CCBot", "anthropic-ai"],
-        disallow: "/",
       },
     ],
-    // NB : pas de champ host — directive non standard, ignorée par
-    // Google/Bing ; la canonicalisation passe par les balises canonical.
     sitemap: `${siteConfig.url}/sitemap.xml`,
   };
 }

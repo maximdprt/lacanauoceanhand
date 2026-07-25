@@ -84,8 +84,8 @@ export function SiteHeader() {
         </Link>
 
         {/* Desktop nav */}
-        <nav aria-label="Navigation principale" className="hidden items-center gap-7 lg:flex">
-          {navItems.slice(0, -1).map((item) => (
+        <nav aria-label="Navigation principale" className="hidden items-center gap-6 lg:flex">
+          {navItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
@@ -170,6 +170,25 @@ export function SiteHeader() {
                   </Link>
                 </motion.div>
               ))}
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.04 * navItems.length }}
+              >
+                <Link
+                  href="/contact"
+                  onClick={() => setOpen(false)}
+                  className={cn(
+                    "flex items-center justify-between border-b border-line py-4 text-2xl font-semibold text-ink",
+                    isActive("/contact") && "text-ocean",
+                  )}
+                >
+                  <span className="font-display uppercase">Contact</span>
+                  <span className="section-index text-sm text-line-strong">
+                    0{navItems.length + 1}
+                  </span>
+                </Link>
+              </motion.div>
               <a
                 href={beachXperienceUrl}
                 target="_blank"

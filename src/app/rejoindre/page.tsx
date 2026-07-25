@@ -8,7 +8,7 @@ import { Reveal } from "@/components/common/reveal";
 export const metadata = buildMetadata({
   title: "Rejoindre le club",
   description:
-    "Inscriptions ouvertes à Lacanau Océhand ! Joueur, bénévole ou partenaire, rejoignez le club de handball de Lacanau (Gironde) dès aujourd'hui.",
+    "Inscriptions ouvertes à Lacanau Océhand ! Joueur, bénévole, entraîneur ou partenaire, rejoignez le club de handball de Lacanau (Gironde) dès aujourd'hui.",
   path: "/rejoindre",
 });
 
@@ -16,9 +16,10 @@ export default function JoinPage() {
   return (
     <>
       <PageHero
+        image="/media/action/run-1.jpg"
         eyebrow="Rejoindre"
         title="Rejoindre le club"
-        description="Que vous souhaitiez jouer, contribuer en coulisses ou soutenir le club, choisissez votre formulaire ci-dessous."
+        description="Joueur, bénévole, entraîneur ou partenaire : choisissez votre formulaire ci-dessous, votre demande arrive directement au club."
       />
 
       <section className="container-x py-16 md:py-24">

@@ -140,7 +140,24 @@ const schemaGraph = {
       },
       image: `${siteConfig.url}${siteConfig.ogImage}`,
       foundingDate: "2017-06-04",
+      founder: { "@type": "Person", name: "Thierry Mayeur" },
+      slogan: "Le club de handball à Lacanau, champion de France 2024",
+      award:
+        "Champion de France de handball 2024 — Coupe de France départementale (finale 30-29 à l'Accor Arena de Bercy)",
+      knowsAbout: [
+        "Handball",
+        "Beach handball",
+        "École de handball",
+        "École d'arbitrage",
+      ],
       email: siteConfig.email,
+      ...(siteConfig.phone ? { telephone: siteConfig.phone } : {}),
+      contactPoint: {
+        "@type": "ContactPoint",
+        contactType: "customer support",
+        email: siteConfig.email,
+        availableLanguage: ["French"],
+      },
       address: {
         "@type": "PostalAddress",
         streetAddress: "19 Avenue Albert François",

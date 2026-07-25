@@ -91,10 +91,10 @@ const nextConfig: NextConfig = {
         destination: "/rejoindre",
         permanent: true,
       },
-      // Alias /actualites → /evenements (redirect 301 déjà géré côté page mais aussi ici)
+      // Alias /actualites → accueil (la rubrique actualités a été retirée du site)
       {
         source: "/actualites",
-        destination: "/evenements",
+        destination: "/",
         permanent: true,
       },
     ];

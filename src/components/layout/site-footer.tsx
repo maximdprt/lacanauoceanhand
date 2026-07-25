@@ -98,7 +98,7 @@ export function SiteFooter() {
           </p>
           <nav aria-label="Pied de page">
             <ul className="space-y-2.5">
-              {navItems.map((item) => (
+              {[...navItems, { label: "Contact", href: "/contact" }].map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}

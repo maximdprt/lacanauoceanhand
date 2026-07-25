@@ -2,32 +2,31 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
-import { beachXperienceUrl } from "@/data/site";
-
 const filieres = [
   {
     tag: "Toute l'année",
     title: "Handball en salle",
-    text: "Du baby hand aux seniors, l'entraînement et la compétition à la salle de la Cousteyre.",
+    text: "Du baby hand aux seniors : entraînements et compétition à la salle de la Cousteyre. Retrouvez les créneaux de chaque catégorie.",
     image: "/media/action/jump-3.jpg",
-    href: "/equipes",
-    external: false,
+    href: "/equipes#salle",
     accent: "var(--c-senior)",
   },
   {
     tag: "Mai à Août",
     title: "Beach handball",
-    text: "Le handball sur le sable, à deux pas de l'océan Atlantique. Découvrez aussi le tournoi Beach Xperience.",
+    text: "Le handball sur le sable, à deux pas de l'océan Atlantique. Découvrez la section beach et ses créneaux.",
     image: "/media/beach/amsterdam.jpg",
-    href: beachXperienceUrl,
-    external: true,
+    href: "/equipes#beach",
     accent: "var(--c-beach)",
   },
 ];
 
 function FiliereCard({ f }: { f: (typeof filieres)[number] }) {
-  const inner = (
-    <>
+  return (
+    <Link
+      href={f.href}
+      className="group relative block overflow-hidden rounded-(--radius-lg) border border-line"
+    >
       <div className="relative aspect-4/3 overflow-hidden sm:aspect-16/10">
         <Image
           src={f.image}
@@ -49,23 +48,6 @@ function FiliereCard({ f }: { f: (typeof filieres)[number] }) {
           <p className="mt-3 max-w-md text-base leading-relaxed text-white/80">{f.text}</p>
         </div>
       </div>
-    </>
-  );
-
-  const className =
-    "group relative block overflow-hidden rounded-(--radius-lg) border border-line";
-
-  if (f.external) {
-    return (
-      <a href={f.href} target="_blank" rel="noopener noreferrer" className={className}>
-        {inner}
-      </a>
-    );
-  }
-
-  return (
-    <Link href={f.href} className={className}>
-      {inner}
     </Link>
   );
 }

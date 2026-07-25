@@ -14,11 +14,11 @@ export const metadata: Metadata = {
 
 const suggestedLinks = [
   { label: "Nos équipes", href: "/equipes", desc: "Baby hand, jeunes, seniors, beach" },
+  { label: "Beach handball", href: "/beach", desc: "Le hand sur le sable" },
+  { label: "Le club", href: "/le-club", desc: "Histoire, lieux et staff" },
   { label: "Rejoindre le club", href: "/rejoindre", desc: "Inscriptions ouvertes" },
-  { label: "La saison", href: "/saison", desc: "Matchs et calendrier" },
-  { label: "Le club", href: "/le-club", desc: "Histoire et palmarès" },
-  { label: "Actualités", href: "/evenements", desc: "Vie du club" },
   { label: "Contact", href: "/contact", desc: "Nous écrire" },
+  { label: "Accueil", href: "/", desc: "Retour à la page d'accueil" },
 ];
 
 export default function NotFound() {

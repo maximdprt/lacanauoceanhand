@@ -7,7 +7,7 @@ import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion
 
 const ctas = [
   { label: "Rejoindre le club", href: "/rejoindre", icon: ArrowRight, primary: true },
-  { label: "Calendrier", href: "/saison", icon: CalendarDays, primary: false },
+  { label: "Les matchs", href: "/#saison", icon: CalendarDays, primary: false },
   { label: "Nos équipes", href: "/equipes", icon: Users, primary: false },
 ] as const;
 
