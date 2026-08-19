@@ -17,7 +17,7 @@ const actions = [
     meta: "De 20 € à 45 €",
     href: helloAsso.boutique,
     cta: "Voir la boutique",
-    accent: "var(--c-beach)",
+    accent: "var(--c-beach-ink)",
   },
   {
     icon: HandCoins,
@@ -27,7 +27,7 @@ const actions = [
     meta: "Montant libre",
     href: helloAsso.don,
     cta: "Je fais un don",
-    accent: "var(--c-jeunes)",
+    accent: "var(--c-jeunes-ink)",
   },
   {
     icon: Handshake,

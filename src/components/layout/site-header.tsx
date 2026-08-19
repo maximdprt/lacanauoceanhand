@@ -127,7 +127,7 @@ export function SiteHeader() {
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
-          className="flex h-10 w-10 items-center justify-center rounded-full border border-line text-ink lg:hidden"
+          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-line text-ink lg:hidden"
           aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
           aria-expanded={open}
           aria-controls="menu-mobile"
@@ -145,7 +145,13 @@ export function SiteHeader() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             id="menu-mobile"
-            className="fixed inset-0 top-[68px] z-40 bg-white lg:hidden"
+            /* Le haut de l'overlay doit suivre la hauteur réelle de
+               l'en-tête (68 px au repos, 56 px une fois scrollé), sinon
+               une bande de contenu reste visible entre les deux. */
+            className={cn(
+              "fixed inset-x-0 bottom-0 z-40 bg-white lg:hidden",
+              scrolled ? "top-[56px]" : "top-[68px]",
+            )}
           >
             <nav aria-label="Menu mobile" className="container-x flex flex-col gap-1 py-6">
               {navItems.map((item, i) => (

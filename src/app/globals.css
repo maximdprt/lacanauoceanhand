@@ -33,6 +33,19 @@
   --c-gardien: #6d54c8;
   --c-arbitrage: #d4a017;
 
+  /* Variantes lisibles des mêmes teintes.
+     Les accents clairs ci-dessus sont faits pour de GRANDS aplats
+     décoratifs. Dès qu'ils portent du texte blanc, servent de texte
+     sur fond clair, ou véhiculent une information (pastille de
+     légende), ils tombent sous le seuil WCAG AA de 4,5:1 :
+     beach 2,53 · arbitrage 2,38 · jeunes 3,45.
+     Ces variantes gardent la teinte et passent toutes ≥ 4,6:1. */
+  --c-jeunes-ink: #1a855b;
+  --c-beach-ink: #a36818;
+  --c-arbitrage-ink: #946f10;
+  /* Or lisible sur --gold-tint (le --gold-deep n'y donnait que 2,98:1). */
+  --gold-ink: #8f661a;
+
   --radius: 16px;
   --radius-sm: 10px;
   --radius-lg: 28px;
@@ -67,6 +80,10 @@
   --color-c-beach: var(--c-beach);
   --color-c-gardien: var(--c-gardien);
   --color-c-arbitrage: var(--c-arbitrage);
+  --color-c-jeunes-ink: var(--c-jeunes-ink);
+  --color-c-beach-ink: var(--c-beach-ink);
+  --color-c-arbitrage-ink: var(--c-arbitrage-ink);
+  --color-gold-ink: var(--gold-ink);
 
   --font-sans: var(--font-archivo);
   --font-display: var(--font-archivo);

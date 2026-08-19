@@ -117,7 +117,7 @@ export function LicenceFees() {
       <ul className="mt-8 grid gap-x-8 gap-y-5 sm:grid-cols-2">
         {licenceNotes.map((note) => (
           <li key={note.title} className="flex items-start gap-3">
-            <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-c-jeunes/12 text-c-jeunes">
+            <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-c-jeunes/12 text-c-jeunes-ink">
               <Check size={14} strokeWidth={3} aria-hidden="true" />
             </span>
             <span>

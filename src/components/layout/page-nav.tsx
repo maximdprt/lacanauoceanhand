@@ -44,7 +44,10 @@ export function PageNav({ items }: { items: PageNavItem[] }) {
   return (
     <nav
       aria-label="Sections de la page"
-      className="sticky top-[56px] z-40 border-b border-line bg-paper/85 backdrop-blur-md"
+      /* Sur un écran très bas (téléphone en paysage), l'en-tête + le
+         sommaire mangeaient 36 % de la hauteur utile : on retire le
+         sommaire, la navigation principale suffit. */
+      className="sticky top-[56px] z-40 border-b border-line bg-paper/85 backdrop-blur-md [@media(max-height:430px)]:hidden"
     >
       <div className="container-x">
         {/* défilement horizontal sur mobile plutôt qu'un retour à la ligne */}
@@ -57,7 +60,7 @@ export function PageNav({ items }: { items: PageNavItem[] }) {
                   href={`#${item.id}`}
                   aria-current={isActive ? "true" : undefined}
                   className={cn(
-                    "block rounded-full px-3.5 py-1.5 text-sm font-semibold transition-colors duration-200",
+                    "block rounded-full px-4 py-2.5 text-sm font-semibold transition-colors duration-200",
                     isActive
                       ? "bg-ink text-white"
                       : "text-ink-soft hover:bg-mist hover:text-ink",

@@ -65,7 +65,7 @@ export default function BeachPage() {
       <BeachSection />
 
       {/* LICENCE BEACH — le tarif, tout de suite */}
-      <section id="licence" className="container-x section-pad scroll-mt-28">
+      <section id="licence" className="container-x section-pad scroll-mt-32">
         <Reveal>
           <div className="flex flex-col items-start justify-between gap-6 rounded-(--radius-lg) border border-line bg-mist p-7 md:flex-row md:items-center md:p-9">
             <div className="max-w-2xl">
@@ -80,7 +80,7 @@ export default function BeachPage() {
             </div>
             <Link
               href="/rejoindre#tarifs"
-              className="btn-press inline-flex shrink-0 items-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm font-bold text-white transition hover:bg-c-beach"
+              className="btn-press inline-flex shrink-0 items-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm font-bold text-white transition hover:bg-c-beach-ink"
             >
               Voir tous les tarifs
               <ArrowRight size={16} aria-hidden="true" />
@@ -90,7 +90,7 @@ export default function BeachPage() {
       </section>
 
       {/* BOUTIQUE */}
-      <section id="boutique" className="band scroll-mt-28">
+      <section id="boutique" className="band scroll-mt-32">
         <div className="container-x section-pad">
           <Reveal>
             <SectionTitle
@@ -108,7 +108,7 @@ export default function BeachPage() {
       </section>
 
       {/* LBHX — mécénat & tournoi partenaires */}
-      <section id="lbhx" className="container-x section-pad scroll-mt-28">
+      <section id="lbhx" className="container-x section-pad scroll-mt-32">
         <Reveal>
           <SectionTitle
             eyebrow="Beach Handball Xperience"
@@ -127,7 +127,7 @@ export default function BeachPage() {
                   rel="noopener noreferrer"
                   className="card-lift group flex h-full flex-col rounded-(--radius) border border-line bg-white p-7"
                 >
-                  <span className="flex h-12 w-12 items-center justify-center rounded-full bg-c-beach/12 text-c-beach">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-full bg-c-beach/12 text-c-beach-ink">
                     <Icon size={21} aria-hidden="true" />
                   </span>
                   <span className="eyebrow mt-5 text-ink-soft">{action.eyebrow}</span>
@@ -135,7 +135,7 @@ export default function BeachPage() {
                   <p className="mt-2 flex-1 text-base leading-relaxed text-ink-soft">
                     {action.description}
                   </p>
-                  <p className="mt-4 text-sm font-semibold text-c-beach">{action.meta}</p>
+                  <p className="mt-4 text-sm font-semibold text-c-beach-ink">{action.meta}</p>
                   <span className="mt-4 inline-flex items-center gap-2 border-t border-line pt-4 text-sm font-semibold text-ocean">
                     {action.cta}
                     <ExternalLink size={14} aria-hidden="true" />

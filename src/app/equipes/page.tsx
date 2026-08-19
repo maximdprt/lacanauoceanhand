@@ -33,6 +33,8 @@ const group = (id: Team["group"]) => teamGroups.find((g) => g.id === id);
 function TeamCard({ team }: { team: Team }) {
   const g = group(team.group);
   const color = g?.color ?? "var(--c-senior)";
+  // Texte blanc et icône porteuse de sens : version lisible de la teinte.
+  const ink = g?.ink ?? "var(--c-senior)";
 
   return (
     <div className="card-lift group flex h-full flex-col overflow-hidden rounded-(--radius) border border-line bg-white">
@@ -47,7 +49,7 @@ function TeamCard({ team }: { team: Team }) {
         <div className="absolute left-0 top-0 h-1.5 w-full" style={{ background: color }} />
         <span
           className="absolute left-4 top-4 rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider text-white shadow-(--shadow-sm)"
-          style={{ background: color }}
+          style={{ background: ink }}
         >
           {g?.label}
         </span>
@@ -61,7 +63,7 @@ function TeamCard({ team }: { team: Team }) {
         {/* Créneaux d'entraînement */}
         <div className="mt-5 rounded-(--radius-sm) border border-line bg-mist/60 p-4">
           <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-ink-soft">
-            <Clock size={14} style={{ color }} aria-hidden="true" />
+            <Clock size={14} style={{ color: ink }} aria-hidden="true" />
             Créneaux d&apos;entraînement
           </p>
           <ul className="mt-3 flex flex-wrap gap-2">
@@ -77,9 +79,11 @@ function TeamCard({ team }: { team: Team }) {
         </div>
 
         {/* Entraîneur */}
-        <p className="mt-auto flex items-center gap-2 border-t border-line pt-4 text-sm">
-          <User size={15} className="shrink-0 text-ocean" aria-hidden="true" />
-          <span className="text-ink-soft">Entraîneur ·</span>
+        {/* flex-wrap + nowrap sur le libellé : en 320 px, « Entraîneur · »
+            se coupait entre le mot et le point médian. */}
+        <p className="mt-auto flex flex-wrap items-baseline gap-x-2 gap-y-1 border-t border-line pt-4 text-sm">
+          <User size={15} className="shrink-0 translate-y-0.5 text-ocean" aria-hidden="true" />
+          <span className="whitespace-nowrap text-ink-soft">Entraîneur ·</span>
           <span className="font-semibold text-ink">{team.coach}</span>
         </p>
       </div>
@@ -103,7 +107,7 @@ export default function TeamsPage() {
       <PageNav items={sections} />
 
       {/* SALLE */}
-      <section id="salle" className="container-x section-pad scroll-mt-28">
+      <section id="salle" className="container-x section-pad scroll-mt-32">
         <Reveal>
           <SectionTitle
             eyebrow="Handball en salle"
@@ -121,7 +125,7 @@ export default function TeamsPage() {
       </section>
 
       {/* BEACH */}
-      <section id="beach" className="band scroll-mt-28">
+      <section id="beach" className="band scroll-mt-32">
         <div className="container-x section-pad">
           <Reveal>
             <SectionTitle
@@ -148,7 +152,7 @@ export default function TeamsPage() {
       </section>
 
       {/* CRÉNEAUX — planning complet de la semaine */}
-      <section id="creneaux" className="container-x section-pad scroll-mt-28">
+      <section id="creneaux" className="container-x section-pad scroll-mt-32">
         <Reveal>
           <SectionTitle
             eyebrow={`Saison ${licenceSeason}`}
@@ -178,7 +182,7 @@ export default function TeamsPage() {
       </section>
 
       {/* ENCADREMENT — qui entraîne quel groupe */}
-      <section id="encadrement" className="band scroll-mt-28">
+      <section id="encadrement" className="band scroll-mt-32">
         <div className="container-x section-pad">
           <Reveal>
             <SectionTitle

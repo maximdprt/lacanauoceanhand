@@ -33,7 +33,7 @@ function Slot({ slot }: { slot: TrainingSlot }) {
         <span
           className={cn(
             "ml-0.5 inline-flex translate-y-px items-center gap-1 whitespace-nowrap rounded-full px-2 py-0.5 text-xs font-semibold",
-            away ? "bg-gold-tint text-gold-deep" : "bg-mist text-ink-soft",
+            away ? "bg-gold-tint text-gold-ink" : "bg-mist text-ink-soft",
           )}
         >
           <MapPin size={11} aria-hidden="true" />

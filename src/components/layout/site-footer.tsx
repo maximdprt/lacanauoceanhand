@@ -104,12 +104,12 @@ export function SiteFooter() {
             Navigation
           </p>
           <nav aria-label="Pied de page">
-            <ul className="space-y-2.5">
+            <ul className="space-y-0.5">
               {[...navItems, { label: "Contact", href: "/contact" }].map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-base text-ink/80 transition hover:text-ocean"
+                    className="block py-1.5 text-base text-ink/80 transition hover:text-ocean"
                   >
                     {item.label}
                   </Link>
@@ -152,7 +152,7 @@ export function SiteFooter() {
           <p className="mb-3 mt-8 text-xs font-bold uppercase tracking-[0.2em] text-ink-soft">
             Nous soutenir
           </p>
-          <ul className="space-y-2.5">
+          <ul className="space-y-0.5">
             {supportLinks.map((link) => {
               const Icon = link.icon;
               return (
@@ -161,7 +161,7 @@ export function SiteFooter() {
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2.5 text-base text-ink/80 transition hover:text-ocean"
+                    className="inline-flex items-center gap-2.5 py-1.5 text-base text-ink/80 transition hover:text-ocean"
                   >
                     <Icon size={17} className="shrink-0 text-ocean" aria-hidden="true" />
                     {link.label}

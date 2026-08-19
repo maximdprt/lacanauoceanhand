@@ -68,8 +68,8 @@ export function HeroSection() {
                 href={href}
                 className={
                   primary
-                    ? "btn-press group inline-flex h-12 min-w-[200px] flex-1 items-center justify-center gap-2 rounded-md bg-gold px-5 text-sm font-bold uppercase tracking-wide text-ink transition hover:bg-white sm:flex-none sm:text-base"
-                    : "btn-press inline-flex h-12 min-w-[200px] flex-1 items-center justify-center gap-2 rounded-md border border-white/25 bg-white/5 px-5 text-sm font-bold uppercase tracking-wide text-white transition hover:border-white/40 hover:bg-white/10 sm:flex-none sm:text-base"
+                    ? "btn-press group inline-flex h-12 w-full min-w-[200px] shrink-0 items-center justify-center gap-2 rounded-md bg-gold px-5 text-sm font-bold uppercase tracking-wide text-ink transition hover:bg-white sm:w-auto sm:text-base"
+                    : "btn-press inline-flex h-12 w-full min-w-[200px] shrink-0 items-center justify-center gap-2 rounded-md border border-white/25 bg-white/5 px-5 text-sm font-bold uppercase tracking-wide text-white transition hover:border-white/40 hover:bg-white/10 sm:w-auto sm:text-base"
                 }
               >
                 {!primary && <Icon size={17} strokeWidth={2.25} />}

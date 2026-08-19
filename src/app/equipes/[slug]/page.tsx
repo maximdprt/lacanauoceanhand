@@ -112,7 +112,7 @@ export default async function TeamDetailPage({
       <JsonLd data={teamSchema} />
       <Link
         href="/equipes"
-        className="inline-flex items-center gap-2 text-sm font-semibold text-ink-soft transition hover:text-ocean"
+        className="-my-2 inline-flex items-center gap-2 py-2 text-sm font-semibold text-ink-soft transition hover:text-ocean"
       >
         <ArrowLeft size={16} />
         Retour aux équipes

@@ -40,7 +40,7 @@ function Breadcrumb({ crumbs, light = false }: { crumbs: Crumb[]; light?: boolea
           {crumb.href ? (
             <Link
               href={crumb.href}
-              className={`transition ${light ? "hover:text-white" : "hover:text-ocean"}`}
+              className={`-my-1.5 inline-block py-1.5 transition ${light ? "hover:text-white" : "hover:text-ocean"}`}
             >
               {crumb.label}
             </Link>

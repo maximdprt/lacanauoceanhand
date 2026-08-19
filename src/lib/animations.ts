@@ -23,9 +23,18 @@ export const SPRING = {
   snappy: { type: "spring", stiffness: 400, damping: 30 } as const,
 };
 
-// Déclenchement au scroll — une seule fois, dès 20 % visible (assez tôt
-// pour ne jamais laisser de contenu masqué durablement).
-export const VIEWPORT = { once: true, amount: 0.2 } as const;
+// Déclenchement au scroll — une seule fois, dès que l'élément commence
+// à entrer dans l'écran.
+//
+// ATTENTION : ne PAS revenir à `amount: 0.2`. Ce seuil est une fraction
+// de la HAUTEUR DE L'ÉLÉMENT, pas du viewport. Sur mobile, un bloc de
+// 1908 px (le planning des créneaux) n'exposait que 380 px à l'arrivée
+// sur /equipes#creneaux, soit 0,199 : sous le seuil, l'animation ne
+// partait jamais et tout le tableau restait en opacity:0. Un bloc plus
+// haut que 5× l'écran ne pouvait même JAMAIS l'atteindre au scroll.
+// `amount: "some"` déclenche dès le premier pixel visible : le contenu
+// à l'écran est toujours affiché, quelle que soit sa hauteur.
+export const VIEWPORT = { once: true, amount: "some" } as const;
 
 /* ---------- Variants réutilisables ---------- */
 export const fadeUp: Variants = {

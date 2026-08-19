@@ -41,7 +41,7 @@ export default function JoinPage() {
       </section>
 
       {/* TARIFS — la question que tout le monde se pose en premier */}
-      <section id="tarifs" className="container-x section-pad scroll-mt-28">
+      <section id="tarifs" className="container-x section-pad scroll-mt-32">
         <Reveal>
           <SectionTitle
             eyebrow={`Saison ${licenceSeason}`}
@@ -84,7 +84,7 @@ export default function JoinPage() {
       </section>
 
       {/* FORMULAIRES */}
-      <section id="inscription" className="band scroll-mt-28">
+      <section id="inscription" className="band scroll-mt-32">
         <div className="container-x section-pad">
           <div className="mx-auto max-w-3xl">
             <Reveal>

@@ -191,12 +191,20 @@ export const teams: Team[] = [
   },
 ];
 
-export const teamGroups: { id: Team["group"]; label: string; color: string }[] = [
-  { id: "seniors", label: "Seniors", color: "var(--c-senior)" },
-  { id: "jeunes", label: "Équipes jeunes", color: "var(--c-jeunes)" },
-  { id: "beach", label: "Beach handball", color: "var(--c-beach)" },
-  { id: "gardien", label: "École de gardien", color: "var(--c-gardien)" },
-  { id: "arbitrage", label: "École d'arbitrage", color: "var(--c-arbitrage)" },
+/* `color` = aplat décoratif (filet de carte). `ink` = même teinte, mais
+   lisible : c'est elle qu'on utilise dès qu'il y a du texte blanc dessus
+   ou une icône porteuse de sens. */
+export const teamGroups: {
+  id: Team["group"];
+  label: string;
+  color: string;
+  ink: string;
+}[] = [
+  { id: "seniors", label: "Seniors", color: "var(--c-senior)", ink: "var(--c-senior)" },
+  { id: "jeunes", label: "Équipes jeunes", color: "var(--c-jeunes)", ink: "var(--c-jeunes-ink)" },
+  { id: "beach", label: "Beach handball", color: "var(--c-beach)", ink: "var(--c-beach-ink)" },
+  { id: "gardien", label: "École de gardien", color: "var(--c-gardien)", ink: "var(--c-gardien)" },
+  { id: "arbitrage", label: "École d'arbitrage", color: "var(--c-arbitrage)", ink: "var(--c-arbitrage-ink)" },
 ];
 
 /* ============================================================
@@ -536,9 +544,9 @@ export const trainingKinds: {
   label: string;
   color: string;
 }[] = [
-  { id: "jeunes", label: "Équipes jeunes", color: "var(--c-jeunes)" },
+  { id: "jeunes", label: "Équipes jeunes", color: "var(--c-jeunes-ink)" },
   { id: "seniors", label: "Seniors", color: "var(--c-senior)" },
-  { id: "loisirs", label: "Loisirs", color: "var(--c-arbitrage)" },
+  { id: "loisirs", label: "Loisirs", color: "var(--c-arbitrage-ink)" },
   { id: "gardien", label: "École de gardiens", color: "var(--c-gardien)" },
 ];
 

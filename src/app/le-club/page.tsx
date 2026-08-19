@@ -40,7 +40,7 @@ export default function ClubPage() {
       <PageNav items={sections} />
 
       {/* HISTOIRE — intro + timeline en images */}
-      <section id="histoire" className="container-x section-pad scroll-mt-28">
+      <section id="histoire" className="container-x section-pad scroll-mt-32">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <Reveal>
             <div>
@@ -137,7 +137,7 @@ export default function ClubPage() {
       </section>
 
       {/* LES LIEUX */}
-      <section id="lieux" className="band scroll-mt-28">
+      <section id="lieux" className="band scroll-mt-32">
         <div className="container-x section-pad">
           <Reveal>
             <SectionTitle
@@ -182,7 +182,7 @@ export default function ClubPage() {
       </section>
 
       {/* LE STAFF */}
-      <section id="staff" className="container-x section-pad scroll-mt-28">
+      <section id="staff" className="container-x section-pad scroll-mt-32">
         <Reveal>
           <SectionTitle
             eyebrow="L'équipe"
@@ -196,7 +196,7 @@ export default function ClubPage() {
       </section>
 
       {/* SOUTENIR LE CLUB */}
-      <section id="soutenir" className="band scroll-mt-28">
+      <section id="soutenir" className="band scroll-mt-32">
         <div className="container-x section-pad">
           <Reveal>
             <SectionTitle

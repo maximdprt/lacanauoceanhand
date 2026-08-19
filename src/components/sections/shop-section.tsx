@@ -13,7 +13,7 @@ export function ShopSection() {
     <div className="overflow-hidden rounded-(--radius-lg) border border-line bg-white">
       <div className="flex flex-col gap-5 border-b border-line bg-mist px-7 py-7 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-4">
-          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-c-beach text-white">
+          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-c-beach-ink text-white">
             <ShoppingBag size={21} aria-hidden="true" />
           </span>
           <div>
@@ -29,7 +29,7 @@ export function ShopSection() {
           href={helloAsso.boutique}
           target="_blank"
           rel="noopener noreferrer"
-          className="btn-press inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-ink px-6 py-3 text-sm font-bold text-white transition hover:bg-c-beach"
+          className="btn-press inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-ink px-6 py-3 text-sm font-bold text-white transition hover:bg-c-beach-ink"
         >
           Commander
           <ExternalLink size={15} aria-hidden="true" />
