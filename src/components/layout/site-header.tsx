@@ -66,6 +66,10 @@ export function SiteHeader() {
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
             transition={SPRING.snappy}
+            /* whileTap fait ajouter un tabindex par framer-motion : sans
+               ce -1, ce span imbriqué dans le lien créait un second arrêt
+               de tabulation qui ne mène nulle part. */
+            tabIndex={-1}
           >
             <Image
               src="/brand/logo-color.png"
