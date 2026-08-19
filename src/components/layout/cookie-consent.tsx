@@ -44,7 +44,7 @@ export function CookieConsent() {
           transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           role="region"
           aria-label="Gestion des cookies"
-          className="fixed inset-x-3 bottom-3 z-60 mx-auto max-w-3xl rounded-2xl border border-line bg-white p-5 shadow-(--shadow-lg) sm:inset-x-4 sm:bottom-4 sm:p-6"
+          className="fixed inset-x-3 bottom-3 z-60 mx-auto max-w-3xl rounded-(--radius) border border-line bg-white p-5 shadow-(--shadow-lg) sm:inset-x-4 sm:bottom-4 sm:p-6"
         >
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
             <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-ocean-tint text-ocean">

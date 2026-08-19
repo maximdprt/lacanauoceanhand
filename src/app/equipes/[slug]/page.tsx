@@ -107,7 +107,7 @@ export default async function TeamDetailPage({
   };
 
   return (
-    <div className="container-x space-y-10 py-10 md:py-14">
+    <div className="container-x section-pad-sm space-y-10">
       <JsonLd data={breadcrumbSchema} />
       <JsonLd data={teamSchema} />
       <Link
@@ -118,7 +118,7 @@ export default async function TeamDetailPage({
         Retour aux équipes
       </Link>
 
-      <header className="overflow-hidden rounded-3xl border border-line bg-white">
+      <header className="overflow-hidden rounded-(--radius-lg) border border-line bg-white">
         <div className="relative aspect-video w-full overflow-hidden bg-mist sm:aspect-21/9">
           <Image
             src={team.image}

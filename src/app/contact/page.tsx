@@ -24,7 +24,7 @@ export default function ContactPage() {
         description="Une question sur le club, les inscriptions ou un partenariat ? Écrivez-nous, on vous répond vite."
       />
 
-      <section className="container-x py-16 md:py-24">
+      <section className="container-x section-pad">
         <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:gap-16">
           {/* Coordonnées */}
           <Reveal>

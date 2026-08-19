@@ -45,7 +45,7 @@ export default function PolitiqueConfidentialitePage() {
         ]}
       />
 
-      <div className="container-x max-w-3xl space-y-10 py-14 md:py-20">
+      <div className="container-x section-pad max-w-3xl space-y-10">
         <LegalSection title="Responsable de traitement">
           <p>
             L&apos;association <strong>{legalInfo.associationName}</strong> ({legalInfo.siege})

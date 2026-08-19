@@ -64,7 +64,7 @@ export default function HomePage() {
       <HeroSection />
 
       {/* RENDEZ-VOUS À VENIR — se retire seul une fois la date passée */}
-      <section className="container-x pt-12 md:pt-16">
+      <section className="container-x pt-14 md:pt-20">
         {forumUpcoming && <JsonLd data={forumSchema} />}
         <EventBanner event={forumAssociations} />
       </section>
@@ -78,7 +78,7 @@ export default function HomePage() {
             align="center"
           />
         </Reveal>
-        <div className="mt-10 md:mt-14">
+        <div className="section-body">
           <Reveal delay={0.05}>
             <FiliereCards />
           </Reveal>
@@ -86,7 +86,7 @@ export default function HomePage() {
       </section>
 
       {/* LA SAISON — matchs à venir + lien Score'n'co */}
-      <section id="saison" className="scroll-mt-24 border-y border-line bg-mist">
+      <section id="saison" className="band scroll-mt-24">
         <div className="container-x section-pad">
           <Reveal>
             <SectionTitle
@@ -96,7 +96,7 @@ export default function HomePage() {
               align="center"
             />
           </Reveal>
-          <div className="mt-10 md:mt-14">
+          <div className="section-body">
             <ScorencoEmbed />
           </div>
         </div>
@@ -107,18 +107,18 @@ export default function HomePage() {
         <Reveal>
           <SectionTitle title="Ils soutiennent le club" align="center" />
         </Reveal>
-        <div className="mt-10 md:mt-14">
+        <div className="section-body">
           <PartnersCarousel partners={partners} />
         </div>
       </section>
 
       {/* FAQ */}
-      <section className="border-y border-line bg-mist">
+      <section className="band">
         <div className="container-x section-pad">
           <Reveal>
             <SectionTitle title="Tout savoir sur le club" align="center" />
           </Reveal>
-          <div className="mx-auto mt-10 max-w-2xl md:mt-14">
+          <div className="section-body mx-auto max-w-2xl">
             <Reveal delay={0.06}>
               <Faq items={faqItems} />
             </Reveal>
@@ -135,7 +135,7 @@ export default function HomePage() {
             align="center"
           />
         </Reveal>
-        <div className="mt-10 md:mt-14">
+        <div className="section-body">
           <JoinCta />
         </div>
       </section>

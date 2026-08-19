@@ -29,7 +29,7 @@ export default function CoupePage() {
       />
 
       {/* RÉCIT ÉDITORIAL */}
-      <section className="container-x py-16 md:py-24">
+      <section className="container-x section-pad">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr] lg:gap-16">
           <Reveal>
             <div className="max-w-2xl">
@@ -90,7 +90,7 @@ export default function CoupePage() {
 
       {/* GALERIE */}
       <section className="border-t border-line bg-mist">
-        <div className="container-x py-16 md:py-24">
+        <div className="container-x section-pad">
           <Reveal>
             <SectionTitle
               index="01"
@@ -99,7 +99,7 @@ export default function CoupePage() {
               description="Retour en photos sur la campagne et le sacre du club à Bercy."
             />
           </Reveal>
-          <Reveal delay={0.08} className="mt-12">
+          <Reveal delay={0.08} className="section-body">
             <GalleryLightbox items={galleryItems} />
           </Reveal>
         </div>

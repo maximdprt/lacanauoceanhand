@@ -4,6 +4,7 @@ import { ArrowRight, ExternalLink, Handshake, Trophy } from "lucide-react";
 
 import { buildMetadata } from "@/lib/site";
 import { PageHero } from "@/components/sections/page-hero";
+import { PageNav } from "@/components/layout/page-nav";
 import { BeachSection } from "@/components/sections/beach-section";
 import { ShopSection } from "@/components/sections/shop-section";
 import { SectionTitle } from "@/components/common/section-title";
@@ -16,6 +17,13 @@ export const metadata: Metadata = buildMetadata({
     "Le beach handball à Lacanau : licence à 60 € (−16 ans) ou 100 €, entraînements sur le sable du Pôle de l'Ardilouse, boutique du club et tournoi Lacanau Beach Handball Xperience.",
   path: "/beach",
 });
+
+const sections = [
+  { id: "beach", label: "La section" },
+  { id: "licence", label: "Licence" },
+  { id: "boutique", label: "Boutique" },
+  { id: "lbhx", label: "LBHX" },
+];
 
 /* Deux engagements ouverts autour du Lacanau Beach Handball Xperience,
    gérés sur HelloAsso par le club. */
@@ -51,10 +59,13 @@ export default function BeachPage() {
         title="Le beach handball à Lacanau"
         description="Le hand sur le sable, à deux pas de l'océan. Et chaque été, le rendez-vous du club : le Lacanau Beach Handball Xperience."
       />
+
+      <PageNav items={sections} />
+
       <BeachSection />
 
       {/* LICENCE BEACH — le tarif, tout de suite */}
-      <section className="container-x py-16 md:py-24">
+      <section id="licence" className="container-x section-pad scroll-mt-28">
         <Reveal>
           <div className="flex flex-col items-start justify-between gap-6 rounded-(--radius-lg) border border-line bg-mist p-7 md:flex-row md:items-center md:p-9">
             <div className="max-w-2xl">
@@ -79,8 +90,8 @@ export default function BeachPage() {
       </section>
 
       {/* BOUTIQUE */}
-      <section id="boutique" className="scroll-mt-24 border-y border-line bg-mist">
-        <div className="container-x py-16 md:py-24">
+      <section id="boutique" className="band scroll-mt-28">
+        <div className="container-x section-pad">
           <Reveal>
             <SectionTitle
               eyebrow="Boutique"
@@ -88,7 +99,7 @@ export default function BeachPage() {
               description="Textile et accessoires Lacanau Océhand, en commande directe sur HelloAsso. Chaque achat finance la vie du club."
             />
           </Reveal>
-          <div className="mt-10 md:mt-14">
+          <div className="section-body">
             <Reveal delay={0.05}>
               <ShopSection />
             </Reveal>
@@ -97,7 +108,7 @@ export default function BeachPage() {
       </section>
 
       {/* LBHX — mécénat & tournoi partenaires */}
-      <section className="container-x py-16 md:py-24">
+      <section id="lbhx" className="container-x section-pad scroll-mt-28">
         <Reveal>
           <SectionTitle
             eyebrow="Beach Handball Xperience"
@@ -105,7 +116,7 @@ export default function BeachPage() {
             description="Le tournoi de l'été se construit avec ses partenaires : deux façons d'en faire partie."
           />
         </Reveal>
-        <div className="mt-10 grid gap-6 md:mt-14 md:grid-cols-2">
+        <div className="section-body grid gap-6 md:grid-cols-2">
           {lbhxActions.map((action, i) => {
             const Icon = action.icon;
             return (

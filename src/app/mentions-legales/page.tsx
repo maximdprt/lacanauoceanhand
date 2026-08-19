@@ -41,7 +41,7 @@ export default function MentionsLegalesPage() {
         breadcrumbs={[{ label: "Accueil", href: "/" }, { label: "Mentions légales" }]}
       />
 
-      <div className="container-x max-w-3xl space-y-10 py-14 md:py-20">
+      <div className="container-x section-pad max-w-3xl space-y-10">
         <LegalSection title="Éditeur du site">
           <p>
             Le site <strong>{siteConfig.url.replace("https://", "")}</strong> est

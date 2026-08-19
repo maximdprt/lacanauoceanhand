@@ -29,7 +29,7 @@ export function SiteFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="mt-24 border-t border-line bg-mist">
+    <footer className="border-t border-line bg-mist">
       {/* Bande fédération (logos en couleur) */}
       <div className="border-b border-line">
         <motion.div
@@ -43,7 +43,7 @@ export function SiteFooter() {
             <motion.div
               key={f.name}
               variants={fadeUp}
-              className="relative h-16 w-40 rounded-xl bg-white px-4 py-3 shadow-(--shadow-xs)"
+              className="relative h-16 w-40 rounded-(--radius-sm) bg-white px-4 py-3 shadow-(--shadow-xs)"
             >
               <Image src={f.logo} alt={f.name} fill sizes="160px" className="object-contain" />
             </motion.div>
@@ -140,7 +140,7 @@ export function SiteFooter() {
             href={beachXperienceUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-6 flex items-start gap-3 rounded-2xl border border-line bg-white p-4 transition hover:border-ocean/40 hover:shadow-sm"
+            className="mt-6 flex items-start gap-3 rounded-(--radius) border border-line bg-white p-4 transition hover:border-ocean/40 hover:shadow-sm"
           >
             <div className="min-w-0 flex-1">
               <p className="text-sm font-semibold text-ink">Lacanau Beach Handball Xperience</p>

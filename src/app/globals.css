@@ -145,12 +145,37 @@ body {
   .container-x { padding-inline: 32px; }
 }
 
-/* rythme vertical normalisé */
+/* ---------- Rythme vertical : UNE seule échelle ----------
+   Toute section du site utilise .section-pad (ou .section-pad-sm
+   pour les bandes courtes : CTA, rappels). L'écart entre l'en-tête
+   d'une section et son contenu utilise .section-body. Ne pas
+   réintroduire de py-* arbitraire dans les pages : c'est ce qui
+   fait dériver le rythme d'une page à l'autre. */
 .section-pad {
   padding-block: 4rem;
 }
+.section-pad-sm {
+  padding-block: 3rem;
+}
+.section-body {
+  margin-top: 3rem;
+}
 @media (min-width: 768px) {
-  .section-pad { padding-block: 6rem; }
+  .section-pad { padding-block: 6.5rem; }
+  .section-pad-sm { padding-block: 4rem; }
+  .section-body { margin-top: 4rem; }
+}
+
+/* ---------- Bandes de section ----------
+   Alternance de teintes SANS filet : le changement de fond suffit à
+   séparer deux sections. Les filets horizontaux empilés donnaient un
+   effet « formulaire » et hachaient la page. */
+.band {
+  background: var(--mist);
+}
+.band-ink {
+  background: var(--ink);
+  color: #fff;
 }
 
 /* ---------- Filet décoratif ---------- */

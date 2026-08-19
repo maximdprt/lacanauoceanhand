@@ -6,6 +6,7 @@ import { Clock, User, ArrowRight } from "lucide-react";
 import { buildMetadata } from "@/lib/site";
 import { PageHero } from "@/components/sections/page-hero";
 import { SectionTitle } from "@/components/common/section-title";
+import { PageNav } from "@/components/layout/page-nav";
 import { TrainingSchedule } from "@/components/sections/training-schedule";
 import { CoachingTable } from "@/components/sections/coaching-table";
 import { Reveal } from "@/components/common/reveal";
@@ -19,6 +20,13 @@ export const metadata: Metadata = buildMetadata({
     "Toutes les équipes de Lacanau Océhand et le planning complet des entraînements, du lundi au samedi : baby hand, jeunes, seniors, beach, école de gardien et d'arbitrage.",
   path: "/equipes",
 });
+
+const sections = [
+  { id: "salle", label: "En salle" },
+  { id: "beach", label: "Beach" },
+  { id: "creneaux", label: "Créneaux" },
+  { id: "encadrement", label: "Encadrement" },
+];
 
 const group = (id: Team["group"]) => teamGroups.find((g) => g.id === id);
 
@@ -51,7 +59,7 @@ function TeamCard({ team }: { team: Team }) {
         <p className="mt-3 text-base leading-relaxed text-ink-soft">{team.description}</p>
 
         {/* Créneaux d'entraînement */}
-        <div className="mt-5 rounded-xl border border-line bg-mist/60 p-4">
+        <div className="mt-5 rounded-(--radius-sm) border border-line bg-mist/60 p-4">
           <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-ink-soft">
             <Clock size={14} style={{ color }} aria-hidden="true" />
             Créneaux d&apos;entraînement
@@ -92,8 +100,10 @@ export default function TeamsPage() {
         description="Du baby handball aux seniors, en salle et sur le sable : retrouvez chaque équipe avec sa photo, ses créneaux d'entraînement et son entraîneur."
       />
 
+      <PageNav items={sections} />
+
       {/* SALLE */}
-      <section id="salle" className="container-x scroll-mt-24 py-16 md:py-24">
+      <section id="salle" className="container-x section-pad scroll-mt-28">
         <Reveal>
           <SectionTitle
             eyebrow="Handball en salle"
@@ -101,7 +111,7 @@ export default function TeamsPage() {
             description="Entraînements à la salle de la Cousteyre et au Cosec, à Lacanau. Horaires officiels du guide du licencié : le planning complet de la semaine est juste en dessous."
           />
         </Reveal>
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="section-body grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {salleTeams.map((t, i) => (
             <Reveal key={t.slug} delay={(i % 3) * 0.05} className="h-full">
               <TeamCard team={t} />
@@ -111,8 +121,8 @@ export default function TeamsPage() {
       </section>
 
       {/* BEACH */}
-      <section id="beach" className="scroll-mt-24 border-y border-line bg-mist">
-        <div className="container-x py-16 md:py-24">
+      <section id="beach" className="band scroll-mt-28">
+        <div className="container-x section-pad">
           <Reveal>
             <SectionTitle
               eyebrow="Beach handball"
@@ -120,7 +130,7 @@ export default function TeamsPage() {
               description="Le hand sur le sable du Pôle de l'Ardilouse, de mai à août. Dès l'U13 et pour les adultes."
             />
           </Reveal>
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="section-body grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {beachTeams.map((t, i) => (
               <Reveal key={t.slug} delay={i * 0.05} className="h-full">
                 <TeamCard team={t} />
@@ -138,7 +148,7 @@ export default function TeamsPage() {
       </section>
 
       {/* CRÉNEAUX — planning complet de la semaine */}
-      <section id="creneaux" className="container-x scroll-mt-24 py-16 md:py-24">
+      <section id="creneaux" className="container-x section-pad scroll-mt-28">
         <Reveal>
           <SectionTitle
             eyebrow={`Saison ${licenceSeason}`}
@@ -146,7 +156,7 @@ export default function TeamsPage() {
             description="Toute la semaine, groupe par groupe et salle par salle, tels que publiés dans le guide du licencié."
           />
         </Reveal>
-        <div className="mt-10 md:mt-14">
+        <div className="section-body">
           <Reveal delay={0.05}>
             <TrainingSchedule />
           </Reveal>
@@ -168,8 +178,8 @@ export default function TeamsPage() {
       </section>
 
       {/* ENCADREMENT — qui entraîne quel groupe */}
-      <section id="encadrement" className="scroll-mt-24 border-y border-line bg-mist">
-        <div className="container-x py-16 md:py-24">
+      <section id="encadrement" className="band scroll-mt-28">
+        <div className="container-x section-pad">
           <Reveal>
             <SectionTitle
               eyebrow="Encadrement"
@@ -177,7 +187,7 @@ export default function TeamsPage() {
               description="Chaque groupe a ses entraîneurs attitrés, coordonnés pour la filière jeunes par Paul Mourioux."
             />
           </Reveal>
-          <div className="mt-10 md:mt-14">
+          <div className="section-body">
             <Reveal delay={0.05}>
               <CoachingTable />
             </Reveal>
@@ -186,7 +196,7 @@ export default function TeamsPage() {
       </section>
 
       {/* CTA */}
-      <section className="container-x flex flex-col items-start justify-between gap-6 py-14 md:flex-row md:items-center">
+      <section className="container-x section-pad-sm flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
         <div>
           <h2 className="font-display text-2xl uppercase tracking-tight text-ink md:text-3xl">
             Vous voulez essayer&nbsp;?

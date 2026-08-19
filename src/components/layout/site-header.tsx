@@ -194,7 +194,7 @@ export function SiteHeader() {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setOpen(false)}
-                className="mt-4 flex items-center justify-between rounded-2xl border border-ocean/25 bg-ocean-tint px-4 py-4 text-ocean transition hover:border-ocean"
+                className="mt-4 flex items-center justify-between rounded-(--radius) border border-ocean/25 bg-ocean-tint px-4 py-4 text-ocean transition hover:border-ocean"
               >
                 <span className="font-display text-lg uppercase">Beach Xperience</span>
                 <span className="text-xs font-medium">site-lbhx.vercel.app →</span>

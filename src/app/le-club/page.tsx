@@ -7,6 +7,7 @@ import { buildMetadata } from "@/lib/site";
 import { PageHero } from "@/components/sections/page-hero";
 import { SectionTitle } from "@/components/common/section-title";
 import { Reveal } from "@/components/common/reveal";
+import { PageNav } from "@/components/layout/page-nav";
 import { StaffGrid } from "@/components/sections/staff-grid";
 import { SupportClub } from "@/components/sections/support-club";
 import { cn } from "@/lib/utils";
@@ -19,6 +20,13 @@ export const metadata: Metadata = buildMetadata({
   path: "/le-club",
 });
 
+const sections = [
+  { id: "histoire", label: "Notre histoire" },
+  { id: "lieux", label: "Nos lieux" },
+  { id: "staff", label: "Le staff" },
+  { id: "soutenir", label: "Nous soutenir" },
+];
+
 export default function ClubPage() {
   return (
     <>
@@ -29,8 +37,10 @@ export default function ClubPage() {
         description="Chaque aventure sportive est avant tout une aventure humaine. Voici la nôtre, depuis 2017."
       />
 
+      <PageNav items={sections} />
+
       {/* HISTOIRE — intro + timeline en images */}
-      <section className="container-x py-16 md:py-24">
+      <section id="histoire" className="container-x section-pad scroll-mt-28">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <Reveal>
             <div>
@@ -127,8 +137,8 @@ export default function ClubPage() {
       </section>
 
       {/* LES LIEUX */}
-      <section className="border-y border-line bg-mist">
-        <div className="container-x py-16 md:py-24">
+      <section id="lieux" className="band scroll-mt-28">
+        <div className="container-x section-pad">
           <Reveal>
             <SectionTitle
               eyebrow="Nos lieux"
@@ -136,7 +146,7 @@ export default function ClubPage() {
               description="Trois lieux pour pratiquer le handball à Lacanau, en salle comme sur le sable."
             />
           </Reveal>
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
+          <div className="section-body grid gap-6 md:grid-cols-3">
             {salles.map((s, i) => (
               <Reveal key={s.name} delay={i * 0.06} className="h-full">
                 <div className="card-lift group flex h-full flex-col overflow-hidden rounded-(--radius) border border-line bg-paper">
@@ -172,7 +182,7 @@ export default function ClubPage() {
       </section>
 
       {/* LE STAFF */}
-      <section className="container-x py-16 md:py-24">
+      <section id="staff" className="container-x section-pad scroll-mt-28">
         <Reveal>
           <SectionTitle
             eyebrow="L'équipe"
@@ -180,14 +190,14 @@ export default function ClubPage() {
             description="Des bénévoles passionnés font vivre le club au quotidien, sur et en dehors du terrain."
           />
         </Reveal>
-        <div className="mt-12">
+        <div className="section-body">
           <StaffGrid />
         </div>
       </section>
 
       {/* SOUTENIR LE CLUB */}
-      <section id="soutenir" className="scroll-mt-24 border-y border-line bg-mist">
-        <div className="container-x py-16 md:py-24">
+      <section id="soutenir" className="band scroll-mt-28">
+        <div className="container-x section-pad">
           <Reveal>
             <SectionTitle
               eyebrow="Nous soutenir"
@@ -195,7 +205,7 @@ export default function ClubPage() {
               description="Le club fonctionne grâce à ses bénévoles et à celles et ceux qui le soutiennent. Trois façons simples de donner un coup de main."
             />
           </Reveal>
-          <div className="mt-12">
+          <div className="section-body">
             <Reveal delay={0.05}>
               <SupportClub />
             </Reveal>

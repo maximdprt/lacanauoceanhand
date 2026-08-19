@@ -5,7 +5,7 @@ export function PartnersCarousel({ partners }: { partners: Partner[] }) {
   const renderItem = (p: Partner, opts?: { hidden?: boolean }) => {
     const hasSite = Boolean(p.website) && p.website !== "#";
     const className =
-      "card-lift flex h-24 w-44 shrink-0 items-center justify-center rounded-2xl border border-line bg-white p-5";
+      "card-lift flex h-24 w-44 shrink-0 items-center justify-center rounded-(--radius) border border-line bg-white p-5";
     const inner = (
       <span className="relative h-full w-full">
         <Image

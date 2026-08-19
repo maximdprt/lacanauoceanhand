@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 
 function StaffCard({ member }: { member: StaffMember }) {
   return (
-    <article className="card-lift flex items-center gap-4 rounded-2xl border border-line bg-white p-4">
+    <article className="card-lift flex items-center gap-4 rounded-(--radius) border border-line bg-white p-4">
       {member.image ? (
         <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-full ring-1 ring-line">
           <Image

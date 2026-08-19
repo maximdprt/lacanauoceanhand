@@ -181,7 +181,7 @@ export function JoinForms() {
             {/* JOUEUR */}
             {active === "joueur" && (
               <div className="space-y-5">
-                <div className="rounded-xl bg-ocean-tint px-5 py-4 text-sm leading-relaxed text-ink">
+                <div className="rounded-(--radius-sm) bg-ocean-tint px-5 py-4 text-sm leading-relaxed text-ink">
                   Les licenciés de la saison précédente recevront directement un
                   e-mail de la fédération pour renouveler leur licence.
                 </div>
@@ -257,7 +257,7 @@ export function JoinForms() {
                         <label
                           key={role}
                           className={cn(
-                            "flex cursor-pointer items-center gap-3 rounded-xl border px-4 py-3 text-base transition",
+                            "flex cursor-pointer items-center gap-3 rounded-(--radius-sm) border px-4 py-3 text-base transition",
                             checked
                               ? "border-ocean bg-ocean-tint text-ink"
                               : "border-line text-ink hover:border-ink",

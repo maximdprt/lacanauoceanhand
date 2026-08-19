@@ -3,6 +3,7 @@ import { ArrowRight, CalendarDays, Download } from "lucide-react";
 
 import { buildMetadata } from "@/lib/site";
 import { PageHero } from "@/components/sections/page-hero";
+import { PageNav } from "@/components/layout/page-nav";
 import { JoinForms } from "@/components/sections/join-forms";
 import { EventBanner } from "@/components/sections/event-banner";
 import { LicenceFees } from "@/components/sections/licence-fees";
@@ -17,6 +18,11 @@ export const metadata = buildMetadata({
   path: "/rejoindre",
 });
 
+const sections = [
+  { id: "tarifs", label: "Tarifs" },
+  { id: "inscription", label: "Inscription" },
+];
+
 export default function JoinPage() {
   return (
     <>
@@ -27,13 +33,15 @@ export default function JoinPage() {
         description="Joueur, bénévole, entraîneur ou partenaire : choisissez votre formulaire ci-dessous, votre demande arrive directement au club."
       />
 
+      <PageNav items={sections} />
+
       {/* RENDEZ-VOUS — venir nous rencontrer avant de s'inscrire */}
       <section className="container-x pt-14 md:pt-20">
         <EventBanner event={forumAssociations} />
       </section>
 
       {/* TARIFS — la question que tout le monde se pose en premier */}
-      <section id="tarifs" className="container-x scroll-mt-24 py-16 md:py-24">
+      <section id="tarifs" className="container-x section-pad scroll-mt-28">
         <Reveal>
           <SectionTitle
             eyebrow={`Saison ${licenceSeason}`}
@@ -41,7 +49,7 @@ export default function JoinPage() {
             description="Une cotisation annuelle unique, équipement compris, avec plusieurs aides possibles pour alléger la facture."
           />
         </Reveal>
-        <div className="mt-10 md:mt-14">
+        <div className="section-body">
           <Reveal delay={0.05}>
             <LicenceFees />
           </Reveal>
@@ -76,8 +84,8 @@ export default function JoinPage() {
       </section>
 
       {/* FORMULAIRES */}
-      <section className="border-y border-line bg-mist">
-        <div className="container-x py-16 md:py-24">
+      <section id="inscription" className="band scroll-mt-28">
+        <div className="container-x section-pad">
           <div className="mx-auto max-w-3xl">
             <Reveal>
               <SectionTitle
@@ -87,7 +95,7 @@ export default function JoinPage() {
               />
             </Reveal>
 
-            <div className="mt-10 md:mt-14">
+            <div className="section-body">
               <Reveal delay={0.05}>
                 <JoinForms />
               </Reveal>

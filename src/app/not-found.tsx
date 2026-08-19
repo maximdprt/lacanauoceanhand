@@ -51,7 +51,7 @@ export default function NotFound() {
           <Link
             key={link.href}
             href={link.href}
-            className="group flex flex-col rounded-2xl border border-line bg-white p-4 text-left transition hover:border-ocean hover:shadow-md"
+            className="group flex flex-col rounded-(--radius) border border-line bg-white p-4 text-left transition hover:border-ocean hover:shadow-md"
           >
             <span className="text-sm font-bold text-ink group-hover:text-ocean">
               {link.label}
