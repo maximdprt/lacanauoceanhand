@@ -110,3 +110,66 @@ export type AgeCategory = {
   note: string;
   accent: string;
 };
+
+/* ============================================================
+   GUIDE DU LICENCIÉ — tarifs, créneaux et encadrement
+   Source : « Guide du licencié » officiel du club (PDF).
+   ============================================================ */
+
+/** Une ligne du tableau « Prix des licences ». */
+export type LicenceFee = {
+  /** Libellé de la catégorie tel que publié par le club. */
+  category: string;
+  /** Années de naissance concernées (absent pour Seniors / Loisirs / Beach). */
+  birthYears?: string;
+  /** Cotisation annuelle en euros. */
+  price: number;
+  /** Sépare le handball en salle du beach handball (tarifs réduits). */
+  kind: "salle" | "beach";
+};
+
+/** Famille de pratique — sert à colorer les créneaux. */
+export type TrainingKind = "jeunes" | "seniors" | "loisirs" | "gardien";
+
+/** Un créneau d'entraînement hebdomadaire. */
+export type TrainingSlot = {
+  day: "Lundi" | "Mardi" | "Mercredi" | "Jeudi" | "Vendredi" | "Samedi";
+  /** Heure de début, ou plage horaire quand le club en publie une. */
+  time: string;
+  /** Groupe concerné (U13 mixte, Seniors…). */
+  group: string;
+  kind: TrainingKind;
+  /** Salle / installation. */
+  venue: string;
+  /** Commune de la salle — plusieurs groupes s'entraînent hors de Lacanau. */
+  city: string;
+};
+
+/** Une ligne du tableau « Entraîneurs » du guide. */
+export type CoachAssignment = {
+  category: string;
+  coaches: string[];
+  /** Coordinateur de la filière (colonne « Coordinateur » du guide). */
+  coordinator?: string;
+};
+
+/** Un rendez-vous ponctuel mis en avant sur le site (forum, tournoi…). */
+export type ClubHighlight = {
+  title: string;
+  /** Date ISO — sert au schema.org Event et au masquage automatique. */
+  startDate: string;
+  endDate: string;
+  dateLabel: string;
+  timeLabel: string;
+  venue: string;
+  city: string;
+  description: string;
+  cta?: { label: string; href: string };
+};
+
+/** Un article de la boutique en ligne HelloAsso. */
+export type ShopItem = {
+  name: string;
+  price: number;
+  note?: string;
+};

@@ -8,13 +8,14 @@ import { PageHero } from "@/components/sections/page-hero";
 import { SectionTitle } from "@/components/common/section-title";
 import { Reveal } from "@/components/common/reveal";
 import { StaffGrid } from "@/components/sections/staff-grid";
+import { SupportClub } from "@/components/sections/support-club";
 import { cn } from "@/lib/utils";
 import { timelineEvents, salles } from "@/data/site";
 
 export const metadata: Metadata = buildMetadata({
   title: "Le club",
   description:
-    "Né en 2017, Lacanau Océhand est champion de France 2024. Histoire en images, salles et staff du club de handball de Lacanau, en Gironde.",
+    "Né en 2017, Lacanau Océhand est champion de France 2024. Histoire en images, salles, staff et encadrement de chaque catégorie du club de handball de Lacanau.",
   path: "/le-club",
 });
 
@@ -181,6 +182,24 @@ export default function ClubPage() {
         </Reveal>
         <div className="mt-12">
           <StaffGrid />
+        </div>
+      </section>
+
+      {/* SOUTENIR LE CLUB */}
+      <section id="soutenir" className="scroll-mt-24 border-y border-line bg-mist">
+        <div className="container-x py-16 md:py-24">
+          <Reveal>
+            <SectionTitle
+              eyebrow="Nous soutenir"
+              title="Faire vivre le club"
+              description="Le club fonctionne grâce à ses bénévoles et à celles et ceux qui le soutiennent. Trois façons simples de donner un coup de main."
+            />
+          </Reveal>
+          <div className="mt-12">
+            <Reveal delay={0.05}>
+              <SupportClub />
+            </Reveal>
+          </div>
         </div>
       </section>
     </>

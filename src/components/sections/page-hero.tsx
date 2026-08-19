@@ -83,7 +83,7 @@ export function PageHero({
   // ---------- En-tête immersif : photo de fond ----------
   if (image) {
     return (
-      <section className="relative overflow-hidden border-b border-line bg-ink">
+      <section className="relative overflow-hidden bg-ink">
         <JsonLd data={breadcrumbSchema} />
 
         {/* Photo de fond avec léger zoom d'entrée */}

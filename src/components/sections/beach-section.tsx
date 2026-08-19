@@ -40,7 +40,7 @@ export function BeachSection() {
   return (
     <section
       id="beach"
-      className="relative overflow-hidden border-y border-line bg-ink text-white"
+      className="relative overflow-hidden bg-ink text-white"
     >
       {/* décor : grille fine + halo beach */}
       <div className="grid-overlay pointer-events-none absolute inset-0 opacity-50" />

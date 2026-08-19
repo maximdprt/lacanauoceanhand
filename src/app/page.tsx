@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { HeroSection } from "@/components/sections/hero-section";
+import { EventBanner } from "@/components/sections/event-banner";
 import { FiliereCards } from "@/components/sections/filiere-cards";
 import { ScorencoEmbed } from "@/components/sections/scorenco-embed";
 import { PartnersCarousel } from "@/components/sections/partners-carousel";
@@ -8,9 +9,10 @@ import { Faq } from "@/components/sections/faq";
 import { JoinCta } from "@/components/sections/join-cta";
 import { SectionTitle } from "@/components/common/section-title";
 import { Reveal } from "@/components/common/reveal";
-import { buildMetadata } from "@/lib/site";
+import { JsonLd } from "@/components/common/json-ld";
+import { buildMetadata, siteConfig } from "@/lib/site";
 
-import { faqItems, partners } from "@/data/site";
+import { faqItems, forumAssociations, partners } from "@/data/site";
 
 export const metadata: Metadata = buildMetadata({
   // Title ≤ 60 caractères, description 120-155 : non tronqués en SERP.
@@ -20,10 +22,52 @@ export const metadata: Metadata = buildMetadata({
   path: "/",
 });
 
+/* Données structurées de l'événement mis en avant — émises tant
+   que la date n'est pas passée (revérifié à chaque déploiement). */
+const forumSchema = {
+  "@context": "https://schema.org",
+  "@type": "Event",
+  name: `${forumAssociations.title} de ${forumAssociations.city}`,
+  description: forumAssociations.description,
+  startDate: forumAssociations.startDate,
+  endDate: forumAssociations.endDate,
+  eventStatus: "https://schema.org/EventScheduled",
+  eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+  isAccessibleForFree: true,
+  image: `${siteConfig.url}${siteConfig.ogImage}`,
+  location: {
+    "@type": "Place",
+    name: forumAssociations.venue,
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: forumAssociations.city,
+      postalCode: siteConfig.postalCode,
+      addressRegion: siteConfig.region,
+      addressCountry: siteConfig.country,
+    },
+  },
+  performer: {
+    "@type": "SportsClub",
+    name: siteConfig.name,
+    url: siteConfig.url,
+  },
+};
+
+/* Évalué au chargement du module, donc au build : les données
+   structurées de l'événement disparaissent au déploiement suivant
+   sa date. Le bandeau, lui, se retire tout seul côté client. */
+const forumUpcoming = new Date(forumAssociations.endDate).getTime() > Date.now();
+
 export default function HomePage() {
   return (
     <>
       <HeroSection />
+
+      {/* RENDEZ-VOUS À VENIR — se retire seul une fois la date passée */}
+      <section className="container-x pt-12 md:pt-16">
+        {forumUpcoming && <JsonLd data={forumSchema} />}
+        <EventBanner event={forumAssociations} />
+      </section>
 
       {/* SALLE & BEACH — deux façons de jouer, chaque carte mène aux équipes */}
       <section className="container-x section-pad">

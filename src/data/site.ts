@@ -1,12 +1,17 @@
 import type {
   AgeCategory,
+  ClubHighlight,
+  CoachAssignment,
   FaqItem,
+  LicenceFee,
   NavItem,
   Partner,
   Salle,
+  ShopItem,
   StaffMember,
   Team,
   TimelineEvent,
+  TrainingSlot,
 } from "@/types";
 
 /* ============================================================
@@ -42,8 +47,8 @@ export const teams: Team[] = [
     name: "Seniors masculins",
     group: "seniors",
     age: "+16 ans",
-    schedule: ["Lundi 20h00", "Mercredi 20h00"],
-    coach: "Thierry Mayeur",
+    schedule: ["Mercredi 20h15 · Cosec", "Vendredi 19h15 · Cosec"],
+    coach: "Hubert Gaget",
     description:
       "Notre groupe fanion, vainqueur de la Coupe de France 2024 et triple champion de Gironde. Intensité, vitesse et esprit de famille.",
     image: "/media/teams/seniors.jpg",
@@ -53,8 +58,8 @@ export const teams: Team[] = [
     name: "Équipe loisirs",
     group: "seniors",
     age: "Adultes",
-    schedule: ["Vendredi 20h30"],
-    coach: "Hubert Gaget",
+    schedule: ["Mardi 20h15 · Cousteyre"],
+    coach: "Hubert Gaget & Carine Laborde",
     description:
       "Le handball pour le plaisir, sans pression de classement. Une séance conviviale ouverte à tous les adultes, débutants bienvenus.",
     image: "/media/teams/loisirs.jpg",
@@ -66,8 +71,8 @@ export const teams: Team[] = [
     name: "Baby & École de hand",
     group: "jeunes",
     age: "5 à 9 ans · Samedi matin",
-    schedule: ["Samedi 09h00"],
-    coach: "Guillaume Giraudet-Bacchiolelli",
+    schedule: ["Samedi 11h00 · Cousteyre"],
+    coach: "Virginie & Raphaël",
     description:
       "Découverte du jeu par des ateliers ludiques. Un cadre rassurant et joyeux pour les plus petits.",
     image: "/media/teams/ecole-de-hand.jpg",
@@ -76,9 +81,9 @@ export const teams: Team[] = [
     slug: "u11-mixtes",
     name: "U11 mixtes",
     group: "jeunes",
-    age: "9 à 11 ans · Mercredi + samedi",
-    schedule: ["Mercredi 16h30", "Samedi 10h00"],
-    coach: "Steeve Martin-Pavailler",
+    age: "9 à 11 ans · Mercredi",
+    schedule: ["Mercredi 17h45 · Cosec"],
+    coach: "Bruno & Néné",
     description:
       "Apprentissage des règles de base et premiers tournois, à son propre rythme et en s'amusant.",
     image: "/media/teams/u11.jpg",
@@ -88,10 +93,10 @@ export const teams: Team[] = [
     name: "U13 filles",
     group: "jeunes",
     age: "11 à 13 ans",
-    schedule: ["Mardi 18h00", "Vendredi 18h30"],
-    coach: "Christophe Suire",
+    schedule: ["Mardi 17h15 · Cousteyre", "Vendredi 17h15 · Cousteyre"],
+    coach: "Christophe Suire & Paul Mourioux",
     description:
-      "Premières compétitions départementales pour les filles, dans la bonne humeur et l'esprit d'équipe.",
+      "Premières compétitions départementales pour les filles, dans la bonne humeur et l'esprit d'équipe. Entraînements en groupe mixte U13.",
     image: "/media/teams/u13-filles.jpg",
   },
   {
@@ -99,10 +104,10 @@ export const teams: Team[] = [
     name: "U13 garçons",
     group: "jeunes",
     age: "11 à 13 ans",
-    schedule: ["Mardi 18h00", "Vendredi 18h30"],
-    coach: "Christophe Suire",
+    schedule: ["Mardi 17h15 · Cousteyre", "Vendredi 17h15 · Cousteyre"],
+    coach: "Alex D. & Steve",
     description:
-      "Développement technique et tactique pour les garçons, vers plus d'autonomie sur le terrain.",
+      "Développement technique et tactique pour les garçons, vers plus d'autonomie sur le terrain. Entraînements en groupe mixte U13.",
     image: "/media/teams/u13-garcons.jpg",
   },
   {
@@ -110,10 +115,10 @@ export const teams: Team[] = [
     name: "U15 filles",
     group: "jeunes",
     age: "13 à 15 ans",
-    schedule: ["Lundi 18h30", "Jeudi 18h30"],
-    coach: "Fabien Boulanger",
+    schedule: ["Lundi 18h45 · Lège-Cap-Ferret", "Jeudi 18h45 · Lège-Cap-Ferret"],
+    coach: "Clement & Joan",
     description:
-      "Compétitions régionales et progression collective pour les filles du club.",
+      "Compétitions régionales et progression collective pour les filles du club, en entente à Lège-Cap-Ferret.",
     image: "/media/teams/u15-filles.jpg",
   },
   {
@@ -121,21 +126,28 @@ export const teams: Team[] = [
     name: "U15 garçons",
     group: "jeunes",
     age: "13 à 15 ans",
-    schedule: ["Lundi 18h30", "Jeudi 18h30"],
-    coach: "Fabien Boulanger",
+    schedule: ["Mardi 18h45 · Cousteyre", "Vendredi 18h45 · Cousteyre"],
+    coach: "Paul Mourioux & Alexis G.",
     description:
       "Intensité et cohésion pour les garçons, à un âge clé de la formation.",
     image: "/media/teams/u15-garcons.jpg",
   },
   {
     slug: "u18",
-    name: "U18 (entente Bruges)",
+    name: "U18",
     group: "jeunes",
-    age: "15 à 18 ans · Lundi + jeudi",
-    schedule: ["Lundi 19h00", "Jeudi 19h00"],
-    coach: "Yann Bidon",
+    age: "15 à 18 ans · 3 groupes",
+    schedule: [
+      "Garçons · Mercredi 18h30 · Lège-Cap-Ferret",
+      "Garçons · Vendredi 19h15 · Cosec",
+      "Filles D/R · Mercredi 19h00 · Cosec",
+      "Filles D/R · Vendredi 19h30 · Saint-Médard",
+      "Filles Nationale · Mercredi 18h00 · Saint-Médard",
+      "Filles Nationale · Vendredi 19h00 · Lège-Cap-Ferret",
+    ],
+    coach: "Léo, Cedrick, Hugo & Joan",
     description:
-      "Performance et cohésion à l'approche du niveau senior, en entente avec Bruges Le Bouscat.",
+      "Performance et cohésion à l'approche du niveau senior. Trois groupes en entente : garçons, filles Départemental/Régional et filles Nationale, entre Lacanau, Lège-Cap-Ferret et Saint-Médard.",
     image: "/media/teams/u18.jpg",
   },
 
@@ -145,8 +157,8 @@ export const teams: Team[] = [
     name: "Beach handball",
     group: "beach",
     age: "Dès U13 · Mai à Août",
-    schedule: ["Format 4 + 1 joueurs"],
-    coach: "Bénévoles dédiés",
+    schedule: ["Format 4 + 1 joueurs", "Saison de mai à août"],
+    coach: "Paul Mourioux & Léo",
     description:
       "Le handball dans sa version estivale et festive, joué sur le sable à deux pas de l'océan. Créativité, vitesse et gestes spectaculaires.",
     image: "/media/teams/beach.jpg",
@@ -158,8 +170,8 @@ export const teams: Team[] = [
     name: "École de gardien",
     group: "gardien",
     age: "Tous niveaux",
-    schedule: ["Selon catégories"],
-    coach: "Staff gardiens",
+    schedule: ["Mercredi 17h00 → 18h00 · Cosec"],
+    coach: "Bruno & Alexis G.",
     description:
       "Un encadrement spécifique pour progresser dans les cages : placement, réflexes et lecture du jeu.",
     image: "/media/teams/ecole-gardien.jpg",
@@ -172,7 +184,7 @@ export const teams: Team[] = [
     group: "arbitrage",
     age: "Dès 13 ans",
     schedule: ["Formation continue"],
-    coach: "Céline Dirson",
+    coach: "Céline Dirson & Samantha",
     description:
       "Apprendre à arbitrer, comprendre les règles et accompagner les rencontres du club avec confiance.",
     image: "/media/teams/ecole-arbitrage.jpg",
@@ -295,15 +307,16 @@ export const staffMembers: StaffMember[] = [
 ];
 
 /* ============================================================
-   LICENCE — avantages inclus (montants communiqués par le club
-   sur demande). Faits réels : forfait famille −15 €, Pass'Sport,
-   équipement inclus, renouvellement par email fédéral.
+   LICENCE — avantages inclus. Montants et conditions issus du
+   guide du licencié (cf. licenceFees / licenceNotes plus bas).
    ============================================================ */
 export const pricingPerks: string[] = [
+  "Licence de 130 € à 180 € selon la catégorie, 60 € ou 100 € en beach handball",
+  "Règlement possible en plusieurs mensualités",
   "Forfait famille : −15 € par licence supplémentaire d'une même famille",
   "Pass'Sport accepté",
   "Équipement (maillot, short, chaussettes) inclus dans la licence",
-  "Renouvellement via le lien reçu par email de la fédération",
+  "Hand + beach : seule la licence la plus chère est due",
 ];
 
 export const playerCategories = [
@@ -357,6 +370,26 @@ export const faqItems: FaqItem[] = [
     answer:
       "Lacanau Océhand est vainqueur de la Coupe de France départementale 2024 et triple champion de Gironde (2022, 2023, 2024).",
   },
+  {
+    question: "Combien coûte une licence de handball à Lacanau ?",
+    answer:
+      "De 130 € (Mini Hand) à 180 € (seniors) pour le handball en salle, 60 € en beach handball pour les moins de 16 ans et 100 € au-delà. Le règlement peut être échelonné sur plusieurs mensualités.",
+  },
+  {
+    question: "Quels sont les horaires d'entraînement ?",
+    answer:
+      "Les créneaux vont du lundi au samedi, à la salle de la Cousteyre et au Cosec de Lacanau, ainsi qu'à Lège-Cap-Ferret et Saint-Médard pour certains groupes U15 et U18. Le détail figure sur la page « Nos équipes ».",
+  },
+  {
+    question: "Existe-t-il des aides pour payer la licence ?",
+    answer:
+      "Oui : le Pass'Sport est accepté, une remise de 15 € s'applique à chaque licence supplémentaire d'une même famille, et un joueur inscrit en hand et en beach ne paie que la licence la plus chère.",
+  },
+  {
+    question: "Où rencontrer le club avant de s'inscrire ?",
+    answer:
+      "Au Forum des associations de Lacanau, le samedi 5 septembre de 10h à 15h, à la salle des fêtes et au Cosec. Les bénévoles du club y répondent à toutes les questions.",
+  },
 ];
 
 /* ============================================================
@@ -401,3 +434,186 @@ export const ageCategories: AgeCategory[] = [
   { label: "Seniors", age: "+16 ans", note: "Compétition & loisirs", accent: "var(--c-gardien)" },
   { label: "Beach handball", age: "Dès U13", note: "Mai → Août", accent: "var(--c-beach)" },
 ];
+
+/* ============================================================
+   GUIDE DU LICENCIÉ — document officiel du club (PDF)
+   public/documents/guide-licencie.pdf
+   Toutes les données ci-dessous en sont la transcription
+   fidèle : tarifs, créneaux et encadrement par catégorie.
+   ============================================================ */
+export const licenceSeason = "2025-2026";
+export const guideLicencieUrl = "/documents/guide-licencie.pdf";
+
+/* --- Prix des licences ------------------------------------ */
+export const licenceFees: LicenceFee[] = [
+  { category: "Mini Hand", birthYears: "2020 → 2017", price: 130, kind: "salle" },
+  { category: "−11 ans", birthYears: "2016 – 2015", price: 150, kind: "salle" },
+  { category: "−13 ans", birthYears: "2014 – 2013", price: 160, kind: "salle" },
+  { category: "−15 ans", birthYears: "2012 – 2011", price: 160, kind: "salle" },
+  { category: "−18 ans", birthYears: "2010 – 2009 – 2008", price: 160, kind: "salle" },
+  { category: "Seniors (+16 ans)", price: 180, kind: "salle" },
+  { category: "Loisirs", price: 160, kind: "salle" },
+  { category: "Beach handball (−16 ans)", price: 60, kind: "beach" },
+  { category: "Beach handball (+16 ans)", price: 100, kind: "beach" },
+];
+
+/** Conditions et aides applicables à la cotisation.
+    NB : le règlement en plusieurs mensualités est mis en avant
+    séparément dans le composant LicenceFees, pas répété ici. */
+export const licenceNotes: { title: string; detail: string }[] = [
+  {
+    title: "Forfait famille",
+    detail:
+      "Remise de 15 € par inscription supplémentaire au sein d'une même famille.",
+  },
+  {
+    title: "Pass'Sport",
+    detail:
+      "Le club accepte le Pass'Sport, l'allocation de rentrée sportive de l'État.",
+  },
+  {
+    title: "Hand + beach : une seule licence payante",
+    detail:
+      "Si un même joueur souscrit plusieurs licences (hand et beach) dans le club, il ne s'acquitte que de la licence la plus chère.",
+  },
+  {
+    title: "Équipement inclus",
+    detail: "Maillot, short et chaussettes sont fournis avec la licence.",
+  },
+  {
+    title: "Renouvellement",
+    detail:
+      "Les licenciés de la saison précédente renouvellent leur licence via le lien reçu par email de la fédération.",
+  },
+];
+
+/* --- Créneaux d'entraînement hebdomadaires ------------------ */
+export const trainingSlots: TrainingSlot[] = [
+  // LUNDI
+  { day: "Lundi", time: "18h45", group: "U15 filles", kind: "jeunes", venue: "Gymnase", city: "Lège-Cap-Ferret" },
+
+  // MARDI — Cousteyre, Lacanau
+  { day: "Mardi", time: "17h15", group: "U13 mixte", kind: "jeunes", venue: "Cousteyre", city: "Lacanau" },
+  { day: "Mardi", time: "18h45", group: "U15 garçons", kind: "jeunes", venue: "Cousteyre", city: "Lacanau" },
+  { day: "Mardi", time: "20h15", group: "Loisirs", kind: "loisirs", venue: "Cousteyre", city: "Lacanau" },
+
+  // MERCREDI — Cosec (Lacanau) + ententes
+  { day: "Mercredi", time: "17h00 → 18h00", group: "École de gardiens", kind: "gardien", venue: "Cosec", city: "Lacanau" },
+  { day: "Mercredi", time: "17h45", group: "U11 mixte", kind: "jeunes", venue: "Cosec", city: "Lacanau" },
+  { day: "Mercredi", time: "18h00", group: "U18 filles · Nationale", kind: "jeunes", venue: "Gymnase", city: "Saint-Médard" },
+  { day: "Mercredi", time: "18h30", group: "U18 garçons", kind: "jeunes", venue: "Gymnase", city: "Lège-Cap-Ferret" },
+  { day: "Mercredi", time: "19h00", group: "U18 filles · D/R", kind: "jeunes", venue: "Cosec", city: "Lacanau" },
+  { day: "Mercredi", time: "20h15", group: "Seniors masculins", kind: "seniors", venue: "Cosec", city: "Lacanau" },
+
+  // JEUDI
+  { day: "Jeudi", time: "18h45", group: "U15 filles", kind: "jeunes", venue: "Gymnase", city: "Lège-Cap-Ferret" },
+
+  // VENDREDI — Cousteyre puis Cosec + ententes
+  { day: "Vendredi", time: "17h15", group: "U13 mixte", kind: "jeunes", venue: "Cousteyre", city: "Lacanau" },
+  { day: "Vendredi", time: "18h45", group: "U15 garçons", kind: "jeunes", venue: "Cousteyre", city: "Lacanau" },
+  { day: "Vendredi", time: "19h00", group: "U18 filles · Nationale", kind: "jeunes", venue: "Gymnase", city: "Lège-Cap-Ferret" },
+  { day: "Vendredi", time: "19h15", group: "Seniors", kind: "seniors", venue: "Cosec", city: "Lacanau" },
+  { day: "Vendredi", time: "19h15", group: "U18 garçons", kind: "jeunes", venue: "Cosec", city: "Lacanau" },
+  { day: "Vendredi", time: "19h30", group: "U18 filles · D/R (Sud Médoc)", kind: "jeunes", venue: "Gymnase", city: "Saint-Médard" },
+
+  // SAMEDI
+  { day: "Samedi", time: "11h00", group: "U9 mixte", kind: "jeunes", venue: "Cousteyre", city: "Lacanau" },
+];
+
+/** Ordre d'affichage de la semaine. */
+export const trainingDays = [
+  "Lundi",
+  "Mardi",
+  "Mercredi",
+  "Jeudi",
+  "Vendredi",
+  "Samedi",
+] as const;
+
+/** Légende de couleurs des créneaux (reprend les accents du site). */
+export const trainingKinds: {
+  id: TrainingSlot["kind"];
+  label: string;
+  color: string;
+}[] = [
+  { id: "jeunes", label: "Équipes jeunes", color: "var(--c-jeunes)" },
+  { id: "seniors", label: "Seniors", color: "var(--c-senior)" },
+  { id: "loisirs", label: "Loisirs", color: "var(--c-arbitrage)" },
+  { id: "gardien", label: "École de gardiens", color: "var(--c-gardien)" },
+];
+
+/* --- Encadrement par catégorie ------------------------------ */
+export const coachAssignments: CoachAssignment[] = [
+  { category: "U9 / U7 mixte", coaches: ["Virginie", "Raphaël"], coordinator: "Paul" },
+  { category: "U11 mixte", coaches: ["Bruno", "Néné"], coordinator: "Paul" },
+  { category: "U13 filles", coaches: ["Christophe", "Paul"], coordinator: "Paul" },
+  { category: "U13 garçons", coaches: ["Alex D.", "Steve"], coordinator: "Paul" },
+  { category: "U15 filles", coaches: ["Clement", "Joan"], coordinator: "Paul" },
+  { category: "U15 garçons", coaches: ["Paul", "Alexis G."], coordinator: "Paul" },
+  { category: "U18 garçons", coaches: ["Léo", "Cedrick"], coordinator: "Paul" },
+  { category: "U18 filles", coaches: ["Hugo", "Joan"], coordinator: "Paul" },
+  { category: "Loisirs", coaches: ["Hubert", "Carinne"] },
+  { category: "Seniors garçons", coaches: ["Hubert"] },
+  { category: "École de gardiens", coaches: ["Bruno", "Alexis G."] },
+  { category: "École de beach handball", coaches: ["Paul", "Léo"] },
+  { category: "AS Collège", coaches: ["Paul", "Léo"] },
+  { category: "Arbitrage", coaches: ["Céline", "Samantha"] },
+];
+
+/** Référent de la filière jeunes — contact direct publié dans le guide. */
+export const youthLead = {
+  name: "Paul Mourioux",
+  role: "Responsable de la filière jeunes",
+  phone: "06 26 01 73 61",
+  /** Format international, sans espaces, pour le lien cliquable. */
+  phoneHref: "+33626017361",
+  image: "/media/staff/paul-mourioux.jpg",
+};
+
+/* ============================================================
+   HELLOASSO — billetterie, boutique et dons en ligne du club
+   https://www.helloasso.com/associations/lacanau-ocehand
+   ============================================================ */
+export const helloAsso = {
+  profile: "https://www.helloasso.com/associations/lacanau-ocehand",
+  boutique:
+    "https://www.helloasso.com/associations/lacanau-ocehand/boutiques/beach-hand",
+  don: "https://www.helloasso.com/associations/lacanau-ocehand/formulaires/1",
+  mecenat:
+    "https://www.helloasso.com/associations/lacanau-ocehand/formulaires/2",
+  tournoiPartenaires:
+    "https://www.helloasso.com/associations/lacanau-ocehand/evenements/tournoi-partenaires-lbhx-2026",
+};
+
+/** Articles de la boutique « Beach Hand » (HelloAsso). */
+export const shopItems: ShopItem[] = [
+  { name: "Teddy", price: 45, note: "Bordeaux" },
+  { name: "Sweat à capuche", price: 40, note: "Bleu · Vert · Bordeaux" },
+  { name: "Maillot de beach handball", price: 35, note: "Blanc · Noir" },
+  { name: "Sweat à capuche enfant", price: 30, note: "Bleu clair" },
+  { name: "T-shirt", price: 20, note: "Homme · Femme · Enfant" },
+  { name: "Casquette", price: 20, note: "Bleue · Grise" },
+  { name: "Bob", price: 20, note: "Bleu · Sable" },
+  { name: "Gourde", price: 20, note: "Taille unique" },
+];
+
+/** Options de livraison proposées dans la boutique. */
+export const shopShipping =
+  "Livraison en option : 5,25 € pour un maillot, 9,90 € au-delà de cinq maillots.";
+
+/* ============================================================
+   RENDEZ-VOUS À VENIR
+   Le bandeau d'accueil disparaît automatiquement après endDate.
+   ============================================================ */
+export const forumAssociations: ClubHighlight = {
+  title: "Forum des associations",
+  startDate: "2026-09-05T10:00:00+02:00",
+  endDate: "2026-09-05T15:00:00+02:00",
+  dateLabel: "Samedi 5 septembre",
+  timeLabel: "10h → 15h",
+  venue: "Salle des fêtes & Cosec",
+  city: "Lacanau",
+  description:
+    "Le club de handball & beach handball sera présent au Forum des associations. Venez découvrir le club, échanger avec nos bénévoles et pourquoi pas vous laisser tenter !",
+  cta: { label: "Préparer mon inscription", href: "/rejoindre" },
+};

@@ -6,15 +6,17 @@ import { Clock, User, ArrowRight } from "lucide-react";
 import { buildMetadata } from "@/lib/site";
 import { PageHero } from "@/components/sections/page-hero";
 import { SectionTitle } from "@/components/common/section-title";
+import { TrainingSchedule } from "@/components/sections/training-schedule";
+import { CoachingTable } from "@/components/sections/coaching-table";
 import { Reveal } from "@/components/common/reveal";
 import { buttonVariants } from "@/components/ui/button";
-import { teams, teamGroups } from "@/data/site";
+import { guideLicencieUrl, licenceSeason, teams, teamGroups } from "@/data/site";
 import type { Team } from "@/types";
 
 export const metadata: Metadata = buildMetadata({
   title: "Nos équipes",
   description:
-    "Toutes les équipes de Lacanau Océhand : baby hand, jeunes, seniors, beach, école de gardien et d'arbitrage. Photo, créneaux d'entraînement et entraîneur de chaque équipe.",
+    "Toutes les équipes de Lacanau Océhand et le planning complet des entraînements, du lundi au samedi : baby hand, jeunes, seniors, beach, école de gardien et d'arbitrage.",
   path: "/equipes",
 });
 
@@ -96,7 +98,7 @@ export default function TeamsPage() {
           <SectionTitle
             eyebrow="Handball en salle"
             title="Les équipes en salle"
-            description="Entraînements à la salle de la Cousteyre et au Cosec, à Lacanau. Horaires indicatifs, à confirmer en début de saison auprès des entraîneurs."
+            description="Entraînements à la salle de la Cousteyre et au Cosec, à Lacanau. Horaires officiels du guide du licencié : le planning complet de la semaine est juste en dessous."
           />
         </Reveal>
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -132,6 +134,54 @@ export default function TeamsPage() {
               </Link>
             </div>
           </Reveal>
+        </div>
+      </section>
+
+      {/* CRÉNEAUX — planning complet de la semaine */}
+      <section id="creneaux" className="container-x scroll-mt-24 py-16 md:py-24">
+        <Reveal>
+          <SectionTitle
+            eyebrow={`Saison ${licenceSeason}`}
+            title="Les créneaux d'entraînement"
+            description="Toute la semaine, groupe par groupe et salle par salle, tels que publiés dans le guide du licencié."
+          />
+        </Reveal>
+        <div className="mt-10 md:mt-14">
+          <Reveal delay={0.05}>
+            <TrainingSchedule />
+          </Reveal>
+        </div>
+        <Reveal delay={0.1}>
+          <p className="mt-6 text-sm text-ink-soft">
+            Un doute sur un horaire&nbsp;?{" "}
+            <a
+              href={guideLicencieUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-ocean hover:underline"
+            >
+              Téléchargez le guide du licencié
+            </a>{" "}
+            ou demandez confirmation à l&apos;entraîneur de votre catégorie.
+          </p>
+        </Reveal>
+      </section>
+
+      {/* ENCADREMENT — qui entraîne quel groupe */}
+      <section id="encadrement" className="scroll-mt-24 border-y border-line bg-mist">
+        <div className="container-x py-16 md:py-24">
+          <Reveal>
+            <SectionTitle
+              eyebrow="Encadrement"
+              title="Qui entraîne quelle catégorie"
+              description="Chaque groupe a ses entraîneurs attitrés, coordonnés pour la filière jeunes par Paul Mourioux."
+            />
+          </Reveal>
+          <div className="mt-10 md:mt-14">
+            <Reveal delay={0.05}>
+              <CoachingTable />
+            </Reveal>
+          </div>
         </div>
       </section>
 

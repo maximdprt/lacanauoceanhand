@@ -13,10 +13,17 @@ import {
   clubEmail,
   facebookUrl,
   federationLogos,
+  helloAsso,
   instagramUrl,
   navItems,
 } from "@/data/site";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, HandCoins, ShoppingBag } from "lucide-react";
+
+/* Liens HelloAsso du club — boutique et dons, hors navigation principale. */
+const supportLinks = [
+  { label: "Boutique du club", href: helloAsso.boutique, icon: ShoppingBag },
+  { label: "Faire un don", href: helloAsso.don, icon: HandCoins },
+];
 
 export function SiteFooter() {
   const year = new Date().getFullYear();
@@ -141,6 +148,28 @@ export function SiteFooter() {
             </div>
             <ExternalLink size={16} className="mt-0.5 shrink-0 text-ocean" />
           </a>
+
+          <p className="mb-3 mt-8 text-xs font-bold uppercase tracking-[0.2em] text-ink-soft">
+            Nous soutenir
+          </p>
+          <ul className="space-y-2.5">
+            {supportLinks.map((link) => {
+              const Icon = link.icon;
+              return (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2.5 text-base text-ink/80 transition hover:text-ocean"
+                  >
+                    <Icon size={17} className="shrink-0 text-ocean" aria-hidden="true" />
+                    {link.label}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
         </motion.div>
       </motion.div>
 

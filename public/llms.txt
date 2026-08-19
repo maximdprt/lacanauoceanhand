@@ -14,17 +14,49 @@
 
 ## Pages principales
 - [Accueil](https://lacanau-ocehand.fr/) : présentation du club, prochains matchs, comment rejoindre.
-- [Nos équipes](https://lacanau-ocehand.fr/equipes) : toutes les équipes (seniors, jeunes U11 à U18, beach, école de gardien, école d'arbitrage) avec photos, créneaux d'entraînement et entraîneurs.
-- [Beach handball](https://lacanau-ocehand.fr/beach) : la section beach et le tournoi Lacanau Beach Handball Xperience.
-- [Le club](https://lacanau-ocehand.fr/le-club) : histoire, salles et staff.
-- [Rejoindre le club](https://lacanau-ocehand.fr/rejoindre) : inscription comme joueur, bénévole, entraîneur ou partenaire.
+- [Nos équipes](https://lacanau-ocehand.fr/equipes) : toutes les équipes (seniors, jeunes U11 à U18, beach, école de gardien, école d'arbitrage) avec photos, créneaux d'entraînement et entraîneurs. Ancres : #creneaux (planning complet de la semaine), #encadrement (entraîneurs par catégorie).
+- [Beach handball](https://lacanau-ocehand.fr/beach) : la section beach, la boutique du club et le tournoi Lacanau Beach Handball Xperience.
+- [Le club](https://lacanau-ocehand.fr/le-club) : histoire, salles, staff et façons de soutenir le club.
+- [Rejoindre le club](https://lacanau-ocehand.fr/rejoindre) : tarifs des licences (#tarifs) et inscription comme joueur, bénévole, entraîneur ou partenaire.
 - [Contact](https://lacanau-ocehand.fr/contact) : coordonnées et formulaire.
 
 ## S'inscrire
-Remplir le formulaire de la page « Rejoindre » (joueur, bénévole, entraîneur ou partenaire). Les licenciés de la saison précédente reçoivent un email de renouvellement de la fédération. La licence inclut l'équipement (maillot, short, chaussettes). Forfait famille : −15 € par licence supplémentaire d'une même famille. Pass'Sport accepté.
+Remplir le formulaire de la page « Rejoindre » (joueur, bénévole, entraîneur ou partenaire). Les licenciés de la saison précédente reçoivent un email de renouvellement de la fédération. La licence inclut l'équipement (maillot, short, chaussettes). Premier entraînement découverte offert.
+
+## Tarifs des licences (saison 2025-2026)
+Règlement possible en plusieurs mensualités.
+- Mini Hand (nés 2020 → 2017) : 130 €
+- −11 ans (2016-2015) : 150 €
+- −13 ans (2014-2013) : 160 €
+- −15 ans (2012-2011) : 160 €
+- −18 ans (2010-2009-2008) : 160 €
+- Seniors (+16 ans) : 180 €
+- Loisirs : 160 €
+- Beach handball −16 ans : 60 € · +16 ans : 100 €
+Aides et conditions : forfait famille −15 € par licence supplémentaire d'une même famille ; Pass'Sport accepté ; un joueur licencié en hand et en beach ne règle que la licence la plus chère.
+
+## Créneaux d'entraînement (saison 2025-2026)
+À Lacanau, salle de la Cousteyre : mardi 17h15 U13 mixte, 18h45 U15 garçons, 20h15 loisirs ; vendredi 17h15 U13 mixte, 18h45 U15 garçons ; samedi 11h U9 mixte.
+À Lacanau, Cosec : mercredi 17h-18h école de gardiens, 17h45 U11 mixte, 19h U18 filles D/R, 20h15 seniors masculins ; vendredi 19h15 seniors et 19h15 U18 garçons.
+À Lège-Cap-Ferret : lundi et jeudi 18h45 U15 filles ; mercredi 18h30 U18 garçons ; vendredi 19h U18 filles Nationale.
+À Saint-Médard : mercredi 18h U18 filles Nationale ; vendredi 19h30 U18 filles D/R (Sud Médoc).
+Responsable de la filière jeunes : Paul Mourioux, 06 26 01 73 61.
 
 ## Catégories d'âge
 - Baby & École de hand : 5 à 9 ans.
 - Jeunes : U11 à U18, filles et garçons.
 - Seniors : +16 ans (compétition et loisirs).
 - Beach handball : dès l'U13 et adultes, de mai à août.
+
+## Boutique, dons et billetterie (HelloAsso)
+- [Profil de l'association](https://www.helloasso.com/associations/lacanau-ocehand)
+- [Boutique « Beach Hand »](https://www.helloasso.com/associations/lacanau-ocehand/boutiques/beach-hand) : textile et accessoires du club, de 20 € à 45 € (livraison en option 5,25 € ou 9,90 €).
+- [Faire un don](https://www.helloasso.com/associations/lacanau-ocehand/formulaires/1) : montant libre.
+- [Devenir mécène du LBHX 2026](https://www.helloasso.com/associations/lacanau-ocehand/formulaires/2) : montant libre.
+- [Tournoi partenaires LBHX 2026](https://www.helloasso.com/associations/lacanau-ocehand/evenements/tournoi-partenaires-lbhx-2026) : gratuit, inscription des équipes avant le 5 juin 2026.
+
+## Rendez-vous
+- Forum des associations de Lacanau : samedi 5 septembre, 10h → 15h, salle des fêtes et Cosec. Le club y présente le handball et le beach handball.
+
+## Documents
+- [Guide du licencié (PDF)](https://lacanau-ocehand.fr/documents/guide-licencie.pdf) : tarifs, créneaux et encadrement de la saison.
