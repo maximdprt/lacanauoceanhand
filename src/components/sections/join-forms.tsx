@@ -10,6 +10,7 @@ import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { FormPrivacyNotice } from "@/components/common/form-privacy-notice";
+import { HoneypotField } from "@/components/common/honeypot-field";
 import { clubEmail, playerCategories, volunteerRoles } from "@/data/site";
 import { sendForm } from "@/lib/send-form";
 
@@ -178,6 +179,8 @@ export function JoinForms() {
             onSubmit={handleSubmit}
             className="rounded-(--radius-lg) border border-line bg-white p-6 md:p-9"
           >
+            <HoneypotField />
+
             {/* JOUEUR */}
             {active === "joueur" && (
               <div className="space-y-5">

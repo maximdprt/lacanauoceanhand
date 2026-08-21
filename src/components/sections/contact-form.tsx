@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { FormPrivacyNotice } from "@/components/common/form-privacy-notice";
+import { HoneypotField } from "@/components/common/honeypot-field";
 import { clubEmail } from "@/data/site";
 import { sendForm } from "@/lib/send-form";
 
@@ -33,6 +34,8 @@ export function ContactForm() {
           "E-mail": String(fd.get("email") ?? ""),
           Sujet: sujet,
           Message: String(fd.get("message") ?? ""),
+          // Piège à robots : rempli => FormSubmit rejette l'envoi
+          _honey: String(fd.get("_honey") ?? ""),
         },
         { subject: `Contact site · ${sujet || nom}` },
       );
@@ -73,6 +76,7 @@ export function ContactForm() {
       onSubmit={handleSubmit}
       className="rounded-(--radius-lg) border border-line bg-white p-6 md:p-9"
     >
+      <HoneypotField />
       <div className="space-y-5">
         <div className="grid gap-5 sm:grid-cols-2">
           <Field label="Prénom & nom" htmlFor="c-nom">
