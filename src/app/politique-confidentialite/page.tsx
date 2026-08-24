@@ -89,13 +89,13 @@ export default function PolitiqueConfidentialitePage() {
 
         <LegalSection title="Destinataires des données">
           <p>
-            Les messages envoyés via les formulaires sont acheminés vers la
-            boîte e-mail du club ({clubEmail}) par le prestataire technique{" "}
-            <strong>FormSubmit</strong> (formsubmit.co), qui agit comme
-            transporteur des messages et déclare ne pas conserver leur contenu.
-            Ce prestataire est situé hors de l&apos;Union européenne
-            (États-Unis) ; en nous écrivant, vos coordonnées transitent donc par
-            ses serveurs.
+            Les messages envoyés via les formulaires sont remis directement à la
+            boîte e-mail du club ({clubEmail}), hébergée en France par o2switch.
+            <strong> Aucun service tiers de formulaires n&apos;intervient</strong>{" "}
+            : le message est transmis par le site lui-même au serveur de
+            messagerie du club. Seule l&apos;infrastructure de notre hébergeur
+            (indiquée dans les mentions légales) traite techniquement l&apos;envoi,
+            sans conserver le contenu.
           </p>
           <p>
             Seuls les membres du bureau de l&apos;association habilités à

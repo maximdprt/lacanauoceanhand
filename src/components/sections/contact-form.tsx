@@ -34,7 +34,7 @@ export function ContactForm() {
           "E-mail": String(fd.get("email") ?? ""),
           Sujet: sujet,
           Message: String(fd.get("message") ?? ""),
-          // Piège à robots : rempli => FormSubmit rejette l'envoi
+          // Piège à robots : rempli => l'envoi est ignoré côté serveur
           _honey: String(fd.get("_honey") ?? ""),
         },
         { subject: `Contact site · ${sujet || nom}` },

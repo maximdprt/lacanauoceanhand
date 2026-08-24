@@ -31,9 +31,9 @@ export function FormPrivacyNotice({
           ou représentant légal.{" "}
         </>
       )}
-      Les informations saisies sont transmises par e-mail à Lacanau Océhand
-      (via notre prestataire d&apos;acheminement FormSubmit) dans le seul but
-      de traiter votre demande, puis supprimées au plus tard sous 12 mois.
+      Les informations saisies sont transmises par e-mail directement à
+      Lacanau Océhand, sans prestataire tiers, dans le seul but de traiter
+      votre demande, puis supprimées au plus tard sous 12 mois.
       Elles ne sont ni vendues ni utilisées à d&apos;autres fins.{" "}
       <Link
         href="/politique-confidentialite"
