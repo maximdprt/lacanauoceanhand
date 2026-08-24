@@ -13,12 +13,12 @@
 - Contact : contact@lacanau-ocehand.fr — Instagram @lacanauocehand, Facebook lacanau.OceHand.
 
 ## Pages principales
-- [Accueil](https://lacanau-ocehand.fr/) : présentation du club, prochains matchs, comment rejoindre.
-- [Nos équipes](https://lacanau-ocehand.fr/equipes) : toutes les équipes (seniors, jeunes U11 à U18, beach, école de gardien, école d'arbitrage) avec photos, créneaux d'entraînement et entraîneurs. Ancres : #creneaux (planning complet de la semaine), #encadrement (entraîneurs par catégorie).
-- [Beach handball](https://lacanau-ocehand.fr/beach) : la section beach, la boutique du club et le tournoi Lacanau Beach Handball Xperience.
-- [Le club](https://lacanau-ocehand.fr/le-club) : histoire, salles, staff et façons de soutenir le club.
-- [Rejoindre le club](https://lacanau-ocehand.fr/rejoindre) : tarifs des licences (#tarifs) et inscription comme joueur, bénévole, entraîneur ou partenaire.
-- [Contact](https://lacanau-ocehand.fr/contact) : coordonnées et formulaire.
+- [Accueil](https://lacanauocehand.fr/) : présentation du club, prochains matchs, comment rejoindre.
+- [Nos équipes](https://lacanauocehand.fr/equipes) : toutes les équipes (seniors, jeunes U11 à U18, beach, école de gardien, école d'arbitrage) avec photos, créneaux d'entraînement et entraîneurs. Ancres : #creneaux (planning complet de la semaine), #encadrement (entraîneurs par catégorie).
+- [Beach handball](https://lacanauocehand.fr/beach) : la section beach, la boutique du club et le tournoi Lacanau Beach Handball Xperience.
+- [Le club](https://lacanauocehand.fr/le-club) : histoire, salles, staff et façons de soutenir le club.
+- [Rejoindre le club](https://lacanauocehand.fr/rejoindre) : tarifs des licences (#tarifs) et inscription comme joueur, bénévole, entraîneur ou partenaire.
+- [Contact](https://lacanauocehand.fr/contact) : coordonnées et formulaire.
 
 ## S'inscrire
 Remplir le formulaire de la page « Rejoindre » (joueur, bénévole, entraîneur ou partenaire). Les licenciés de la saison précédente reçoivent un email de renouvellement de la fédération. La licence inclut l'équipement (maillot, short, chaussettes). Premier entraînement découverte offert.
@@ -59,4 +59,4 @@ Responsable de la filière jeunes : Paul Mourioux, 06 26 01 73 61.
 - Forum des associations de Lacanau : samedi 5 septembre, 10h → 15h, salle des fêtes et Cosec. Le club y présente le handball et le beach handball.
 
 ## Documents
-- [Guide du licencié (PDF)](https://lacanau-ocehand.fr/documents/guide-licencie.pdf) : tarifs, créneaux et encadrement de la saison.
+- [Guide du licencié (PDF)](https://lacanauocehand.fr/documents/guide-licencie.pdf) : tarifs, créneaux et encadrement de la saison.

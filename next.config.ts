@@ -81,15 +81,26 @@ const nextConfig: NextConfig = {
     return [
       /* ------------------------------------------------------------
          DOMAINE CANONIQUE : www → apex
-         Le site s'annonce partout en https://lacanau-ocehand.fr
-         (canonical, sitemap, OG, JSON-LD). L'ancien WordPress vivait
-         sur www : sans cette regle, les deux versions coexistent et
-         Google voit du contenu duplique.
+         Le site s'annonce partout en https://lacanauocehand.fr
+         (canonical, sitemap, OG, JSON-LD). Sans cette regle, les deux
+         versions coexistent et Google voit du contenu duplique.
          ------------------------------------------------------------ */
       {
         source: "/:path*",
-        has: [{ type: "host", value: "www.lacanau-ocehand.fr" }],
-        destination: "https://lacanau-ocehand.fr/:path*",
+        has: [{ type: "host", value: "www.lacanauocehand.fr" }],
+        destination: "https://lacanauocehand.fr/:path*",
+        permanent: true,
+      },
+
+      /* ------------------------------------------------------------
+         URL VERCEL → apex
+         Le domaine de deploiement reste accessible et sert le meme
+         contenu : sans redirection, Google peut l'indexer en double.
+         ------------------------------------------------------------ */
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "lacanauoceanhand.vercel.app" }],
+        destination: "https://lacanauocehand.fr/:path*",
         permanent: true,
       },
 
