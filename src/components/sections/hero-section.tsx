@@ -30,6 +30,15 @@ export function HeroSection() {
               sizes="100vw"
               className="object-cover object-[center_18%]"
             />
+            {/* Seconde photo empilee : le fondu croise est gere en CSS
+                (.hero-alt dans globals.css), sans etat React. */}
+            <Image
+              src="/media/club/hero-beach-trophee.jpg"
+              alt="Les joueurs de beach handball de Lacanau Océhand célèbrent leur trophée sur le sable"
+              fill
+              sizes="100vw"
+              className="hero-alt object-cover object-[center_40%]"
+            />
           </div>
         </motion.div>
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-linear-to-t from-ink to-transparent sm:h-28" />

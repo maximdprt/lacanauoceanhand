@@ -303,6 +303,28 @@ body {
 .hero-zoom {
   animation: hero-zoom 1.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
+
+/* Alternance des deux photos du hero (Bercy / beach).
+   La seconde image est empilee au-dessus de la premiere et fond en
+   croix : ~6,7 s visible chacune, 1,3 s de fondu. Anime en CSS pur,
+   donc aucun etat React, aucun re-rendu, aucun risque d'hydratation. */
+@keyframes hero-crossfade {
+  0%,
+  42% {
+    opacity: 0;
+  }
+  50%,
+  92% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.hero-alt {
+  opacity: 0;
+  animation: hero-crossfade 16s ease-in-out infinite;
+}
 .hero-fade-up {
   animation: hero-fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
 }
@@ -381,7 +403,9 @@ body {
     transform: none;
   }
   .hero-zoom,
-  .hero-fade-up {
+  .hero-fade-up,
+  .hero-alt {
+    /* .hero-alt reste a opacity 0 : on garde la seule photo de Bercy. */
     animation: none !important;
   }
   [data-reveal] {
