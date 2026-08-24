@@ -12,7 +12,7 @@ import { Reveal } from "@/components/common/reveal";
 import { forumAssociations, guideLicencieUrl, licenceSeason } from "@/data/site";
 
 export const metadata = buildMetadata({
-  title: "Rejoindre le club",
+  title: "Inscription et tarifs des licences",
   description:
     "Tarifs des licences, aides et inscriptions à Lacanau Océhand : de 130 € à 180 € en salle, 60 € ou 100 € en beach handball. Règlement en plusieurs fois possible.",
   path: "/rejoindre",
@@ -28,6 +28,7 @@ export default function JoinPage() {
     <>
       <PageHero
         image="/media/action/run-1.jpg"
+        imageAlt="Un joueur de Lacanau Océhand monte à l'attaque pendant un match"
         eyebrow="Rejoindre"
         title="Rejoindre le club"
         description="Joueur, bénévole, entraîneur ou partenaire : choisissez votre formulaire ci-dessous, votre demande arrive directement au club."

@@ -24,6 +24,13 @@ interface PageHeroProps {
    * Si omis, bandeau clair sur fond gris.
    */
   image?: string;
+  /**
+   * Texte alternatif de cette photo. Ces en-têtes sont de vraies photos du
+   * club, pas des motifs décoratifs : les décrire les rend accessibles aux
+   * lecteurs d'écran et référençables dans Google Images. Laisser vide
+   * (défaut) uniquement pour une image purement ornementale.
+   */
+  imageAlt?: string;
 }
 
 function Breadcrumb({ crumbs, light = false }: { crumbs: Crumb[]; light?: boolean }) {
@@ -61,6 +68,7 @@ export function PageHero({
   description,
   breadcrumbs,
   image,
+  imageAlt,
 }: PageHeroProps) {
   // Fil d'Ariane par défaut : Accueil > eyebrow
   const crumbs: Crumb[] = breadcrumbs ?? [
@@ -90,7 +98,7 @@ export function PageHero({
         <div className="hero-zoom absolute inset-0">
           <Image
             src={image}
-            alt=""
+            alt={imageAlt ?? ""}
             fill
             priority
             sizes="100vw"

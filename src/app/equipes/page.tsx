@@ -15,9 +15,9 @@ import { guideLicencieUrl, licenceSeason, teams, teamGroups } from "@/data/site"
 import type { Team } from "@/types";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Nos équipes",
+  title: "Équipes et créneaux d'entraînement",
   description:
-    "Toutes les équipes de Lacanau Océhand et le planning complet des entraînements, du lundi au samedi : baby hand, jeunes, seniors, beach, école de gardien et d'arbitrage.",
+    "Toutes les équipes de Lacanau Océhand et le planning des entraînements de la semaine : baby hand, jeunes, seniors, beach, école de gardien et d'arbitrage.",
   path: "/equipes",
 });
 
@@ -56,7 +56,14 @@ function TeamCard({ team }: { team: Team }) {
       </div>
 
       <div className="flex flex-1 flex-col p-6">
-        <h3 className="text-xl font-bold text-ink">{team.name}</h3>
+        <h3 className="text-xl font-bold text-ink">
+          <Link
+            href={`/equipes/${team.slug}`}
+            className="transition hover:text-ocean focus-visible:text-ocean"
+          >
+            {team.name}
+          </Link>
+        </h3>
         <p className="mt-1 text-sm font-medium text-ink-soft">{team.age}</p>
         <p className="mt-3 text-base leading-relaxed text-ink-soft">{team.description}</p>
 
@@ -86,6 +93,15 @@ function TeamCard({ team }: { team: Team }) {
           <span className="whitespace-nowrap text-ink-soft">Entraîneur ·</span>
           <span className="font-semibold text-ink">{team.coach}</span>
         </p>
+
+        <Link
+          href={`/equipes/${team.slug}`}
+          className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-ocean transition hover:text-ocean-deep"
+        >
+          Calendrier &amp; résultats
+          <ArrowRight size={15} aria-hidden="true" />
+          <span className="sr-only">de l&apos;équipe {team.name}</span>
+        </Link>
       </div>
     </div>
   );
@@ -99,6 +115,7 @@ export default function TeamsPage() {
     <>
       <PageHero
         image="/media/action/duel-1.jpg"
+        imageAlt="Duel entre deux joueurs lors d'un match de handball de Lacanau Océhand"
         eyebrow="Nos équipes"
         title="Une équipe pour chaque joueur"
         description="Du baby handball aux seniors, en salle et sur le sable : retrouvez chaque équipe avec sa photo, ses créneaux d'entraînement et son entraîneur."

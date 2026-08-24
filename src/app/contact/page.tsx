@@ -8,7 +8,7 @@ import { Reveal } from "@/components/common/reveal";
 import { clubEmail, facebookUrl, instagramUrl } from "@/data/site";
 
 export const metadata = buildMetadata({
-  title: "Contact",
+  title: "Contact et accès aux salles",
   description:
     "Contactez Lacanau Océhand : club de handball à Lacanau (33680, Gironde). E-mail, réseaux sociaux, salle de la Cousteyre. Nous répondons rapidement.",
   path: "/contact",
@@ -19,6 +19,7 @@ export default function ContactPage() {
     <>
       <PageHero
         image="/media/club/salle-cousteyre.jpg"
+        imageAlt="La salle de la Cousteyre à Lacanau, gymnase du club de handball"
         eyebrow="Contact"
         title="Nous contacter"
         description="Une question sur le club, les inscriptions ou un partenariat ? Écrivez-nous, on vous répond vite."

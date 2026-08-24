@@ -12,9 +12,9 @@ import { Reveal } from "@/components/common/reveal";
 import { helloAsso } from "@/data/site";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Beach handball",
+  title: "Beach handball à Lacanau",
   description:
-    "Le beach handball à Lacanau : licence à 60 € (−16 ans) ou 100 €, entraînements sur le sable du Pôle de l'Ardilouse, boutique du club et tournoi Lacanau Beach Handball Xperience.",
+    "Le beach handball à Lacanau : licence à 60 € ou 100 €, entraînements sur le sable du Pôle de l'Ardilouse et tournoi Lacanau Beach Handball Xperience.",
   path: "/beach",
 });
 
@@ -55,6 +55,7 @@ export default function BeachPage() {
     <>
       <PageHero
         image="/media/beach/amsterdam.jpg"
+        imageAlt="L'équipe de beach handball de Lacanau Océhand en tournoi sur le sable"
         eyebrow="Beach"
         title="Le beach handball à Lacanau"
         description="Le hand sur le sable, à deux pas de l'océan. Et chaque été, le rendez-vous du club : le Lacanau Beach Handball Xperience."

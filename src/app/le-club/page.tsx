@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils";
 import { timelineEvents, salles } from "@/data/site";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Le club",
+  title: "Le club, champion de France 2024",
   description:
     "Né en 2017, Lacanau Océhand est champion de France 2024. Histoire en images, salles, staff et encadrement de chaque catégorie du club de handball de Lacanau.",
   path: "/le-club",
@@ -32,6 +32,7 @@ export default function ClubPage() {
     <>
       <PageHero
         image="/media/club/vestiaire-celebration.jpg"
+        imageAlt="Les joueurs de Lacanau Océhand célèbrent une victoire dans le vestiaire"
         eyebrow="Le club"
         title="Le club de handball à Lacanau"
         description="Chaque aventure sportive est avant tout une aventure humaine. Voici la nôtre, depuis 2017."

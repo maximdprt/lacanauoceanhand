@@ -9,7 +9,7 @@ import { buildMetadata, siteConfig } from "@/lib/site";
 export const metadata: Metadata = buildMetadata({
   title: "Mentions légales",
   description:
-    "Mentions légales du site de Lacanau Océhand : éditeur, directeur de la publication, hébergeur et propriété intellectuelle du site du club de handball de Lacanau.",
+    "Mentions légales du site de Lacanau Océhand : éditeur, directeur de la publication, hébergeur et propriété intellectuelle.",
   path: "/mentions-legales",
 });
 
