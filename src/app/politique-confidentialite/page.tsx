@@ -89,13 +89,18 @@ export default function PolitiqueConfidentialitePage() {
 
         <LegalSection title="Destinataires des données">
           <p>
-            Les messages envoyés via les formulaires sont remis directement à la
-            boîte e-mail du club ({clubEmail}), hébergée en France par o2switch.
+            Les messages envoyés via les formulaires sont remis à une boîte
+            e-mail relevée par le bureau de l&apos;association.
             <strong> Aucun service tiers de formulaires n&apos;intervient</strong>{" "}
-            : le message est transmis par le site lui-même au serveur de
-            messagerie du club. Seule l&apos;infrastructure de notre hébergeur
-            (indiquée dans les mentions légales) traite techniquement l&apos;envoi,
-            sans conserver le contenu.
+            : le site remet lui-même le message au serveur de messagerie, sans
+            passer par un formulaire hébergé ailleurs.
+          </p>
+          <p>
+            Cette boîte est hébergée par <strong>Google</strong> (service Gmail),
+            qui agit à ce titre comme sous-traitant. Ses serveurs pouvant se
+            situer hors de l&apos;Union européenne, ces transferts sont encadrés
+            par le cadre de protection des données UE–États-Unis (Data Privacy
+            Framework), auquel Google est certifié.
           </p>
           <p>
             Seuls les membres du bureau de l&apos;association habilités à
