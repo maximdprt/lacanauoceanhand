@@ -19,7 +19,7 @@ import type {
    ============================================================ */
 export const instagramUrl = "https://www.instagram.com/lacanauocehand/";
 export const facebookUrl = "https://www.facebook.com/lacanau.OceHand/";
-export const clubEmail = "contact@lacanau-ocehand.fr";
+export const clubEmail = "lacanauocehand123@gmail.com";
 export const teamSignupEmail = "inscription-equipe@lacanau-ocehand.fr";
 export const beachXperienceUrl = "https://site-lbhx.vercel.app";
 

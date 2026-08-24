@@ -2,17 +2,21 @@
  * Envoi des formulaires du site — sans prestataire externe.
  *
  * Les demandes partent directement par le serveur SMTP de la messagerie du
- * club (o2switch) et arrivent dans `contact@lacanau-ocehand.fr`. Aucun
- * service tiers ne voit passer les données : le navigateur appelle cette
- * route, la route parle au serveur de mail du club, point final.
+ * club et arrivent dans sa boîte. Aucun service tiers de formulaires ne voit
+ * passer les données : le navigateur appelle cette route, la route parle au
+ * serveur de mail, point final. Rien à activer, contrairement aux relais de
+ * formulaires du type FormSubmit.
  *
  * Variables d'environnement à définir sur Vercel (Production + Preview) :
- *   SMTP_HOST      serveur d'envoi o2switch (ex. lacanau-ocehand.fr)
+ *   SMTP_HOST      serveur d'envoi (smtp.gmail.com)
  *   SMTP_PORT      465 (SSL, recommandé) ou 587 (STARTTLS)
  *   SMTP_USER      adresse complète du compte d'envoi
- *   SMTP_PASSWORD  mot de passe de ce compte
+ *   SMTP_PASSWORD  ⚠️ Gmail refuse le mot de passe du compte depuis 2022 :
+ *                  il faut un « mot de passe d'application » (16 caractères,
+ *                  myaccount.google.com/apppasswords, validation en deux
+ *                  étapes requise), saisi sans les espaces.
  *   MAIL_FROM      (option) expéditeur affiché, sinon SMTP_USER
- *   CONTACT_TO     (option) destinataire, sinon contact@lacanau-ocehand.fr
+ *   CONTACT_TO     (option) destinataire, sinon la boîte du club
  *
  * Le mot de passe n'est jamais exposé au navigateur : ces variables n'ont
  * pas le préfixe NEXT_PUBLIC_, elles ne vivent que côté serveur.
@@ -22,7 +26,7 @@ import nodemailer from "nodemailer";
 // nodemailer a besoin des API Node (sockets TLS) : pas de runtime edge.
 export const runtime = "nodejs";
 
-const DESTINATAIRE_PAR_DEFAUT = "contact@lacanau-ocehand.fr";
+const DESTINATAIRE_PAR_DEFAUT = "lacanauocehand123@gmail.com";
 
 /* -------------------------------------------------------------------------
    Garde-fous : le formulaire est public, donc la route l'est aussi.

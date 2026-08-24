@@ -18,7 +18,7 @@ export const siteConfig = {
   postalCode: "33680",
   region: "Gironde",
   country: "FR",
-  email: "contact@lacanau-ocehand.fr",
+  email: "lacanauocehand123@gmail.com",
   phone: "",
   address: "Salle de la Cousteyre, Lacanau, Gironde",
   instagram: "https://www.instagram.com/lacanauocehand/",
