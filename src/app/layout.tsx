@@ -142,8 +142,10 @@ const schemaGraph = {
       foundingDate: "2017-06-04",
       founder: { "@type": "Person", name: "Thierry Mayeur" },
       slogan: "Le club de handball à Lacanau, champion de France 2024",
-      award:
+      award: [
         "Champion de France de handball 2024 — Coupe de France départementale (finale 30-29 à l'Accor Arena de Bercy)",
+        "Champion de France 2026 de beach handball",
+      ],
       knowsAbout: [
         "Handball",
         "Beach handball",
