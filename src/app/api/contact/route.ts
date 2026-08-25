@@ -26,7 +26,7 @@ import nodemailer from "nodemailer";
 // nodemailer a besoin des API Node (sockets TLS) : pas de runtime edge.
 export const runtime = "nodejs";
 
-const DESTINATAIRE_PAR_DEFAUT = "lacanauocehand123@gmail.com";
+const DESTINATAIRE_PAR_DEFAUT = "6033152@na.ffhandball.net";
 
 /* -------------------------------------------------------------------------
    Garde-fous : le formulaire est public, donc la route l'est aussi.

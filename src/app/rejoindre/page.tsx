@@ -14,7 +14,7 @@ import { forumAssociations, guideLicencieUrl, licenceSeason } from "@/data/site"
 export const metadata = buildMetadata({
   title: "Inscription et tarifs des licences",
   description:
-    "Tarifs des licences, aides et inscriptions à Lacanau Océhand : de 130 € à 180 € en salle, 60 € ou 100 € en beach handball. Règlement en plusieurs fois possible.",
+    "Tarifs des licences, aides et inscriptions à Lacanau Océhand : de 140 € à 200 € en salle, 100 € en beach handball. Règlement en plusieurs fois possible.",
   path: "/rejoindre",
 });
 

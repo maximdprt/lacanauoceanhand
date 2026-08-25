@@ -59,8 +59,9 @@ export default function ClubPage() {
                 </p>
                 <p>
                   En quelques saisons, le club est devenu une référence en Gironde,
-                  triple champion départemental et vainqueur de la Coupe de France
-                  2024 à Bercy, tout en gardant son esprit familial et bénévole.
+                  triple champion départemental, vainqueur de la Coupe de France
+                  2024 à Bercy puis champion de France de beach handball en 2026,
+                  tout en gardant son esprit familial et bénévole.
                 </p>
               </div>
             </div>

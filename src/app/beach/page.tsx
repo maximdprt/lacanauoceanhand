@@ -14,7 +14,7 @@ import { helloAsso } from "@/data/site";
 export const metadata: Metadata = buildMetadata({
   title: "Beach handball à Lacanau",
   description:
-    "Le beach handball à Lacanau : licence à 60 € ou 100 €, entraînements sur le sable du Pôle de l'Ardilouse et tournoi Lacanau Beach Handball Xperience.",
+    "Le beach handball à Lacanau : licence à 100 €, entraînements sur le sable du Pôle de l'Ardilouse et tournoi Lacanau Beach Handball Xperience.",
   path: "/beach",
 });
 
@@ -72,7 +72,7 @@ export default function BeachPage() {
             <div className="max-w-2xl">
               <span className="eyebrow text-ink-soft">La licence beach</span>
               <p className="mt-3 font-display text-[clamp(1.4rem,3vw,2rem)] uppercase leading-tight tracking-tight text-ink">
-                60 € jusqu&apos;à 16 ans, 100 € au-delà
+                100 € la saison, à tout âge
               </p>
               <p className="mt-3 text-base leading-relaxed text-ink-soft">
                 Et si vous êtes déjà licencié en salle au club, vous ne réglez que la
