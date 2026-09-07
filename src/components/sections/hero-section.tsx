@@ -22,22 +22,28 @@ export function HeroSection() {
       <div className="relative min-h-[52svh] w-full flex-1 overflow-hidden sm:min-h-[60svh]">
         <motion.div className="absolute inset-0" style={{ y: reduce ? 0 : y }}>
           <div className="hero-zoom absolute inset-0">
-            <Image
-              src="/media/club/hero-coupe-bercy.jpg"
-              alt="Lacanau Océhand soulève la Coupe de France 2024 à l'Accor Arena de Bercy"
-              fill
-              priority
-              sizes="100vw"
-              className="object-cover object-[center_18%]"
-            />
-            {/* Seconde photo empilee : le fondu croise est gere en CSS
-                (.hero-alt dans globals.css), sans etat React. */}
+            {/* Premiere photo : celle que tout le monde voit en arrivant.
+                `priority` la fait precharger — c'est l'image LCP de la page.
+                `quality` a 90 plutot que 75 : sur un ciel et du sable, la
+                compression par defaut laisse des aplats visibles. */}
             <Image
               src="/media/club/hero-beach-trophee.jpg"
               alt="Les joueurs de beach handball de Lacanau Océhand célèbrent leur trophée sur le sable"
               fill
+              priority
+              quality={90}
               sizes="100vw"
-              className="hero-alt object-cover object-[center_40%]"
+              className="object-cover object-[center_40%]"
+            />
+            {/* Seconde photo empilee : le fondu croise est gere en CSS
+                (.hero-alt dans globals.css), sans etat React. */}
+            <Image
+              src="/media/club/hero-coupe-bercy.jpg"
+              alt="Lacanau Océhand soulève la Coupe de France 2024 à l'Accor Arena de Bercy"
+              fill
+              quality={90}
+              sizes="100vw"
+              className="hero-alt object-cover object-[center_18%]"
             />
           </div>
         </motion.div>

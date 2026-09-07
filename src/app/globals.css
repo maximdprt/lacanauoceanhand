@@ -405,7 +405,7 @@ body {
   .hero-zoom,
   .hero-fade-up,
   .hero-alt {
-    /* .hero-alt reste a opacity 0 : on garde la seule photo de Bercy. */
+    /* .hero-alt reste a opacity 0 : on garde la seule photo beach. */
     animation: none !important;
   }
   [data-reveal] {
