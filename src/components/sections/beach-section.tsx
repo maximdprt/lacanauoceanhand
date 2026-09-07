@@ -13,7 +13,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 
-import { beachXperienceUrl } from "@/data/site";
+import { beachXperienceUrl as lienBeachParDefaut } from "@/data/site";
 import { SectionTitle } from "@/components/common/section-title";
 import { Reveal } from "@/components/common/reveal";
 import { buttonVariants } from "@/components/ui/button";
@@ -36,7 +36,11 @@ const gallery = [
   { src: "/media/beach/stage-sable.jpg", alt: "Entraînement de beach handball sur le sable de l'Ardilouse" },
 ];
 
-export function BeachSection() {
+export function BeachSection({
+  beachXperienceUrl = lienBeachParDefaut,
+}: {
+  beachXperienceUrl?: string;
+} = {}) {
   return (
     <section
       id="beach"

@@ -4,7 +4,6 @@ import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
 import { ArrowRight, Check } from "lucide-react";
 
-import { ageCategories, pricingPerks } from "@/data/site";
 import type { AgeCategory } from "@/types";
 
 const rowSpring: Variants = {
@@ -65,7 +64,13 @@ function AgeRow({ category, index }: { category: AgeCategory; index: number }) {
   );
 }
 
-export function JoinCta() {
+export function JoinCta({
+  ageCategories,
+  pricingPerks,
+}: {
+  ageCategories: AgeCategory[];
+  pricingPerks: string[];
+}) {
   return (
     <div className="grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
       <ul className="divide-y divide-transparent">

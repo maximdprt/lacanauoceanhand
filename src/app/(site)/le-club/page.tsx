@@ -11,7 +11,8 @@ import { PageNav } from "@/components/layout/page-nav";
 import { StaffGrid } from "@/components/sections/staff-grid";
 import { SupportClub } from "@/components/sections/support-club";
 import { cn } from "@/lib/utils";
-import { timelineEvents, salles } from "@/data/site";
+import { timelineEvents } from "@/data/site";
+import { getSiteContent } from "@/lib/content";
 
 export const metadata: Metadata = buildMetadata({
   title: "Le club, champion de France 2024",
@@ -27,7 +28,9 @@ const sections = [
   { id: "soutenir", label: "Nous soutenir" },
 ];
 
-export default function ClubPage() {
+export default async function ClubPage() {
+  const contenu = await getSiteContent();
+
   return (
     <>
       <PageHero
@@ -149,7 +152,7 @@ export default function ClubPage() {
             />
           </Reveal>
           <div className="section-body grid gap-6 md:grid-cols-3">
-            {salles.map((s, i) => (
+            {contenu.salles.map((s, i) => (
               <Reveal key={s.name} delay={i * 0.06} className="h-full">
                 <div className="card-lift group flex h-full flex-col overflow-hidden rounded-(--radius) border border-line bg-paper">
                   <div className="relative aspect-16/10 overflow-hidden bg-mist-2">
@@ -193,7 +196,7 @@ export default function ClubPage() {
           />
         </Reveal>
         <div className="section-body">
-          <StaffGrid />
+          <StaffGrid bureau={contenu.bureau} staff={contenu.staffMembers} />
         </div>
       </section>
 
@@ -209,7 +212,7 @@ export default function ClubPage() {
           </Reveal>
           <div className="section-body">
             <Reveal delay={0.05}>
-              <SupportClub />
+              <SupportClub links={contenu.links} />
             </Reveal>
           </div>
         </div>

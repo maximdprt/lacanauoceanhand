@@ -1,6 +1,6 @@
 import { ExternalLink, ShoppingBag, Truck } from "lucide-react";
 
-import { helloAsso, shopItems, shopShipping } from "@/data/site";
+import type { ShopItem } from "@/types";
 
 /* ============================================================
    BOUTIQUE « BEACH HAND » — catalogue HelloAsso du club.
@@ -8,7 +8,15 @@ import { helloAsso, shopItems, shopShipping } from "@/data/site";
    pour savoir combien coûte un sweat.
    ============================================================ */
 
-export function ShopSection() {
+export function ShopSection({
+  items,
+  shipping,
+  boutiqueUrl,
+}: {
+  items: ShopItem[];
+  shipping: string;
+  boutiqueUrl: string;
+}) {
   return (
     <div className="overflow-hidden rounded-(--radius-lg) border border-line bg-white">
       <div className="flex flex-col gap-5 border-b border-line bg-mist px-7 py-7 sm:flex-row sm:items-center sm:justify-between">
@@ -26,7 +34,7 @@ export function ShopSection() {
           </div>
         </div>
         <a
-          href={helloAsso.boutique}
+          href={boutiqueUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="btn-press inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-ink px-6 py-3 text-sm font-bold text-white transition hover:bg-c-beach-ink"
@@ -37,7 +45,7 @@ export function ShopSection() {
       </div>
 
       <ul className="divide-y divide-line">
-        {shopItems.map((item) => (
+        {items.map((item) => (
           <li
             key={item.name}
             className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 px-7 py-3.5"
@@ -59,7 +67,7 @@ export function ShopSection() {
 
       <p className="flex items-start gap-3 border-t border-line px-7 py-5 text-sm leading-relaxed text-ink-soft">
         <Truck size={17} className="mt-0.5 shrink-0 text-ocean" aria-hidden="true" />
-        {shopShipping}
+        {shipping}
       </p>
     </div>
   );

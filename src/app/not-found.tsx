@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
+import { SiteFooter } from "@/components/layout/site-footer";
+import { SiteHeader } from "@/components/layout/site-header";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -21,49 +23,60 @@ const suggestedLinks = [
   { label: "Accueil", href: "/", desc: "Retour à la page d'accueil" },
 ];
 
+/* Le 404 racine intercepte les URLs qui ne correspondent à aucune page : il
+   est rendu hors du groupe (site) et doit donc convoquer lui-même l'en-tête
+   et le pied de page, sans quoi le visiteur perdu se retrouverait sans
+   navigation pour rebondir. */
 export default function NotFound() {
   return (
-    <section className="container-x flex min-h-[70vh] flex-col items-center justify-center py-24 text-center">
-      <span className="section-index text-[clamp(5rem,18vw,11rem)] leading-none text-ocean">
-        404
-      </span>
-      <h1 className="headline mt-2 text-[clamp(1.8rem,5vw,2.8rem)] text-ink">
-        Page introuvable
-      </h1>
-      <p className="mt-4 max-w-md text-base leading-relaxed text-ink-soft">
-        Cette page n’existe pas ou a été déplacée. Voici quelques raccourcis
-        pour retrouver le handball à Lacanau.
-      </p>
-
-      <Link
-        href="/"
-        className={cn(buttonVariants({ variant: "primary", size: "lg" }), "mt-8")}
+    <>
+      <SiteHeader />
+      <main
+        id="contenu"
+        className="container-x flex min-h-[70vh] flex-col items-center justify-center py-24 text-center"
       >
-        <ArrowLeft size={18} aria-hidden="true" /> Retour à l&apos;accueil
-      </Link>
+        <span className="section-index text-[clamp(5rem,18vw,11rem)] leading-none text-ocean">
+          404
+        </span>
+        <h1 className="headline mt-2 text-[clamp(1.8rem,5vw,2.8rem)] text-ink">
+          Page introuvable
+        </h1>
+        <p className="mt-4 max-w-md text-base leading-relaxed text-ink-soft">
+          Cette page n’existe pas ou a été déplacée. Voici quelques raccourcis
+          pour retrouver le handball à Lacanau.
+        </p>
 
-      {/* Maillage interne — aide le crawl Google et l'UX */}
-      <nav
-        aria-label="Pages suggérées"
-        className="mt-14 grid grid-cols-2 gap-3 sm:grid-cols-3"
-      >
-        {suggestedLinks.map((link) => (
-          <Link
-            key={link.href}
-            href={link.href}
-            className="group flex flex-col rounded-(--radius) border border-line bg-white p-4 text-left transition hover:border-ocean hover:shadow-md"
-          >
-            <span className="text-sm font-bold text-ink group-hover:text-ocean">
-              {link.label}
-            </span>
-            <span className="mt-1 text-xs text-ink-soft">{link.desc}</span>
-            <ArrowRight
-              size={13}
-              className="mt-2 text-ink-soft transition group-hover:translate-x-1 group-hover:text-ocean"
-            />
-          </Link>
-        ))}
-      </nav>
-    </section>
+        <Link
+          href="/"
+          className={cn(buttonVariants({ variant: "primary", size: "lg" }), "mt-8")}
+        >
+          <ArrowLeft size={18} aria-hidden="true" /> Retour à l&apos;accueil
+        </Link>
+
+        {/* Maillage interne — aide le crawl Google et l'UX */}
+        <nav
+          aria-label="Pages suggérées"
+          className="mt-14 grid grid-cols-2 gap-3 sm:grid-cols-3"
+        >
+          {suggestedLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="group flex flex-col rounded-(--radius) border border-line bg-white p-4 text-left transition hover:border-ocean hover:shadow-md"
+            >
+              <span className="text-sm font-bold text-ink group-hover:text-ocean">
+                {link.label}
+              </span>
+              <span className="mt-1 text-xs text-ink-soft">{link.desc}</span>
+              <ArrowRight
+                size={13}
+                className="mt-2 text-ink-soft transition group-hover:translate-x-1 group-hover:text-ocean"
+              />
+            </Link>
+          ))}
+        </nav>
+      </main>
+      <SiteFooter />
+    </>
   );
 }

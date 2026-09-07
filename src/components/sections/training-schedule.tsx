@@ -1,6 +1,6 @@
 import { MapPin } from "lucide-react";
 
-import { trainingDays, trainingKinds, trainingSlots } from "@/data/site";
+import { trainingDays, trainingKinds } from "@/data/site";
 import { cn } from "@/lib/utils";
 import type { TrainingSlot } from "@/types";
 
@@ -44,7 +44,7 @@ function Slot({ slot }: { slot: TrainingSlot }) {
   );
 }
 
-export function TrainingSchedule() {
+export function TrainingSchedule({ slots }: { slots: TrainingSlot[] }) {
   return (
     <div>
       {/* Légende des couleurs */}
@@ -64,8 +64,8 @@ export function TrainingSchedule() {
       {/* La semaine, une ligne par jour */}
       <div className="mt-8 overflow-hidden rounded-(--radius) border border-line bg-white">
         {trainingDays.map((day, i) => {
-          const slots = trainingSlots.filter((s) => s.day === day);
-          if (slots.length === 0) return null;
+          const creneaux = slots.filter((s) => s.day === day);
+          if (creneaux.length === 0) return null;
 
           return (
             <section
@@ -80,11 +80,11 @@ export function TrainingSchedule() {
                   {day}
                 </span>
                 <span className="text-xs font-semibold uppercase tracking-wider text-ink-soft">
-                  {slots.length} créneau{slots.length > 1 ? "x" : ""}
+                  {creneaux.length} créneau{creneaux.length > 1 ? "x" : ""}
                 </span>
               </h3>
               <ul className="flex flex-wrap gap-2.5">
-                {slots.map((slot) => (
+                {creneaux.map((slot) => (
                   <Slot key={`${slot.day}-${slot.time}-${slot.group}`} slot={slot} />
                 ))}
               </ul>

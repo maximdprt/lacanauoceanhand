@@ -1,14 +1,7 @@
 import type { Metadata } from "next";
 import { Archivo } from "next/font/google";
 
-import { SiteFooter } from "@/components/layout/site-footer";
-import { SiteHeader } from "@/components/layout/site-header";
-import { PageTransition } from "@/components/layout/page-transition";
 import { MotionProvider } from "@/components/layout/motion-provider";
-import { CookieConsent } from "@/components/layout/cookie-consent";
-import { AnalyticsScripts } from "@/components/layout/analytics-scripts";
-import { JsonLd } from "@/components/common/json-ld";
-import { facebookUrl, instagramUrl, beachXperienceUrl } from "@/data/site";
 import { siteConfig } from "@/lib/site";
 
 import "./globals.css";
@@ -116,118 +109,17 @@ export const metadata: Metadata = {
 };
 
 /* ============================================================
-   DONNÉES STRUCTURÉES SCHEMA.ORG
-   SportsClub (sous-type LocalBusiness le plus spécifique —
-   requis par Google pour le traitement « local business »)
-   + SportsOrganization pour la propriété sport.
-   ============================================================ */
-const schemaGraph = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": ["SportsClub", "SportsOrganization"],
-      "@id": `${siteConfig.url}/#organization`,
-      name: "Lacanau Océhand",
-      alternateName: ["Lacanau Océhand Handball", "Club de handball de Lacanau", "Océhand"],
-      description: siteConfig.description,
-      sport: ["Handball", "Beach Handball"],
-      url: siteConfig.url,
-      logo: {
-        "@type": "ImageObject",
-        url: `${siteConfig.url}/brand/logo-color.png`,
-        width: 400,
-        height: 400,
-      },
-      image: `${siteConfig.url}${siteConfig.ogImage}`,
-      foundingDate: "2017-06-04",
-      founder: { "@type": "Person", name: "Thierry Mayeur" },
-      slogan: "Le club de handball à Lacanau, champion de France 2024",
-      award: [
-        "Champion de France de handball 2024 — Coupe de France départementale (finale 30-29 à l'Accor Arena de Bercy)",
-        "Champion de France 2026 de beach handball",
-      ],
-      knowsAbout: [
-        "Handball",
-        "Beach handball",
-        "École de handball",
-        "École d'arbitrage",
-      ],
-      email: siteConfig.email,
-      ...(siteConfig.phone ? { telephone: siteConfig.phone } : {}),
-      contactPoint: {
-        "@type": "ContactPoint",
-        contactType: "customer support",
-        email: siteConfig.email,
-        availableLanguage: ["French"],
-      },
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: "19 Avenue Albert François",
-        addressLocality: "Lacanau",
-        postalCode: "33680",
-        addressRegion: "Gironde",
-        addressCountry: "FR",
-      },
-      geo: {
-        "@type": "GeoCoordinates",
-        latitude: 45.0227,
-        longitude: -1.0785,
-      },
-      areaServed: [
-        { "@type": "City", name: "Lacanau" },
-        { "@type": "AdministrativeArea", name: "Gironde" },
-        { "@type": "AdministrativeArea", name: "Nouvelle-Aquitaine" },
-      ],
-      openingHoursSpecification: [
-        {
-          "@type": "OpeningHoursSpecification",
-          dayOfWeek: ["Tuesday", "Thursday"],
-          opens: "18:00",
-          closes: "21:00",
-          description: "Entraînements adultes",
-        },
-        {
-          "@type": "OpeningHoursSpecification",
-          dayOfWeek: ["Saturday"],
-          opens: "09:00",
-          closes: "13:00",
-          description: "École de handball et jeunes",
-        },
-      ],
-      sameAs: [instagramUrl, facebookUrl, beachXperienceUrl],
-      memberOf: {
-        "@type": "SportsOrganization",
-        name: "Fédération Française de Handball",
-        url: "https://www.ff-handball.org",
-      },
-    },
-    {
-      // Sitelinks searchbox (SearchAction) retiré par Google fin 2024 :
-      // le nœud WebSite ne sert plus qu'au « site name » dans les SERP.
-      "@type": "WebSite",
-      "@id": `${siteConfig.url}/#website`,
-      url: siteConfig.url,
-      name: siteConfig.name,
-      alternateName: "Océhand",
-      description: siteConfig.description,
-      publisher: { "@id": `${siteConfig.url}/#organization` },
-      inLanguage: "fr-FR",
-    },
-  ],
-};
-
-/* ============================================================
-   ROOT LAYOUT
+   LAYOUT RACINE
+   Volontairement minimal : la balise <html>, la police et le fond.
+   L'en-tête, le pied de page, la bannière cookies et les données
+   structurées vivent dans (site)/layout.tsx, pour que l'espace
+   d'administration — hors de ce groupe — n'en hérite pas.
    ============================================================ */
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="fr" className={archivo.variable}>
-      <head>
-        {/* Données structurées globales */}
-        <JsonLd data={schemaGraph} />
-      </head>
       <body className="min-h-screen bg-paper text-ink antialiased">
         {/* Lien d'évitement (WCAG 2.4.1) */}
         <a
@@ -237,15 +129,7 @@ export default function RootLayout({
           Aller au contenu
         </a>
 
-        <MotionProvider>
-          <SiteHeader />
-          <PageTransition>{children}</PageTransition>
-          <SiteFooter />
-          <CookieConsent />
-        </MotionProvider>
-
-        {/* Mesure d'audience — chargée uniquement après consentement (CNIL) */}
-        <AnalyticsScripts />
+        <MotionProvider>{children}</MotionProvider>
       </body>
     </html>
   );

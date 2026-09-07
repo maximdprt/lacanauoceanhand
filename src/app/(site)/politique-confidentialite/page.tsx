@@ -4,7 +4,7 @@ import Link from "next/link";
 import { PageHero } from "@/components/sections/page-hero";
 import { ManageCookiesButton } from "@/components/layout/manage-cookies-button";
 import { legalInfo } from "@/data/legal";
-import { clubEmail } from "@/data/site";
+import { getSiteContent } from "@/lib/content";
 import { buildMetadata } from "@/lib/site";
 
 export const metadata: Metadata = buildMetadata({
@@ -33,7 +33,9 @@ function LegalSection({
   );
 }
 
-export default function PolitiqueConfidentialitePage() {
+export default async function PolitiqueConfidentialitePage() {
+  const { links } = await getSiteContent();
+
   return (
     <>
       <PageHero
@@ -51,8 +53,8 @@ export default function PolitiqueConfidentialitePage() {
             L&apos;association <strong>{legalInfo.associationName}</strong> ({legalInfo.siege})
             est responsable des traitements de données personnelles réalisés via
             ce site. Pour toute question relative à vos données :{" "}
-            <a href={`mailto:${clubEmail}`} className="font-semibold text-ocean hover:underline">
-              {clubEmail}
+            <a href={`mailto:${links.clubEmail}`} className="font-semibold text-ocean hover:underline">
+              {links.clubEmail}
             </a>
             .
           </p>
@@ -178,8 +180,8 @@ export default function PolitiqueConfidentialitePage() {
             disposez d&apos;un droit d&apos;accès, de rectification,
             d&apos;effacement, de limitation, d&apos;opposition et de
             portabilité sur vos données. Pour les exercer, écrivez-nous à{" "}
-            <a href={`mailto:${clubEmail}`} className="font-semibold text-ocean hover:underline">
-              {clubEmail}
+            <a href={`mailto:${links.clubEmail}`} className="font-semibold text-ocean hover:underline">
+              {links.clubEmail}
             </a>{" "}
             en précisant votre demande.
           </p>

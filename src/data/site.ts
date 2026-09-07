@@ -8,10 +8,12 @@ import type {
   Partner,
   Salle,
   ShopItem,
+  SiteLinks,
   StaffMember,
   Team,
   TimelineEvent,
   TrainingSlot,
+  YouthLead,
 } from "@/types";
 
 /* ============================================================
@@ -602,7 +604,7 @@ export const coachAssignments: CoachAssignment[] = [
 ];
 
 /** Référent de la filière jeunes — contact direct publié dans le guide. */
-export const youthLead = {
+export const youthLead: YouthLead = {
   name: "Paul Mourioux",
   role: "Responsable de la filière jeunes",
   phone: "06 26 01 73 61",
@@ -647,6 +649,7 @@ export const shopShipping =
    Le bandeau d'accueil disparaît automatiquement après endDate.
    ============================================================ */
 export const forumAssociations: ClubHighlight = {
+  id: "forum-associations",
   title: "Forum des associations",
   startDate: "2026-09-05T10:00:00+02:00",
   endDate: "2026-09-05T15:00:00+02:00",
@@ -657,4 +660,25 @@ export const forumAssociations: ClubHighlight = {
   description:
     "Le club de handball & beach handball sera présent au Forum des associations. Venez découvrir le club, échanger avec nos bénévoles et pourquoi pas vous laisser tenter !",
   cta: { label: "Préparer mon inscription", href: "/rejoindre" },
+};
+
+/** Tous les rendez-vous publiés. Le site affiche le prochain à venir et
+    masque automatiquement ceux dont la date est passée. */
+export const clubEvents: ClubHighlight[] = [forumAssociations];
+
+/* ============================================================
+   LIENS SORTANTS — regroupés pour être modifiables d'un bloc
+   depuis l'espace d'administration.
+   ============================================================ */
+export const siteLinks: SiteLinks = {
+  clubEmail,
+  instagram: instagramUrl,
+  facebook: facebookUrl,
+  beachXperience: beachXperienceUrl,
+  guideLicencie: guideLicencieUrl,
+  helloAssoProfile: helloAsso.profile,
+  helloAssoBoutique: helloAsso.boutique,
+  helloAssoDon: helloAsso.don,
+  helloAssoMecenat: helloAsso.mecenat,
+  helloAssoTournoi: helloAsso.tournoiPartenaires,
 };

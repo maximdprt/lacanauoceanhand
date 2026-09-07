@@ -8,7 +8,8 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { JsonLd } from "@/components/common/json-ld";
 import { ScorencoWidget } from "@/components/sections/scorenco-widget";
-import { teamGroups, teamSignupEmail, teams } from "@/data/site";
+import { teamGroups } from "@/data/site";
+import { getSiteContent } from "@/lib/content";
 import { buildMetadata, siteConfig } from "@/lib/site";
 import { getTeamWidgetId, scorencoClubUrl } from "@/lib/scorenco";
 
@@ -16,11 +17,11 @@ type Params = {
   slug: string;
 };
 
-/* Tous les slugs viennent de teams : un slug inconnu rend directement
-   le 404 au lieu d'être résolu à la demande. */
-export const dynamicParams = false;
-
-export function generateStaticParams() {
+/* Les fiches connues sont pré-générées ; `dynamicParams` reste actif pour
+   qu'une équipe ajoutée depuis l'espace d'administration soit accessible
+   sans attendre un nouveau déploiement. Un slug inconnu donne un 404. */
+export async function generateStaticParams() {
+  const { teams } = await getSiteContent();
   return teams.map((team) => ({ slug: team.slug }));
 }
 
@@ -37,6 +38,7 @@ export async function generateMetadata({
   params: Promise<Params>;
 }): Promise<Metadata> {
   const { slug } = await params;
+  const { teams } = await getSiteContent();
   const team = teams.find((item) => item.slug === slug);
 
   if (!team) {
@@ -58,6 +60,7 @@ export default async function TeamDetailPage({
   params: Promise<Params>;
 }) {
   const { slug } = await params;
+  const { teams, links } = await getSiteContent();
   const team = teams.find((item) => item.slug === slug);
 
   if (!team) {
@@ -137,7 +140,7 @@ export default async function TeamDetailPage({
           <h1 className="headline text-4xl text-ink md:text-5xl">{team.name}</h1>
           <p className="max-w-3xl text-lg leading-relaxed text-ink-soft">{team.description}</p>
           <a
-            href={`mailto:${teamSignupEmail}?subject=${encodeURIComponent(`Inscription · ${team.name}`)}`}
+            href={`mailto:${links.clubEmail}?subject=${encodeURIComponent(`Inscription · ${team.name}`)}`}
             className="inline-flex items-center gap-2 rounded-full bg-ocean px-6 py-3 text-sm font-semibold text-white transition hover:bg-ocean-deep"
           >
             <Mail size={15} />

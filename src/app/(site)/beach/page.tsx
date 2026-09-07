@@ -3,13 +3,14 @@ import Link from "next/link";
 import { ArrowRight, ExternalLink, Handshake, Trophy } from "lucide-react";
 
 import { buildMetadata } from "@/lib/site";
+import type { SiteLinks } from "@/types";
 import { PageHero } from "@/components/sections/page-hero";
 import { PageNav } from "@/components/layout/page-nav";
 import { BeachSection } from "@/components/sections/beach-section";
 import { ShopSection } from "@/components/sections/shop-section";
 import { SectionTitle } from "@/components/common/section-title";
 import { Reveal } from "@/components/common/reveal";
-import { helloAsso } from "@/data/site";
+import { getSiteContent } from "@/lib/content";
 
 export const metadata: Metadata = buildMetadata({
   title: "Beach handball à Lacanau",
@@ -26,8 +27,8 @@ const sections = [
 ];
 
 /* Deux engagements ouverts autour du Lacanau Beach Handball Xperience,
-   gérés sur HelloAsso par le club. */
-const lbhxActions = [
+   gérés sur HelloAsso par le club. Les liens viennent du contenu modifiable. */
+const lbhxActions = (links: SiteLinks) => [
   {
     icon: Handshake,
     eyebrow: "Entreprises",
@@ -35,7 +36,7 @@ const lbhxActions = [
     description:
       "Soutenez l'organisation du tournoi et associez votre nom à l'événement beach de l'été canaulais.",
     meta: "Montant libre",
-    href: helloAsso.mecenat,
+    href: links.helloAssoMecenat,
     cta: "Devenir mécène",
   },
   {
@@ -45,12 +46,15 @@ const lbhxActions = [
     description:
       "Le tournoi réservé aux partenaires du club, sur le sable canaulais. Inscription des équipes avant le 5 juin 2026.",
     meta: "Gratuit",
-    href: helloAsso.tournoiPartenaires,
+    href: links.helloAssoTournoi,
     cta: "Inscrire mon équipe",
   },
-] as const;
+];
 
-export default function BeachPage() {
+export default async function BeachPage() {
+  const contenu = await getSiteContent();
+  const engagements = lbhxActions(contenu.links);
+
   return (
     <>
       <PageHero
@@ -63,7 +67,7 @@ export default function BeachPage() {
 
       <PageNav items={sections} />
 
-      <BeachSection />
+      <BeachSection beachXperienceUrl={contenu.links.beachXperience} />
 
       {/* LICENCE BEACH — le tarif, tout de suite */}
       <section id="licence" className="container-x section-pad scroll-mt-32">
@@ -102,7 +106,11 @@ export default function BeachPage() {
           </Reveal>
           <div className="section-body">
             <Reveal delay={0.05}>
-              <ShopSection />
+              <ShopSection
+              items={contenu.shopItems}
+              shipping={contenu.shopShipping}
+              boutiqueUrl={contenu.links.helloAssoBoutique}
+            />
             </Reveal>
           </div>
         </div>
@@ -118,7 +126,7 @@ export default function BeachPage() {
           />
         </Reveal>
         <div className="section-body grid gap-6 md:grid-cols-2">
-          {lbhxActions.map((action, i) => {
+          {engagements.map((action, i) => {
             const Icon = action.icon;
             return (
               <Reveal key={action.title} delay={i * 0.06} className="h-full">

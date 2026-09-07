@@ -3,7 +3,6 @@
 import { useMemo, useState } from "react";
 import Image from "next/image";
 
-import { bureau, staffMembers } from "@/data/site";
 import type { StaffMember } from "@/types";
 import { cn } from "@/lib/utils";
 
@@ -44,8 +43,14 @@ function StaffCard({ member }: { member: StaffMember }) {
   );
 }
 
-export function StaffGrid() {
-  const allMembers = useMemo(() => [...bureau, ...staffMembers], []);
+export function StaffGrid({
+  bureau,
+  staff,
+}: {
+  bureau: StaffMember[];
+  staff: StaffMember[];
+}) {
+  const allMembers = useMemo(() => [...bureau, ...staff], [bureau, staff]);
   const poles = useMemo(
     () => ["Tous", ...Array.from(new Set(allMembers.map((m) => m.pole)))],
     [allMembers],

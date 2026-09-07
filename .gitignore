@@ -33,6 +33,10 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
+# contenu saisi depuis /admin en développement (le stockage en ligne
+# est Vercel Blob ; ce fichier n'existe que sur le poste de dev)
+/.data/
+
 # env files
 .env*
 !.env.example

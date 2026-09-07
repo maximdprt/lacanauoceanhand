@@ -9,10 +9,14 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { FormPrivacyNotice } from "@/components/common/form-privacy-notice";
 import { HoneypotField } from "@/components/common/honeypot-field";
-import { clubEmail } from "@/data/site";
+import { clubEmail as adresseParDefaut } from "@/data/site";
 import { sendForm } from "@/lib/send-form";
 
-export function ContactForm() {
+export function ContactForm({
+  clubEmail = adresseParDefaut,
+}: {
+  clubEmail?: string;
+} = {}) {
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");

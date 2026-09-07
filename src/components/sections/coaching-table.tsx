@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Phone } from "lucide-react";
 
-import { coachAssignments, licenceSeason, youthLead } from "@/data/site";
+import type { CoachAssignment, YouthLead } from "@/types";
 
 /* ============================================================
    ENCADREMENT PAR CATÉGORIE — transcription du guide du licencié.
@@ -9,13 +9,21 @@ import { coachAssignments, licenceSeason, youthLead } from "@/data/site";
    contact direct du responsable de la filière jeunes.
    ============================================================ */
 
-export function CoachingTable() {
+export function CoachingTable({
+  assignments,
+  youthLead,
+  season,
+}: {
+  assignments: CoachAssignment[];
+  youthLead: YouthLead;
+  season: string;
+}) {
   return (
     <div className="grid gap-8 lg:grid-cols-[1.6fr_1fr] lg:items-start lg:gap-10">
       <div className="overflow-x-auto overflow-y-hidden rounded-(--radius) border border-line bg-white">
         <table className="w-full min-w-[19rem] border-collapse text-left">
           <caption className="sr-only">
-            Entraîneurs par catégorie, saison {licenceSeason}
+            Entraîneurs par catégorie, saison {season}
           </caption>
           <thead>
             <tr className="bg-ink text-white">
@@ -40,7 +48,7 @@ export function CoachingTable() {
             </tr>
           </thead>
           <tbody>
-            {coachAssignments.map((row) => (
+            {assignments.map((row) => (
               <tr key={row.category} className="border-t border-line">
                 <th
                   scope="row"

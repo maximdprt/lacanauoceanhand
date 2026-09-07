@@ -55,6 +55,16 @@ const nextConfig: NextConfig = {
           ]
         : []),
       {
+        // L'espace d'administration ne doit jamais être mis en cache, ni par
+        // le navigateur ni par un intermédiaire : une page servie depuis le
+        // cache après déconnexion montrerait encore le contenu du club.
+        source: "/admin/:path*",
+        headers: [
+          { key: "Cache-Control", value: "no-store, must-revalidate" },
+          { key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" },
+        ],
+      },
+      {
         // Cache long sur les médias
         source: "/media/(.*)",
         headers: [

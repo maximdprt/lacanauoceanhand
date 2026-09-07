@@ -13,6 +13,10 @@ export default function robots(): MetadataRoute.Robots {
         // Core Web Vitals.
         userAgent: "*",
         allow: "/",
+        // L'espace d'administration n'a rien à faire dans un index. Ce n'est
+        // pas une protection — c'est `src/proxy.ts` qui garde la porte —
+        // mais cela évite qu'une URL /admin traîne dans les résultats.
+        disallow: "/admin",
       },
     ],
     sitemap: `${siteConfig.url}/sitemap.xml`,

@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/lib/site";
-import { teams } from "@/data/site";
+import { getSiteContent } from "@/lib/content";
 
 type Route = {
   path: string;
@@ -37,7 +37,9 @@ const legalRoutes: Route[] = [
   { path: "/politique-confidentialite",  priority: 0.2, changeFrequency: "yearly" },
 ];
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const { teams } = await getSiteContent();
+
   const base: MetadataRoute.Sitemap = [
     ...staticRoutes,
     ...clubSubRoutes,

@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { PageHero } from "@/components/sections/page-hero";
 import { legalInfo } from "@/data/legal";
-import { clubEmail } from "@/data/site";
+import { getSiteContent } from "@/lib/content";
 import { buildMetadata, siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = buildMetadata({
@@ -32,7 +32,9 @@ function LegalSection({
   );
 }
 
-export default function MentionsLegalesPage() {
+export default async function MentionsLegalesPage() {
+  const { links } = await getSiteContent();
+
   return (
     <>
       <PageHero
@@ -54,8 +56,8 @@ export default function MentionsLegalesPage() {
             {legalInfo.rna && <li>N° RNA : {legalInfo.rna}</li>}
             <li>
               E-mail :{" "}
-              <a href={`mailto:${clubEmail}`} className="font-semibold text-ocean hover:underline">
-                {clubEmail}
+              <a href={`mailto:${links.clubEmail}`} className="font-semibold text-ocean hover:underline">
+                {links.clubEmail}
               </a>
             </li>
             {legalInfo.phone && <li>Téléphone : {legalInfo.phone}</li>}

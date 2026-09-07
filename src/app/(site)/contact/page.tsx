@@ -5,7 +5,7 @@ import { buildMetadata } from "@/lib/site";
 import { PageHero } from "@/components/sections/page-hero";
 import { ContactForm } from "@/components/sections/contact-form";
 import { Reveal } from "@/components/common/reveal";
-import { clubEmail, facebookUrl, instagramUrl } from "@/data/site";
+import { getSiteContent } from "@/lib/content";
 
 export const metadata = buildMetadata({
   title: "Contact et accès aux salles",
@@ -14,7 +14,9 @@ export const metadata = buildMetadata({
   path: "/contact",
 });
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const { links } = await getSiteContent();
+
   return (
     <>
       <PageHero
@@ -50,10 +52,10 @@ export default function ContactPage() {
                   <div>
                     <p className="font-semibold text-ink">E-mail</p>
                     <a
-                      href={`mailto:${clubEmail}`}
+                      href={`mailto:${links.clubEmail}`}
                       className="text-base text-ink-soft transition hover:text-ocean"
                     >
-                      {clubEmail}
+                      {links.clubEmail}
                     </a>
                   </div>
                 </li>
@@ -65,7 +67,7 @@ export default function ContactPage() {
                 </p>
                 <div className="flex gap-3">
                   <a
-                    href={instagramUrl}
+                    href={links.instagram}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Instagram"
@@ -74,7 +76,7 @@ export default function ContactPage() {
                     <InstagramIcon size={18} />
                   </a>
                   <a
-                    href={facebookUrl}
+                    href={links.facebook}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Facebook"
@@ -102,7 +104,7 @@ export default function ContactPage() {
 
           {/* Formulaire */}
           <Reveal delay={0.08}>
-            <ContactForm />
+            <ContactForm clubEmail={links.clubEmail} />
           </Reveal>
         </div>
       </section>

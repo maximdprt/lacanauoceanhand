@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 
+import type { ClubHighlight } from "@/types";
+
 import { HeroSection } from "@/components/sections/hero-section";
 import { EventBanner } from "@/components/sections/event-banner";
 import { FiliereCards } from "@/components/sections/filiere-cards";
@@ -11,8 +13,8 @@ import { SectionTitle } from "@/components/common/section-title";
 import { Reveal } from "@/components/common/reveal";
 import { JsonLd } from "@/components/common/json-ld";
 import { buildMetadata, siteConfig } from "@/lib/site";
-
-import { faqItems, forumAssociations, partners } from "@/data/site";
+import { getSiteContent } from "@/lib/content";
+import { prochainEvenement } from "@/lib/evenements";
 
 export const metadata: Metadata = buildMetadata({
   // Title ≤ 60 caractères, description 120-155 : non tronqués en SERP.
@@ -22,52 +24,54 @@ export const metadata: Metadata = buildMetadata({
   path: "/",
 });
 
-/* Données structurées de l'événement mis en avant — émises tant
-   que la date n'est pas passée (revérifié à chaque déploiement). */
-const forumSchema = {
-  "@context": "https://schema.org",
-  "@type": "Event",
-  name: `${forumAssociations.title} de ${forumAssociations.city}`,
-  description: forumAssociations.description,
-  startDate: forumAssociations.startDate,
-  endDate: forumAssociations.endDate,
-  eventStatus: "https://schema.org/EventScheduled",
-  eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-  isAccessibleForFree: true,
-  image: `${siteConfig.url}${siteConfig.ogImage}`,
-  location: {
-    "@type": "Place",
-    name: forumAssociations.venue,
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: forumAssociations.city,
-      postalCode: siteConfig.postalCode,
-      addressRegion: siteConfig.region,
-      addressCountry: siteConfig.country,
+/* Données structurées de l'événement mis en avant — émises seulement tant
+   que la date n'est pas passée. */
+function schemaEvenement(evenement: ClubHighlight) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    name: `${evenement.title} de ${evenement.city}`,
+    description: evenement.description,
+    startDate: evenement.startDate,
+    endDate: evenement.endDate,
+    eventStatus: "https://schema.org/EventScheduled",
+    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    isAccessibleForFree: true,
+    image: `${siteConfig.url}${siteConfig.ogImage}`,
+    location: {
+      "@type": "Place",
+      name: evenement.venue,
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: evenement.city,
+        postalCode: siteConfig.postalCode,
+        addressRegion: siteConfig.region,
+        addressCountry: siteConfig.country,
+      },
     },
-  },
-  performer: {
-    "@type": "SportsClub",
-    name: siteConfig.name,
-    url: siteConfig.url,
-  },
-};
+    performer: {
+      "@type": "SportsClub",
+      name: siteConfig.name,
+      url: siteConfig.url,
+    },
+  };
+}
 
-/* Évalué au chargement du module, donc au build : les données
-   structurées de l'événement disparaissent au déploiement suivant
-   sa date. Le bandeau, lui, se retire tout seul côté client. */
-const forumUpcoming = new Date(forumAssociations.endDate).getTime() > Date.now();
+export default async function HomePage() {
+  const contenu = await getSiteContent();
+  const evenement = prochainEvenement(contenu.events);
 
-export default function HomePage() {
   return (
     <>
       <HeroSection />
 
       {/* RENDEZ-VOUS À VENIR — se retire seul une fois la date passée */}
-      <section className="container-x pt-14 md:pt-20">
-        {forumUpcoming && <JsonLd data={forumSchema} />}
-        <EventBanner event={forumAssociations} />
-      </section>
+      {evenement && (
+        <section className="container-x pt-14 md:pt-20">
+          <JsonLd data={schemaEvenement(evenement)} />
+          <EventBanner event={evenement} />
+        </section>
+      )}
 
       {/* SALLE & BEACH — deux façons de jouer, chaque carte mène aux équipes */}
       <section className="container-x section-pad">
@@ -108,7 +112,7 @@ export default function HomePage() {
           <SectionTitle title="Ils soutiennent le club" align="center" />
         </Reveal>
         <div className="section-body">
-          <PartnersCarousel partners={partners} />
+          <PartnersCarousel partners={contenu.partners} />
         </div>
       </section>
 
@@ -120,7 +124,7 @@ export default function HomePage() {
           </Reveal>
           <div className="section-body mx-auto max-w-2xl">
             <Reveal delay={0.06}>
-              <Faq items={faqItems} />
+              <Faq items={contenu.faqItems} />
             </Reveal>
           </div>
         </div>
@@ -136,7 +140,10 @@ export default function HomePage() {
           />
         </Reveal>
         <div className="section-body">
-          <JoinCta />
+          <JoinCta
+              ageCategories={contenu.ageCategories}
+              pricingPerks={contenu.pricingPerks}
+            />
         </div>
       </section>
     </>

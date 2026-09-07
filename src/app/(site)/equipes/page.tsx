@@ -11,7 +11,8 @@ import { TrainingSchedule } from "@/components/sections/training-schedule";
 import { CoachingTable } from "@/components/sections/coaching-table";
 import { Reveal } from "@/components/common/reveal";
 import { buttonVariants } from "@/components/ui/button";
-import { guideLicencieUrl, licenceSeason, teams, teamGroups } from "@/data/site";
+import { teamGroups } from "@/data/site";
+import { getSiteContent } from "@/lib/content";
 import type { Team } from "@/types";
 
 export const metadata: Metadata = buildMetadata({
@@ -107,9 +108,10 @@ function TeamCard({ team }: { team: Team }) {
   );
 }
 
-export default function TeamsPage() {
-  const salleTeams = teams.filter((t) => t.group !== "beach");
-  const beachTeams = teams.filter((t) => t.group === "beach");
+export default async function TeamsPage() {
+  const contenu = await getSiteContent();
+  const salleTeams = contenu.teams.filter((t) => t.group !== "beach");
+  const beachTeams = contenu.teams.filter((t) => t.group === "beach");
 
   return (
     <>
@@ -172,21 +174,21 @@ export default function TeamsPage() {
       <section id="creneaux" className="container-x section-pad scroll-mt-32">
         <Reveal>
           <SectionTitle
-            eyebrow={`Saison ${licenceSeason}`}
+            eyebrow={`Saison ${contenu.licenceSeason}`}
             title="Les créneaux d'entraînement"
             description="Toute la semaine, groupe par groupe et salle par salle, tels que publiés dans le guide du licencié."
           />
         </Reveal>
         <div className="section-body">
           <Reveal delay={0.05}>
-            <TrainingSchedule />
+            <TrainingSchedule slots={contenu.trainingSlots} />
           </Reveal>
         </div>
         <Reveal delay={0.1}>
           <p className="mt-6 text-sm text-ink-soft">
             Un doute sur un horaire&nbsp;?{" "}
             <a
-              href={guideLicencieUrl}
+              href={contenu.links.guideLicencie}
               target="_blank"
               rel="noopener noreferrer"
               className="font-semibold text-ocean hover:underline"
@@ -210,7 +212,11 @@ export default function TeamsPage() {
           </Reveal>
           <div className="section-body">
             <Reveal delay={0.05}>
-              <CoachingTable />
+              <CoachingTable
+                assignments={contenu.coachAssignments}
+                youthLead={contenu.youthLead}
+                season={contenu.licenceSeason}
+              />
             </Reveal>
           </div>
         </div>

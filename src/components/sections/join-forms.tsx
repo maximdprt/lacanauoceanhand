@@ -11,7 +11,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { FormPrivacyNotice } from "@/components/common/form-privacy-notice";
 import { HoneypotField } from "@/components/common/honeypot-field";
-import { clubEmail, playerCategories, volunteerRoles } from "@/data/site";
+import {
+  clubEmail as adresseParDefaut,
+  playerCategories,
+  volunteerRoles,
+} from "@/data/site";
 import { sendForm } from "@/lib/send-form";
 
 const tabLabel: Record<TabId, string> = {
@@ -43,7 +47,13 @@ const coachAreas = [
   "Peu importe",
 ];
 
-function SuccessPanel({ onReset }: { onReset: () => void }) {
+function SuccessPanel({
+  onReset,
+  clubEmail,
+}: {
+  onReset: () => void;
+  clubEmail: string;
+}) {
   return (
     <div
       role="status"
@@ -86,7 +96,11 @@ function PrivacyRow({ error, minors = false }: { error: string; minors?: boolean
   );
 }
 
-export function JoinForms() {
+export function JoinForms({
+  clubEmail = adresseParDefaut,
+}: {
+  clubEmail?: string;
+} = {}) {
   const [active, setActive] = useState<TabId>("joueur");
   const [sent, setSent] = useState<TabId | null>(null);
   const [roles, setRoles] = useState<string[]>([]);
@@ -173,7 +187,7 @@ export function JoinForms() {
 
       <div className="mt-8">
         {sent === active ? (
-          <SuccessPanel onReset={() => setSent(null)} />
+          <SuccessPanel clubEmail={clubEmail} onReset={() => setSent(null)} />
         ) : (
           <form
             onSubmit={handleSubmit}

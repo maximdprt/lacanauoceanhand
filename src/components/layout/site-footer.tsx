@@ -8,25 +8,20 @@ import { InstagramIcon, FacebookIcon } from "@/components/icons/social";
 
 import { stagger, fadeUp, VIEWPORT } from "@/lib/animations";
 import { openConsentBanner } from "@/lib/consent";
-import {
-  beachXperienceUrl,
-  clubEmail,
-  facebookUrl,
-  federationLogos,
-  helloAsso,
-  instagramUrl,
-  navItems,
-} from "@/data/site";
+import { federationLogos, navItems, siteLinks } from "@/data/site";
+import type { SiteLinks } from "@/types";
 import { ExternalLink, HandCoins, ShoppingBag } from "lucide-react";
 
-/* Liens HelloAsso du club — boutique et dons, hors navigation principale. */
-const supportLinks = [
-  { label: "Boutique du club", href: helloAsso.boutique, icon: ShoppingBag },
-  { label: "Faire un don", href: helloAsso.don, icon: HandCoins },
-];
-
-export function SiteFooter() {
+/** Les coordonnées et les liens viennent du contenu modifiable
+    (cf. /admin → Contact & liens) ; le code sert de filet. */
+export function SiteFooter({ links = siteLinks }: { links?: SiteLinks } = {}) {
   const year = new Date().getFullYear();
+
+  /* Liens HelloAsso du club — boutique et dons, hors navigation principale. */
+  const supportLinks = [
+    { label: "Boutique du club", href: links.helloAssoBoutique, icon: ShoppingBag },
+    { label: "Faire un don", href: links.helloAssoDon, icon: HandCoins },
+  ];
 
   return (
     <footer className="border-t border-line bg-mist">
@@ -78,7 +73,7 @@ export function SiteFooter() {
           </p>
           <div className="mt-6 flex gap-3">
             <a
-              href={instagramUrl}
+              href={links.instagram}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
@@ -87,7 +82,7 @@ export function SiteFooter() {
               <InstagramIcon size={18} />
             </a>
             <a
-              href={facebookUrl}
+              href={links.facebook}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Facebook"
@@ -131,13 +126,13 @@ export function SiteFooter() {
             </li>
             <li className="flex items-start gap-2.5">
               <Mail size={18} className="mt-0.5 shrink-0 text-ocean" />
-              <a href={`mailto:${clubEmail}`} className="transition hover:text-ocean">
-                {clubEmail}
+              <a href={`mailto:${links.clubEmail}`} className="transition hover:text-ocean">
+                {links.clubEmail}
               </a>
             </li>
           </ul>
           <a
-            href={beachXperienceUrl}
+            href={links.beachXperience}
             target="_blank"
             rel="noopener noreferrer"
             className="mt-6 flex items-start gap-3 rounded-(--radius) border border-line bg-white p-4 transition hover:border-ocean/40 hover:shadow-sm"

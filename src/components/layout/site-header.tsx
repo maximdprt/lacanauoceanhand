@@ -7,12 +7,18 @@ import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 
-import { navItems, beachXperienceUrl } from "@/data/site";
+import { navItems, beachXperienceUrl as lienBeachParDefaut } from "@/data/site";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { SPRING } from "@/lib/animations";
 
-export function SiteHeader() {
+/** `beachXperienceUrl` vient du contenu modifiable (cf. /admin → Contact & liens).
+    La valeur du code reste en filet si l'en-tête est rendu sans prop. */
+export function SiteHeader({
+  beachXperienceUrl = lienBeachParDefaut,
+}: {
+  beachXperienceUrl?: string;
+} = {}) {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
@@ -207,7 +213,7 @@ export function SiteHeader() {
                 className="mt-4 flex items-center justify-between rounded-(--radius) border border-ocean/25 bg-ocean-tint px-4 py-4 text-ocean transition hover:border-ocean"
               >
                 <span className="font-display text-lg uppercase">Beach Xperience</span>
-                <span className="text-xs font-medium">site-lbhx.vercel.app →</span>
+                <span className="text-xs font-medium">{beachXperienceUrl.replace(/^https?:\/\//, "").replace(/\/$/, "")} →</span>
               </a>
             </nav>
           </motion.div>

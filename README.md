@@ -18,6 +18,12 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `src/app/page.tsx`. The page auto-updates as you edit the file.
 
+## Espace d'administration
+
+Le club modifie les tarifs, les créneaux, les événements et le reste du contenu
+depuis **`/admin`**, sans toucher au code. Mise en service, code d'accès et
+architecture : voir **[ADMIN.md](./ADMIN.md)**.
+
 ## Déploiement Vercel
 
 L'application Next.js est à la **racine du dépôt** (`package.json`, `src/`, `public/`). Vercel détecte automatiquement Next.js — aucun dossier racine personnalisé n'est nécessaire.

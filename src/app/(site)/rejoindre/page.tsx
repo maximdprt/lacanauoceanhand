@@ -9,7 +9,8 @@ import { EventBanner } from "@/components/sections/event-banner";
 import { LicenceFees } from "@/components/sections/licence-fees";
 import { SectionTitle } from "@/components/common/section-title";
 import { Reveal } from "@/components/common/reveal";
-import { forumAssociations, guideLicencieUrl, licenceSeason } from "@/data/site";
+import { getSiteContent } from "@/lib/content";
+import { prochainEvenement } from "@/lib/evenements";
 
 export const metadata = buildMetadata({
   title: "Inscription et tarifs des licences",
@@ -23,7 +24,10 @@ const sections = [
   { id: "inscription", label: "Inscription" },
 ];
 
-export default function JoinPage() {
+export default async function JoinPage() {
+  const contenu = await getSiteContent();
+  const evenement = prochainEvenement(contenu.events);
+
   return (
     <>
       <PageHero
@@ -37,22 +41,28 @@ export default function JoinPage() {
       <PageNav items={sections} />
 
       {/* RENDEZ-VOUS — venir nous rencontrer avant de s'inscrire */}
-      <section className="container-x pt-14 md:pt-20">
-        <EventBanner event={forumAssociations} />
-      </section>
+      {evenement && (
+        <section className="container-x pt-14 md:pt-20">
+          <EventBanner event={evenement} />
+        </section>
+      )}
 
       {/* TARIFS — la question que tout le monde se pose en premier */}
       <section id="tarifs" className="container-x section-pad scroll-mt-32">
         <Reveal>
           <SectionTitle
-            eyebrow={`Saison ${licenceSeason}`}
+            eyebrow={`Saison ${contenu.licenceSeason}`}
             title="Le prix de la licence"
             description="Une cotisation annuelle unique, équipement compris, avec plusieurs aides possibles pour alléger la facture."
           />
         </Reveal>
         <div className="section-body">
           <Reveal delay={0.05}>
-            <LicenceFees />
+            <LicenceFees
+              fees={contenu.licenceFees}
+              notes={contenu.licenceNotes}
+              season={contenu.licenceSeason}
+            />
           </Reveal>
         </div>
 
@@ -98,13 +108,13 @@ export default function JoinPage() {
 
             <div className="section-body">
               <Reveal delay={0.05}>
-                <JoinForms />
+                <JoinForms clubEmail={contenu.links.clubEmail} />
               </Reveal>
             </div>
 
             <Reveal delay={0.08}>
               <a
-                href={guideLicencieUrl}
+                href={contenu.links.guideLicencie}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="card-lift btn-press group mt-8 flex items-center gap-4 rounded-(--radius) border border-line bg-white p-6"
@@ -114,7 +124,7 @@ export default function JoinPage() {
                 </span>
                 <div className="min-w-0 flex-1">
                   <p className="font-bold text-ink">
-                    Guide du licencié {licenceSeason}
+                    Guide du licencié {contenu.licenceSeason}
                   </p>
                   <p className="text-sm leading-snug text-ink-soft">
                     Le document officiel du club : tarifs, créneaux d&apos;entraînement

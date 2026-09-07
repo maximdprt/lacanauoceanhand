@@ -155,6 +155,8 @@ export type CoachAssignment = {
 
 /** Un rendez-vous ponctuel mis en avant sur le site (forum, tournoi…). */
 export type ClubHighlight = {
+  /** Identifiant stable — sert de clé de liste dans l'espace admin. */
+  id: string;
   title: string;
   /** Date ISO — sert au schema.org Event et au masquage automatique. */
   startDate: string;
@@ -172,4 +174,35 @@ export type ShopItem = {
   name: string;
   price: number;
   note?: string;
+};
+
+/** Contact direct publié dans le guide du licencié. */
+export type YouthLead = {
+  name: string;
+  role: string;
+  /** Numéro affiché, mis en forme à la française (06 26 01 73 61). */
+  phone: string;
+  /** Même numéro au format international, pour le lien `tel:`. */
+  phoneHref: string;
+  image: string;
+};
+
+/** Les liens sortants du club — réseaux, billetterie, documents. */
+export type SiteLinks = {
+  clubEmail: string;
+  instagram: string;
+  facebook: string;
+  beachXperience: string;
+  guideLicencie: string;
+  helloAssoProfile: string;
+  helloAssoBoutique: string;
+  helloAssoDon: string;
+  helloAssoMecenat: string;
+  helloAssoTournoi: string;
+};
+
+/** Une ligne du bloc « conditions et aides » sous le tableau des tarifs. */
+export type LicenceNote = {
+  title: string;
+  detail: string;
 };

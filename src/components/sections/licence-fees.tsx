@@ -1,7 +1,6 @@
 import { CalendarClock, Check } from "lucide-react";
 
-import { licenceFees, licenceNotes, licenceSeason } from "@/data/site";
-import type { LicenceFee } from "@/types";
+import type { LicenceFee, LicenceNote } from "@/types";
 
 /* ============================================================
    PRIX DES LICENCES — transcription du guide du licencié.
@@ -44,13 +43,21 @@ function FeeRow({ fee }: { fee: LicenceFee }) {
   );
 }
 
-export function LicenceFees() {
+export function LicenceFees({
+  fees,
+  notes,
+  season,
+}: {
+  fees: LicenceFee[];
+  notes: LicenceNote[];
+  season: string;
+}) {
   return (
     <div>
       <div className="overflow-x-auto overflow-y-hidden rounded-(--radius) border border-line bg-white">
         <table className="w-full min-w-[19rem] border-collapse text-left">
           <caption className="sr-only">
-            Prix des licences Lacanau Océhand, saison {licenceSeason}
+            Prix des licences Lacanau Océhand, saison {season}
           </caption>
           <thead>
             <tr className="bg-ink text-white">
@@ -76,7 +83,7 @@ export function LicenceFees() {
           </thead>
 
           {groups.map((group) => {
-            const rows = licenceFees.filter((f) => f.kind === group.kind);
+            const rows = fees.filter((f) => f.kind === group.kind);
             if (rows.length === 0) return null;
 
             return (
@@ -115,7 +122,7 @@ export function LicenceFees() {
 
       {/* Conditions & aides */}
       <ul className="mt-8 grid gap-x-8 gap-y-5 sm:grid-cols-2">
-        {licenceNotes.map((note) => (
+        {notes.map((note) => (
           <li key={note.title} className="flex items-start gap-3">
             <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-c-jeunes/12 text-c-jeunes-ink">
               <Check size={14} strokeWidth={3} aria-hidden="true" />
