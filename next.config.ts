@@ -36,28 +36,16 @@ const nextConfig: NextConfig = {
   },
 
   async headers() {
-    const isProd = process.env.NODE_ENV === "production";
-
     return [
       {
         // Sécurité sur toutes les routes
         source: "/(.*)",
         headers: securityHeaders,
       },
-      // Cache immutable uniquement en production (évite chunks Turbopack obsolètes en dev)
-      ...(isProd
-        ? [
-            {
-              source: "/_next/static/(.*)",
-              headers: [
-                {
-                  key: "Cache-Control",
-                  value: "public, max-age=31536000, immutable",
-                },
-              ],
-            },
-          ]
-        : []),
+      /* Pas de règle sur /_next/static : Next.js y pose déjà lui-même
+         « public, max-age=31536000, immutable » en production. La redéfinir
+         ne changeait rien au cache et déclenchait un avertissement à chaque
+         build (« Custom Cache-Control headers detected »). */
       {
         // L'espace d'administration ne doit jamais être mis en cache, ni par
         // le navigateur ni par un intermédiaire : une page servie depuis le

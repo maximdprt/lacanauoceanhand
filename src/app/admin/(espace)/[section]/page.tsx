@@ -4,9 +4,17 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, ExternalLink, TriangleAlert } from "lucide-react";
 
 import { SectionEditor } from "@/components/admin/section-editor";
-import { adminSections, clesDeSection, sectionParSlug } from "@/lib/admin-sections";
+import { clesDeSection, sectionParSlug } from "@/lib/admin-sections";
 import { getSiteContent } from "@/lib/content";
 import { storageStatus } from "@/lib/content-store";
+
+/* Rendu à chaque visite, jamais pré-généré au build.
+   L'état du stockage et le contenu enregistré changent entre deux
+   déploiements : une page figée au build afficherait « enregistrement
+   indisponible » alors que tout fonctionne, ou l'inverse. L'espace admin
+   est derrière un code et ne concerne que quelques personnes — il n'a
+   rien à gagner à être statique, et tout à perdre en justesse. */
+export const dynamic = "force-dynamic";
 
 /* ============================================================
    ÉCRAN D'UNE RUBRIQUE
@@ -15,10 +23,6 @@ import { storageStatus } from "@/lib/content-store";
    ============================================================ */
 
 type Params = { section: string };
-
-export function generateStaticParams() {
-  return adminSections.map((section) => ({ section: section.slug }));
-}
 
 export async function generateMetadata({
   params,

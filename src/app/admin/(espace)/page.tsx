@@ -23,6 +23,14 @@ import { readStoredContent, storageStatus } from "@/lib/content-store";
 import { prochainEvenement } from "@/lib/evenements";
 import { cn } from "@/lib/utils";
 
+/* Rendu à chaque visite, jamais pré-généré au build.
+   L'état du stockage et le contenu enregistré changent entre deux
+   déploiements : une page figée au build afficherait « enregistrement
+   indisponible » alors que tout fonctionne, ou l'inverse. L'espace admin
+   est derrière un code et ne concerne que quelques personnes — il n'a
+   rien à gagner à être statique, et tout à perdre en justesse. */
+export const dynamic = "force-dynamic";
+
 /* ============================================================
    VUE D'ENSEMBLE
    Ce que le club voit en arrivant : où en est le site, ce qui a déjà
@@ -101,48 +109,45 @@ export default async function TableauDeBord() {
         </p>
       </header>
 
-      {/* --- Où partent les modifications --------------------- */}
-      <div
-        className={cn(
-          "mt-8 flex items-start gap-4 rounded-(--radius) border p-5",
-          stockage.writable
-            ? "border-line bg-white"
-            : "border-gold/40 bg-gold-tint",
-        )}
-      >
-        <span
+      {/* --- Où partent les modifications ---------------------
+         Quand tout fonctionne, il n'y a rien à dire : une ligne discrète
+         suffit. L'encart n'apparaît que s'il y a quelque chose à signaler
+         — enregistrement impossible, ou modifications qui ne partent pas
+         en ligne. Un avertissement permanent finit par ne plus être lu. */}
+      {stockage.hint ? (
+        <div
           className={cn(
-            "flex h-11 w-11 shrink-0 items-center justify-center rounded-full",
-            stockage.writable ? "bg-ocean-tint text-ocean" : "bg-white text-gold-ink",
+            "mt-8 flex items-start gap-4 rounded-(--radius) border p-5",
+            stockage.writable ? "border-line bg-white" : "border-gold/40 bg-gold-tint",
           )}
         >
-          {stockage.writable ? (
-            stockage.driver === "blob" ? (
-              <CloudUpload size={20} aria-hidden="true" />
-            ) : (
+          <span
+            className={cn(
+              "flex h-11 w-11 shrink-0 items-center justify-center rounded-full",
+              stockage.writable ? "bg-ocean-tint text-ocean" : "bg-white text-gold-ink",
+            )}
+          >
+            {stockage.writable ? (
               <HardDrive size={20} aria-hidden="true" />
-            )
-          ) : (
-            <TriangleAlert size={20} aria-hidden="true" />
-          )}
-        </span>
-        <div className="min-w-0">
-          <p className="font-bold text-ink">
-            {stockage.writable
-              ? `Enregistrement actif · ${stockage.label}`
-              : "Enregistrement indisponible"}
-          </p>
-          {stockage.hint && (
-            <p className="mt-1 text-base leading-relaxed text-ink-soft">{stockage.hint}</p>
-          )}
-          {stockage.writable && !stockage.hint && (
-            <p className="mt-1 text-base leading-relaxed text-ink-soft">
-              Vos modifications sont enregistrées en ligne et le site se met à
-              jour tout seul.
+            ) : (
+              <TriangleAlert size={20} aria-hidden="true" />
+            )}
+          </span>
+          <div className="min-w-0">
+            <p className="font-bold text-ink">
+              {stockage.writable
+                ? `Enregistrement actif · ${stockage.label}`
+                : "Enregistrement indisponible"}
             </p>
-          )}
+            <p className="mt-1 text-base leading-relaxed text-ink-soft">{stockage.hint}</p>
+          </div>
         </div>
-      </div>
+      ) : (
+        <p className="mt-7 flex items-center gap-2.5 text-sm font-semibold text-ink-soft">
+          <CloudUpload size={16} className="shrink-0 text-c-jeunes-ink" aria-hidden="true" />
+          Enregistrement en ligne actif · {stockage.label}
+        </p>
+      )}
 
       {/* --- Les chiffres du moment --------------------------- */}
       <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">

@@ -56,13 +56,32 @@ La session dure 12 heures ; passé ce délai, le code est redemandé.
 Le disque d'une fonction Vercel est en lecture seule : les modifications sont
 donc écrites dans **Vercel Blob**. Une fois, à la mise en ligne :
 
-1. Tableau de bord Vercel → projet `lacanauoceanhand` → **Storage**
-2. **Create Database → Blob**, puis **Connect** vers le projet
-3. Redéployer
+**En ligne de commande** (le plus court) :
 
-La variable `BLOB_READ_WRITE_TOKEN` est ajoutée automatiquement à tous les
-environnements. Tant qu'elle est absente, `/admin` reste consultable en ligne
-mais affiche « Enregistrement indisponible » et explique quoi faire.
+```bash
+vercel blob create-store lacanau-ocehand-contenu --access public --environment production --yes
+```
+
+**Ou depuis le tableau de bord** : projet `lacanauoceanhand` → **Storage** →
+**Create Database → Blob** → **Connect** vers le projet, en cochant la seule
+production.
+
+Puis **redéployer** pour que la variable soit prise en compte.
+
+Trois choix à connaître :
+
+- **accès public** : le site lit le fichier par l'URL publique du CDN, sans
+  appel authentifié. C'est ce qui permet aux pages publiques de rester
+  statiques.
+- **production uniquement** : sans cette restriction, une préproduction
+  écrirait dans le contenu du site en ligne. On teste en local, où l'admin
+  écrit dans un fichier séparé.
+- **région par défaut** : le fichier fait quelques kilo-octets et passe par
+  le cache ; la région d'origine n'a aucun effet perceptible.
+
+La variable `BLOB_READ_WRITE_TOKEN` est ajoutée automatiquement. Tant qu'elle
+est absente, `/admin` reste consultable en ligne mais affiche
+« Enregistrement indisponible » et explique quoi faire.
 
 En développement (`npm run dev`), aucune configuration n'est nécessaire : les
 modifications vont dans `.data/site-content.json`, ignoré par git.
@@ -117,6 +136,12 @@ Les pages publiques restent **générées statiquement** : `getSiteContent()` es
 mis en cache et n'est lu qu'à la (re)génération, pas à chaque visite. Un
 enregistrement invalide l'étiquette de cache et déclenche la régénération.
 `npm run build` doit continuer d'afficher `○ (Static)` sur les pages du site.
+
+Les pages `/admin`, elles, sont volontairement **dynamiques** (`ƒ` au build).
+Elles ne sont vues que par quelques personnes derrière un code : les figer au
+build n'apporterait rien et ferait afficher un état de stockage périmé — par
+exemple « enregistrement indisponible » alors qu'un Blob store vient d'être
+relié.
 
 `/llms.txt` — la fiche du club lue par les IA génératives — est **généré** à
 partir du même contenu (`src/app/llms.txt/route.ts`). Il annonçait auparavant
