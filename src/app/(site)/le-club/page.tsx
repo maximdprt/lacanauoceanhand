@@ -31,10 +31,16 @@ const sections = [
 export default async function ClubPage() {
   const contenu = await getSiteContent();
 
+  /* Les étapes de la frise sont indexées par année dans les photos du site
+     (« histoire2017 », « histoire2024 »…). L'accès indexé est explicite :
+     l'année vient des données, pas du type. */
+  const photoEtape = (annee: string): string | undefined =>
+    (contenu.images as Record<string, string>)[`histoire${annee}`];
+
   return (
     <>
       <PageHero
-        image="/media/club/vestiaire-celebration.jpg"
+        image={contenu.images.enteteClub}
         imageAlt="Les joueurs de Lacanau Océhand célèbrent une victoire dans le vestiaire"
         eyebrow="Le club"
         title="Le club de handball à Lacanau"
@@ -72,7 +78,7 @@ export default async function ClubPage() {
           <Reveal delay={0.08}>
             <div className="relative aspect-4/3 overflow-hidden rounded-(--radius-lg) border border-line">
               <Image
-                src="/media/club/club-famille.jpg"
+                src={contenu.images.clubPresentation}
                 alt="La famille du club Lacanau Océhand"
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
@@ -92,10 +98,15 @@ export default async function ClubPage() {
             />
           </Reveal>
           <div className="mt-12 space-y-12 md:mt-16 md:space-y-20">
-            {timelineEvents.map((ev, i) => (
+            {timelineEvents.map((ev, i) => {
+              /* La photo de l'étape est modifiable depuis /admin → Photos du
+                 site, sous la clé « histoire<année> ». Le texte de la frise,
+                 lui, raconte l'histoire du club : il reste dans le code. */
+              const photo = photoEtape(ev.year) || ev.image;
+              return (
               <Reveal key={ev.year}>
                 <div className="grid items-center gap-8 md:grid-cols-2 md:gap-12">
-                  {ev.image && (
+                  {photo && (
                     <div
                       className={cn(
                         "group relative aspect-4/3 overflow-hidden rounded-(--radius-lg) border border-line",
@@ -103,7 +114,7 @@ export default async function ClubPage() {
                       )}
                     >
                       <Image
-                        src={ev.image}
+                        src={photo}
                         alt={`${ev.year} — ${ev.title}`}
                         fill
                         sizes="(max-width: 768px) 100vw, 50vw"
@@ -136,7 +147,8 @@ export default async function ClubPage() {
                   </div>
                 </div>
               </Reveal>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>

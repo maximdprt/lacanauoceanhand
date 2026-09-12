@@ -116,7 +116,7 @@ export default async function TeamsPage() {
   return (
     <>
       <PageHero
-        image="/media/action/duel-1.jpg"
+        image={contenu.images.enteteEquipes}
         imageAlt="Duel entre deux joueurs lors d'un match de handball de Lacanau Océhand"
         eyebrow="Nos équipes"
         title="Une équipe pour chaque joueur"

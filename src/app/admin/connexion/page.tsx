@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
 import { LoginForm } from "@/components/admin/login-form";
+import { getSiteContent } from "@/lib/content";
 
 /* ============================================================
    CONNEXION À L'ESPACE D'ADMINISTRATION
@@ -15,6 +16,7 @@ export default async function ConnexionPage({
   searchParams: Promise<{ suite?: string }>;
 }) {
   const { suite } = await searchParams;
+  const { images } = await getSiteContent();
 
   return (
     <main
@@ -28,7 +30,7 @@ export default async function ConnexionPage({
       <div className="relative w-full max-w-[26rem]">
         <div className="flex flex-col items-center text-center">
           <Image
-            src="/brand/logo-white.png"
+            src={images.logoBlanc}
             alt=""
             priority
             width={56}

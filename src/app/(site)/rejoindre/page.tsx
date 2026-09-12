@@ -31,7 +31,7 @@ export default async function JoinPage() {
   return (
     <>
       <PageHero
-        image="/media/action/run-1.jpg"
+        image={contenu.images.enteteRejoindre}
         imageAlt="Un joueur de Lacanau Océhand monte à l'attaque pendant un match"
         eyebrow="Rejoindre"
         title="Rejoindre le club"

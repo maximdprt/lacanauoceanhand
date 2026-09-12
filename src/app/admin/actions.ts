@@ -14,6 +14,13 @@ import {
 import { clesDeSection, sectionParSlug } from "@/lib/admin-sections";
 import { parseSiteContent, type ContentKey, type SiteContent } from "@/lib/content-schema";
 import { readStoredContent, storageStatus, writeStoredContent } from "@/lib/content-store";
+import {
+  listerMedias,
+  supprimerMedia,
+  televerserMedia,
+  type Media,
+  type ResultatImport,
+} from "@/lib/media-store";
 import { CONTENT_TAG } from "@/lib/content";
 
 /**
@@ -209,4 +216,37 @@ export async function reinitialiserRubrique(slug: string): Promise<EtatEnregistr
 
   rafraichirLeSite();
   return { statut: "ok", a: Date.now() };
+}
+
+/* ============================================================
+   PHOTOS
+   Importer une photo, lister la médiathèque, en retirer une. Ces trois
+   actions ne touchent jamais au contenu : elles déposent ou retirent un
+   fichier, et rendent son adresse. C'est l'enregistrement de la rubrique
+   qui décide, ensuite, où cette adresse est utilisée — une photo importée
+   puis abandonnée n'a donc modifié aucune page.
+   ============================================================ */
+
+/** Dépose une photo dans le stockage du site et rend son adresse publique. */
+export async function televerserImage(donnees: FormData): Promise<ResultatImport> {
+  await exigerSession();
+
+  const fichier = donnees.get("fichier");
+  if (!(fichier instanceof File)) {
+    return { ok: false, message: "Aucun fichier reçu." };
+  }
+
+  return televerserMedia(fichier);
+}
+
+/** La médiathèque : photos importées par le club + photos livrées avec le site. */
+export async function listerMediatheque(): Promise<Media[]> {
+  await exigerSession();
+  return listerMedias();
+}
+
+/** Retire une photo importée du stockage. */
+export async function supprimerImage(url: string): Promise<ResultatImport> {
+  await exigerSession();
+  return supprimerMedia(url);
 }

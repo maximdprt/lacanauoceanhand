@@ -18,7 +18,7 @@ export function GalleryLightbox({ items }: { items: GalleryItem[] }) {
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {items.map((item, itemIndex) => (
           <button
-            key={item.src}
+            key={item.alt}
             type="button"
             className="group aspect-4/3 overflow-hidden rounded-lg border border-white/15"
             onClick={() => setIndex(itemIndex)}

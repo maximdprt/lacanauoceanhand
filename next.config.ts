@@ -19,6 +19,18 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   reactCompiler: true,
 
+  experimental: {
+    serverActions: {
+      /* L'import d'une photo depuis /admin passe par une action serveur,
+         dont le corps est limite a 1 Mo par defaut : une photo de telephone
+         serait refusee avec une erreur illisible pour le club. Le navigateur
+         la redimensionne deja avant l'envoi (cf. src/lib/photos.ts) ; cette
+         marge couvre les cas ou il n'y arrive pas. Rester sous les 4,5 Mo
+         acceptes par l'hebergeur pour une requete. */
+      bodySizeLimit: "4mb",
+    },
+  },
+
   turbopack: {
     root: __dirname,
   },
@@ -31,6 +43,21 @@ const nextConfig: NextConfig = {
     // hero, ou la compression par defaut se voit sur les degrades.
     qualities: [75, 90],
     minimumCacheTTL: 60 * 60 * 24 * 30, // 30 jours
+
+    /* Les photos importées depuis /admin ne peuvent pas etre ecrites dans
+       le projet une fois celui-ci en ligne : elles vont dans le stockage de
+       fichiers du site (Vercel Blob), servi par ce sous-domaine. Sans cette
+       autorisation, next/image renvoie 400 sur chacune d'elles.
+       Le motif reste ferme : un seul hote, aucune chaine de requete. */
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "*.public.blob.vercel-storage.com",
+        port: "",
+        pathname: "/**",
+        search: "",
+      },
+    ],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },

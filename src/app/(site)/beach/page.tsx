@@ -58,7 +58,7 @@ export default async function BeachPage() {
   return (
     <>
       <PageHero
-        image="/media/beach/amsterdam.jpg"
+        image={contenu.images.enteteBeach}
         imageAlt="L'équipe de beach handball de Lacanau Océhand en tournoi sur le sable"
         eyebrow="Beach"
         title="Le beach handball à Lacanau"
@@ -67,7 +67,16 @@ export default async function BeachPage() {
 
       <PageNav items={sections} />
 
-      <BeachSection beachXperienceUrl={contenu.links.beachXperience} />
+      <BeachSection
+        beachXperienceUrl={contenu.links.beachXperience}
+        photoPrincipale={contenu.images.beachPrincipale}
+        photosGalerie={[
+          contenu.images.beachGalerie1,
+          contenu.images.beachGalerie2,
+          contenu.images.beachGalerie3,
+          contenu.images.beachGalerie4,
+        ]}
+      />
 
       {/* LICENCE BEACH — le tarif, tout de suite */}
       <section id="licence" className="container-x section-pad scroll-mt-32">

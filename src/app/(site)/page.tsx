@@ -25,8 +25,12 @@ export const metadata: Metadata = buildMetadata({
 });
 
 /* Données structurées de l'événement mis en avant — émises seulement tant
-   que la date n'est pas passée. */
+   que la date n'est pas passée, ET seulement si le club en a saisi une :
+   `schema.org/Event` exige une `startDate`, et une actualité sans date
+   (« les inscriptions sont ouvertes ») n'est pas un événement. En publier
+   une sans date produirait une donnée structurée invalide. */
 function schemaEvenement(evenement: ClubHighlight) {
+  if (!evenement.startDate) return null;
   return {
     "@context": "https://schema.org",
     "@type": "Event",
@@ -60,15 +64,19 @@ function schemaEvenement(evenement: ClubHighlight) {
 export default async function HomePage() {
   const contenu = await getSiteContent();
   const evenement = prochainEvenement(contenu.events);
+  const schema = evenement ? schemaEvenement(evenement) : null;
 
   return (
     <>
-      <HeroSection />
+      <HeroSection
+        photo1={contenu.images.accueilHero1}
+        photo2={contenu.images.accueilHero2}
+      />
 
       {/* RENDEZ-VOUS À VENIR — se retire seul une fois la date passée */}
       {evenement && (
         <section className="container-x pt-14 md:pt-20">
-          <JsonLd data={schemaEvenement(evenement)} />
+          {schema && <JsonLd data={schema} />}
           <EventBanner event={evenement} />
         </section>
       )}
@@ -84,7 +92,10 @@ export default async function HomePage() {
         </Reveal>
         <div className="section-body">
           <Reveal delay={0.05}>
-            <FiliereCards />
+            <FiliereCards
+              photoSalle={contenu.images.accueilSalle}
+              photoBeach={contenu.images.accueilBeach}
+            />
           </Reveal>
         </div>
       </section>

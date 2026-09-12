@@ -8,13 +8,20 @@ import { InstagramIcon, FacebookIcon } from "@/components/icons/social";
 
 import { stagger, fadeUp, VIEWPORT } from "@/lib/animations";
 import { openConsentBanner } from "@/lib/consent";
+import { defaultImages } from "@/data/images";
 import { federationLogos, navItems, siteLinks } from "@/data/site";
 import type { SiteLinks } from "@/types";
 import { ExternalLink, HandCoins, ShoppingBag } from "lucide-react";
 
 /** Les coordonnées et les liens viennent du contenu modifiable
     (cf. /admin → Contact & liens) ; le code sert de filet. */
-export function SiteFooter({ links = siteLinks }: { links?: SiteLinks } = {}) {
+export function SiteFooter({
+  links = siteLinks,
+  logo = defaultImages.logoCouleur,
+}: {
+  links?: SiteLinks;
+  logo?: string;
+} = {}) {
   const year = new Date().getFullYear();
 
   /* Liens HelloAsso du club — boutique et dons, hors navigation principale. */
@@ -57,7 +64,7 @@ export function SiteFooter({ links = siteLinks }: { links?: SiteLinks } = {}) {
         <motion.div variants={fadeUp}>
           <div className="flex items-center gap-2.5">
             <Image
-              src="/brand/logo-color.png"
+              src={logo}
               alt="Logo Lacanau Océhand"
               width={48}
               height={48}

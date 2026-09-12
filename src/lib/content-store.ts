@@ -131,7 +131,9 @@ async function ecrireFichier(contenu: string): Promise<void> {
    API DU MODULE
    ============================================================ */
 
-function driverActif(): StorageDriver {
+/** Le stockage réellement disponible — partagé avec `media-store.ts`, qui
+    dépose les photos importées au même endroit que le contenu. */
+export function driverActif(): StorageDriver {
   if (process.env.BLOB_READ_WRITE_TOKEN || process.env.BLOB_CONTENT_URL) return "blob";
   // Sur Vercel le disque est en lecture seule : proposer le fichier local
   // laisserait croire que l'enregistrement fonctionne alors qu'il échouerait.

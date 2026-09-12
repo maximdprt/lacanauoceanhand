@@ -5,6 +5,7 @@ import { SectionTitle } from "@/components/common/section-title";
 import { Reveal } from "@/components/common/reveal";
 import { GalleryLightbox } from "@/components/sections/gallery-lightbox";
 import { galleryItems } from "@/data/site";
+import { getSiteContent } from "@/lib/content";
 import { buildMetadata } from "@/lib/site";
 
 export const metadata: Metadata = buildMetadata({
@@ -14,7 +15,14 @@ export const metadata: Metadata = buildMetadata({
   path: "/le-club/coupe-de-france-2024",
 });
 
-export default function CoupePage() {
+export default async function CoupePage() {
+  /* Les quatre photos de la galerie sont modifiables depuis
+     /admin → Photos du site ; les légendes, qui décrivent l'action, restent
+     dans le code avec le reste du récit. */
+  const { images } = await getSiteContent();
+  const photos = [images.galerie1, images.galerie2, images.galerie3, images.galerie4];
+  const galerie = galleryItems.map((item, i) => ({ ...item, src: photos[i] ?? item.src }));
+
   return (
     <>
       <PageHero
@@ -100,7 +108,7 @@ export default function CoupePage() {
             />
           </Reveal>
           <Reveal delay={0.08} className="section-body">
-            <GalleryLightbox items={galleryItems} />
+            <GalleryLightbox items={galerie} />
           </Reveal>
         </div>
       </section>

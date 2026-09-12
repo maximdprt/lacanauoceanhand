@@ -50,3 +50,6 @@ next-env.d.ts
 
 # ancien dossier de dev (app déplacée à la racine)
 temp-next/
+
+# Photos importees depuis /admin en developpement local
+/public/media/importees/

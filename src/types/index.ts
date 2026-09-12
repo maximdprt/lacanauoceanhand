@@ -206,3 +206,16 @@ export type LicenceNote = {
   title: string;
   detail: string;
 };
+
+/* ============================================================
+   MÉDIATHÈQUE
+   ============================================================ */
+
+/** Une photo disponible dans l'espace d'administration. */
+export type Media = {
+  url: string;
+  /** Nom lisible, affiché sous la vignette. */
+  nom: string;
+  /** Vrai pour une photo importée depuis l'admin (donc supprimable). */
+  importee: boolean;
+};

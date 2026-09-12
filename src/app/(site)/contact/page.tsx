@@ -15,12 +15,12 @@ export const metadata = buildMetadata({
 });
 
 export default async function ContactPage() {
-  const { links } = await getSiteContent();
+  const { links, images } = await getSiteContent();
 
   return (
     <>
       <PageHero
-        image="/media/club/salle-cousteyre.jpg"
+        image={images.enteteContact}
         imageAlt="La salle de la Cousteyre à Lacanau, gymnase du club de handball"
         eyebrow="Contact"
         title="Nous contacter"

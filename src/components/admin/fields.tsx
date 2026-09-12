@@ -2,6 +2,7 @@
 
 import { useId } from "react";
 
+import { ChampPhoto } from "@/components/admin/media-picker";
 import type { Field } from "@/lib/admin-sections";
 import { cn } from "@/lib/utils";
 
@@ -190,23 +191,33 @@ export function FieldInput({
       );
       break;
 
-    case "image": {
+    case "image":
+      // Le club choisit une vignette ou importe un fichier : il n'a jamais
+      // à taper un chemin. Le sélecteur s'occupe de tout, y compris de
+      // l'aperçu et du bouton « aucune photo ».
+      saisie = (
+        <ChampPhoto
+          valeur={texte}
+          onChange={onChange}
+          dossier={field.folder}
+          autoriserVide={field.optionnel}
+          compact={compact}
+          ariaLabelledBy={`${id}-label`}
+        />
+      );
+      break;
+
+    case "document": {
+      // Un PDF, pas une photo : pas de vignette, une liste des documents
+      // déjà présents dans le projet et la saisie libre en secours.
       const listeId = `${id}-fichiers`;
-      const estImage = /\.(jpe?g|png|webp|avif|svg)$/i.test(texte);
       saisie = (
         <div className="flex items-center gap-3">
           {texte && (
             <span className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-(--radius-sm) border border-line bg-mist">
-              {estImage ? (
-                /* Aperçu d'un chemin en cours de saisie, éventuellement
-                   invalide : `next/image` refuserait la source. */
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={texte} alt="" className="h-full w-full object-cover" />
-              ) : (
-                <span className="text-[0.6rem] font-bold uppercase text-ink-soft">
-                  {texte.split(".").pop()?.slice(0, 4)}
-                </span>
-              )}
+              <span className="text-[0.6rem] font-bold uppercase text-ink-soft">
+                {texte.split(".").pop()?.slice(0, 4)}
+              </span>
             </span>
           )}
           <input
@@ -215,7 +226,7 @@ export function FieldInput({
             list={listeId}
             value={texte}
             onChange={(e) => onChange(e.target.value)}
-            placeholder={field.placeholder ?? "/media/…"}
+            placeholder={field.placeholder ?? "/documents/…"}
             className={cn(baseSaisie, hauteur)}
           />
           <datalist id={listeId}>
@@ -244,6 +255,7 @@ export function FieldInput({
   return (
     <div className={largeurs[field.span ?? 12]}>
       <label
+        id={`${id}-label`}
         htmlFor={id}
         className="mb-1.5 block text-[0.8rem] font-semibold text-ink"
       >

@@ -1,4 +1,5 @@
 import { AdminNav } from "@/components/admin/admin-nav";
+import { getSiteContent } from "@/lib/content";
 
 /* ============================================================
    COQUILLE DE L'ESPACE D'ADMINISTRATION
@@ -7,12 +8,14 @@ import { AdminNav } from "@/components/admin/admin-nav";
    n'est pas saisi, il n'y a aucune rubrique à afficher.
    ============================================================ */
 
-export default function EspaceAdminLayout({
+export default async function EspaceAdminLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const { images } = await getSiteContent();
+
   return (
     <div className="flex min-h-svh flex-col bg-mist lg:flex-row">
-      <AdminNav />
+      <AdminNav logo={images.logoBlanc} />
       <main id="contenu" className="min-w-0 flex-1 focus:outline-none" tabIndex={-1}>
         <div className="mx-auto w-full max-w-[62rem] px-5 py-8 md:px-8 md:py-12">
           {children}

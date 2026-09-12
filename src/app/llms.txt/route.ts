@@ -109,7 +109,14 @@ ${c.ageCategories.map((a) => `- ${a.label} (${a.age}) : ${a.note}.`).join("\n")}
 ## Rendez-vous
 ${
   evenement
-    ? `- ${evenement.title} : ${evenement.dateLabel}, ${evenement.timeLabel}, ${evenement.venue} à ${evenement.city}. ${evenement.description}`
+    ? `- ${[
+        evenement.title,
+        [evenement.dateLabel, evenement.timeLabel, [evenement.venue, evenement.city].filter(Boolean).join(" à ")]
+          .filter(Boolean)
+          .join(", "),
+      ]
+        .filter(Boolean)
+        .join(" : ")}. ${evenement.description}`
     : "- Aucun rendez-vous public annoncé pour le moment."
 }
 

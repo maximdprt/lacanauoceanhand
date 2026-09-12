@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 
+import { defaultImages } from "@/data/images";
 import { navItems, beachXperienceUrl as lienBeachParDefaut } from "@/data/site";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -16,8 +17,10 @@ import { SPRING } from "@/lib/animations";
     La valeur du code reste en filet si l'en-tête est rendu sans prop. */
 export function SiteHeader({
   beachXperienceUrl = lienBeachParDefaut,
+  logo = defaultImages.logoCouleur,
 }: {
   beachXperienceUrl?: string;
+  logo?: string;
 } = {}) {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
@@ -78,7 +81,7 @@ export function SiteHeader({
             tabIndex={-1}
           >
             <Image
-              src="/brand/logo-color.png"
+              src={logo}
               alt="Logo Lacanau Océhand"
               width={40}
               height={40}

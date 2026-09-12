@@ -13,6 +13,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 
+import { defaultImages } from "@/data/images";
 import { beachXperienceUrl as lienBeachParDefaut } from "@/data/site";
 import { SectionTitle } from "@/components/common/section-title";
 import { Reveal } from "@/components/common/reveal";
@@ -29,18 +30,35 @@ const facts = [
 
 const xperienceTeams = ["Lacanau", "Amsterdam", "Londres", "Alpes-Maritimes"];
 
-const gallery = [
-  { src: "/media/beach/londres.jpg", alt: "L'équipe de Londres (London GD) au Lacanau Beach Handball Xperience" },
-  { src: "/media/beach/amsterdam.jpg", alt: "L'équipe d'Amsterdam sur le sable de Lacanau" },
-  { src: "/media/beach/alpes.jpg", alt: "L'équipe Beach Handball des Alpes-Maritimes" },
-  { src: "/media/beach/stage-sable.jpg", alt: "Entraînement de beach handball sur le sable de l'Ardilouse" },
+/* Les textes alternatifs restent dans le code : ils décrivent ce que montre
+   chaque emplacement de la grille, et le club change la photo, pas le rôle
+   qu'elle joue. Les adresses, elles, viennent de /admin → Photos du site. */
+const legendes = [
+  "L'équipe de Londres (London GD) au Lacanau Beach Handball Xperience",
+  "L'équipe d'Amsterdam sur le sable de Lacanau",
+  "L'équipe Beach Handball des Alpes-Maritimes",
+  "Entraînement de beach handball sur le sable de l'Ardilouse",
 ];
 
 export function BeachSection({
   beachXperienceUrl = lienBeachParDefaut,
+  photoPrincipale = defaultImages.beachPrincipale,
+  photosGalerie = [
+    defaultImages.beachGalerie1,
+    defaultImages.beachGalerie2,
+    defaultImages.beachGalerie3,
+    defaultImages.beachGalerie4,
+  ],
 }: {
   beachXperienceUrl?: string;
+  photoPrincipale?: string;
+  photosGalerie?: string[];
 } = {}) {
+  // La légende sert de clé : deux emplacements peuvent recevoir la même
+  // photo sans que React ne confonde les deux cases de la grille.
+  const gallery = legendes
+    .map((alt, i) => ({ src: photosGalerie[i] ?? "", alt }))
+    .filter((g) => g.src);
   return (
     <section
       id="beach"
@@ -66,7 +84,7 @@ export function BeachSection({
           <Reveal>
             <div className="group relative aspect-4/3 overflow-hidden rounded-(--radius-lg) border border-white/10">
               <Image
-                src="/media/beach/stage-sable.jpg"
+                src={photoPrincipale}
                 alt="Beach handball sur le sable du Pôle de l'Ardilouse à Lacanau"
                 fill
                 sizes="(max-width: 1024px) 100vw, 55vw"
@@ -153,7 +171,7 @@ export function BeachSection({
         >
           {gallery.map((g) => (
             <motion.div
-              key={g.src}
+              key={g.alt}
               variants={fadeUp}
               className="group relative aspect-square overflow-hidden rounded-(--radius) border border-white/10"
             >

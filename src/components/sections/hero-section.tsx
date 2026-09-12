@@ -5,13 +5,23 @@ import Link from "next/link";
 import { ArrowRight, CalendarDays, Users } from "lucide-react";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 
+import { defaultImages } from "@/data/images";
+
 const ctas = [
   { label: "Rejoindre le club", href: "/rejoindre", icon: ArrowRight, primary: true },
   { label: "Les matchs", href: "/#saison", icon: CalendarDays, primary: false },
   { label: "Nos équipes", href: "/equipes", icon: Users, primary: false },
 ] as const;
 
-export function HeroSection() {
+/** Les deux photos viennent du contenu modifiable (cf. /admin → Photos du
+    site) ; celles du code restent en filet si le hero est rendu sans prop. */
+export function HeroSection({
+  photo1 = defaultImages.accueilHero1,
+  photo2 = defaultImages.accueilHero2,
+}: {
+  photo1?: string;
+  photo2?: string;
+} = {}) {
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, 60]);
   const reduce = useReducedMotion();
@@ -27,7 +37,7 @@ export function HeroSection() {
                 `quality` a 90 plutot que 75 : sur un ciel et du sable, la
                 compression par defaut laisse des aplats visibles. */}
             <Image
-              src="/media/club/hero-beach-trophee.jpg"
+              src={photo1}
               alt="Les joueurs de beach handball de Lacanau Océhand célèbrent leur trophée sur le sable"
               fill
               priority
@@ -38,7 +48,7 @@ export function HeroSection() {
             {/* Seconde photo empilee : le fondu croise est gere en CSS
                 (.hero-alt dans globals.css), sans etat React. */}
             <Image
-              src="/media/club/hero-coupe-bercy.jpg"
+              src={photo2}
               alt="Lacanau Océhand soulève la Coupe de France 2024 à l'Accor Arena de Bercy"
               fill
               quality={90}

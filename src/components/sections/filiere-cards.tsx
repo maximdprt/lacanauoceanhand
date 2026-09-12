@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
+import { defaultImages } from "@/data/images";
+
 const filieres = [
   {
     tag: "Toute l'année",
@@ -52,11 +54,20 @@ function FiliereCard({ f }: { f: (typeof filieres)[number] }) {
   );
 }
 
-export function FiliereCards() {
+/** Les deux photos viennent du contenu modifiable (cf. /admin → Photos du
+    site) ; celles du code restent en filet. */
+export function FiliereCards({
+  photoSalle = defaultImages.accueilSalle,
+  photoBeach = defaultImages.accueilBeach,
+}: {
+  photoSalle?: string;
+  photoBeach?: string;
+} = {}) {
+  const photos = [photoSalle, photoBeach];
   return (
     <div className="grid gap-6 md:grid-cols-2">
-      {filieres.map((f) => (
-        <FiliereCard key={f.title} f={f} />
+      {filieres.map((f, i) => (
+        <FiliereCard key={f.title} f={{ ...f, image: photos[i] ?? f.image }} />
       ))}
     </div>
   );

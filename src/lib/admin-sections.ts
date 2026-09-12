@@ -1,4 +1,5 @@
-import { mediaFiles, mediaFilesIn } from "@/data/media-index";
+import { imageGroupes, imageSlotsDuGroupe } from "@/data/images";
+import { mediaFiles } from "@/data/media-index";
 import {
   accentColors,
   defaultSiteContent,
@@ -8,6 +9,8 @@ import {
   type ContentKey,
 } from "@/lib/content-schema";
 import { trainingDays } from "@/data/site";
+import { etatEvenement } from "@/lib/evenements";
+import type { ClubHighlight } from "@/types";
 
 /**
  * LE PLAN DE L'ESPACE D'ADMINISTRATION
@@ -36,6 +39,7 @@ export type FieldType =
   | "tags"
   | "datetime"
   | "image"
+  | "document"
   | "url"
   | "email";
 
@@ -49,8 +53,12 @@ export type Field = {
   hint?: string;
   /** Valeurs possibles pour un champ `select`. */
   options?: readonly { value: string; label: string }[];
-  /** Suggestions pour un champ `image` (liste déroulante non contraignante). */
+  /** Suggestions pour un champ `document` (liste déroulante non contraignante). */
   suggestions?: readonly string[];
+  /** Dossier mis en avant à l'ouverture du sélecteur de photo. */
+  folder?: string;
+  /** Un champ `image` où « aucune photo » est un choix valable. */
+  optionnel?: boolean;
   /** Unité affichée à droite du champ (« € »). */
   suffix?: string;
   /** Largeur dans la grille du formulaire, sur 12 colonnes. */
@@ -60,6 +68,10 @@ export type Field = {
 /* ============================================================
    BLOCS
    ============================================================ */
+/** Couleur d'une pastille d'état : vert « en ligne », gris « en attente »,
+    ambre « terminé ». */
+export type EtatPastille = "ok" | "attente" | "fin";
+
 type BlocCommun = {
   title: string;
   help?: string;
@@ -73,6 +85,10 @@ export type Bloc = BlocCommun &
         key: ContentKey;
         /** Nom d'une ligne au singulier (« tarif », « créneau »). */
         itemLabel: string;
+        /** Vrai si ce nom est féminin : « ajouter UNE annonce », « supprimer
+            CETTE équipe ». Les boutons sont fabriqués à partir du libellé,
+            l'accord ne peut donc pas être écrit à la main. */
+        itemFeminin?: boolean;
         /** Champs qui résument la ligne quand elle est repliée. */
         titleKeys: string[];
         fields: Field[];
@@ -86,6 +102,16 @@ export type Bloc = BlocCommun &
          * `parseSiteContent`, qui accepte les deux formes.
          */
         toForm?: (item: Record<string, unknown>) => Record<string, unknown>;
+        /**
+         * Ce que devient cette ligne sur le site public, affiché en pastille
+         * à côté de son titre. Reçoit la liste entière : « affichée » dépend
+         * souvent de ce qui précède, pas seulement de la ligne elle-même.
+         * Recalculé à chaque frappe, donc sans effet de bord ni horloge figée.
+         */
+        itemStatus?: (
+          lignes: Record<string, unknown>[],
+          index: number,
+        ) => { label: string; tone: EtatPastille } | null;
       }
     | {
         /** Un objet unique : le responsable jeunes, les liens du club… */
@@ -98,6 +124,7 @@ export type Bloc = BlocCommun &
         kind: "strings";
         key: ContentKey;
         itemLabel: string;
+        itemFeminin?: boolean;
         placeholder?: string;
       }
     | {
@@ -115,7 +142,19 @@ export type Section = {
   slug: string;
   label: string;
   /** Nom de l'icône Lucide, résolue dans le menu. */
-  icon: "euro" | "clock" | "calendar" | "users" | "whistle" | "shield" | "shop" | "help" | "handshake" | "map" | "link";
+  icon:
+    | "euro"
+    | "clock"
+    | "calendar"
+    | "users"
+    | "whistle"
+    | "shield"
+    | "shop"
+    | "help"
+    | "handshake"
+    | "map"
+    | "image"
+    | "link";
   summary: string;
   /** Pages publiques où la rubrique se voit — affiché comme raccourci. */
   preview: { label: string; href: string }[];
@@ -212,6 +251,7 @@ export const adminSections: Section[] = [
         title: "Conditions et aides",
         help: "Les encarts affichés sous le tableau (forfait famille, Pass'Sport…).",
         itemLabel: "condition",
+        itemFeminin: true,
         titleKeys: ["title"],
         fields: [
           { key: "title", label: "Titre", type: "text", placeholder: "Forfait famille", span: 12 },
@@ -239,6 +279,7 @@ export const adminSections: Section[] = [
         title: "Catégories d'âge",
         help: "Le tableau des âges de la page d'accueil, sous « Rejoindre le club ».",
         itemLabel: "catégorie",
+        itemFeminin: true,
         titleKeys: ["label", "age"],
         fields: [
           { key: "label", label: "Nom", type: "text", placeholder: "U13", span: 4 },
@@ -296,9 +337,9 @@ export const adminSections: Section[] = [
   /* ---------------------------------------------------------- */
   {
     slug: "evenements",
-    label: "Événements",
+    label: "Actualités & événements",
     icon: "calendar",
-    summary: "Les rendez-vous annoncés en bandeau sur l'accueil et la page Rejoindre.",
+    summary: "L'annonce mise en avant sur l'accueil et sur la page Rejoindre.",
     preview: [
       { label: "Accueil", href: "/" },
       { label: "Page Rejoindre", href: "/rejoindre" },
@@ -307,25 +348,33 @@ export const adminSections: Section[] = [
       {
         kind: "list",
         key: "events",
-        title: "Rendez-vous à venir",
-        help: "Le site affiche le prochain événement dont la date n'est pas passée, et fait disparaître les autres tout seul. Inutile de supprimer un événement écoulé.",
-        itemLabel: "événement",
+        title: "Vos annonces",
+        help: "Le site affiche la première annonce de la liste qui est encore d'actualité — la pastille verte indique laquelle. Les dates sont facultatives : sans date, l'annonce reste affichée jusqu'à ce que vous la retiriez ; avec une date de fin, le site la retire tout seul le lendemain.",
+        itemLabel: "annonce",
+        itemFeminin: true,
         titleKeys: ["title", "dateLabel"],
         fields: [
           { key: "title", label: "Titre", type: "text", placeholder: "Forum des associations", span: 12 },
           {
             key: "startDate",
-            label: "Début",
+            label: "Début (facultatif)",
             type: "datetime",
-            hint: "Sert au masquage automatique et à la pastille de date.",
+            hint: "Alimente la pastille de date du bandeau. À laisser vide pour une actualité sans date.",
             span: 6,
           },
-          { key: "endDate", label: "Fin", type: "datetime", span: 6 },
+          {
+            key: "endDate",
+            label: "Fin (facultatif)",
+            type: "datetime",
+            hint: "Le site retire l'annonce tout seul une fois cette date passée. Vide = affichée jusqu'à ce que vous la retiriez.",
+            span: 6,
+          },
           {
             key: "dateLabel",
             label: "Date affichée",
             type: "text",
             placeholder: "Samedi 5 septembre",
+            hint: "Texte libre, affiché tel quel. Vide = pas de ligne de date sur le bandeau.",
             span: 6,
           },
           { key: "timeLabel", label: "Horaire affiché", type: "text", placeholder: "10h → 15h", span: 6 },
@@ -364,6 +413,20 @@ export const adminSections: Section[] = [
           const cta = item.cta as { label?: string; href?: string } | undefined;
           return { ...item, ctaLabel: cta?.label ?? "", ctaHref: cta?.href ?? "" };
         },
+        /* La question que le club se pose devant ce formulaire est
+           « laquelle part en ligne ? ». La réponse est calculée par la même
+           fonction que le site, pour qu'elles ne puissent pas diverger. */
+        itemStatus: (lignes, index) => {
+          if (!String(lignes[index]?.title ?? "").trim()) return null;
+          switch (etatEvenement(lignes as unknown as ClubHighlight[], index)) {
+            case "affiche":
+              return { label: "Affichée sur le site", tone: "ok" };
+            case "en-attente":
+              return { label: "En attente", tone: "attente" };
+            default:
+              return { label: "Terminée · masquée", tone: "fin" };
+          }
+        },
       },
     ],
   },
@@ -382,6 +445,7 @@ export const adminSections: Section[] = [
         title: "Les équipes du club",
         help: "Chaque équipe a sa page (/equipes/…). Modifier son nom ne change pas son adresse : l'identifiant reste celui d'origine, ce qui évite de casser les liens déjà partagés.",
         itemLabel: "équipe",
+        itemFeminin: true,
         titleKeys: ["name", "age"],
         fields: [
           { key: "name", label: "Nom", type: "text", placeholder: "U13 filles", span: 8 },
@@ -399,9 +463,9 @@ export const adminSections: Section[] = [
           { key: "description", label: "Présentation", type: "textarea", span: 12 },
           {
             key: "image",
-            label: "Photo",
+            label: "Photo de l'équipe",
             type: "image",
-            suggestions: mediaFilesIn("/media/teams/"),
+            folder: "/media/teams/",
             span: 8,
           },
           {
@@ -440,6 +504,7 @@ export const adminSections: Section[] = [
         key: "coachAssignments",
         title: "Entraîneurs par catégorie",
         itemLabel: "catégorie",
+        itemFeminin: true,
         titleKeys: ["category"],
         fields: [
           { key: "category", label: "Catégorie", type: "text", placeholder: "U13 filles", span: 4 },
@@ -475,7 +540,7 @@ export const adminSections: Section[] = [
             key: "image",
             label: "Photo",
             type: "image",
-            suggestions: mediaFilesIn("/media/staff/"),
+            folder: "/media/staff/",
             span: 6,
           },
         ],
@@ -506,7 +571,8 @@ export const adminSections: Section[] = [
             key: "image",
             label: "Photo",
             type: "image",
-            suggestions: mediaFilesIn("/media/staff/"),
+            folder: "/media/staff/",
+            optionnel: true,
             span: 12,
           },
         ],
@@ -527,7 +593,8 @@ export const adminSections: Section[] = [
             key: "image",
             label: "Photo",
             type: "image",
-            suggestions: mediaFilesIn("/media/staff/"),
+            folder: "/media/staff/",
+            optionnel: true,
             span: 12,
           },
         ],
@@ -586,6 +653,7 @@ export const adminSections: Section[] = [
         title: "Questions & réponses",
         help: "Des réponses courtes et concrètes, avec le mot « Lacanau » quand c'est naturel : ce bloc alimente aussi les résultats de recherche.",
         itemLabel: "question",
+        itemFeminin: true,
         titleKeys: ["question"],
         fields: [
           { key: "question", label: "Question", type: "text", span: 12 },
@@ -623,9 +691,9 @@ export const adminSections: Section[] = [
           },
           {
             key: "logo",
-            label: "Logo",
+            label: "Logo du partenaire",
             type: "image",
-            suggestions: mediaFilesIn("/partners/"),
+            folder: "/partners/",
             span: 12,
           },
         ],
@@ -660,15 +728,49 @@ export const adminSections: Section[] = [
           },
           {
             key: "image",
-            label: "Photo",
+            label: "Photo du lieu",
             type: "image",
-            suggestions: mediaFilesIn("/media/club/"),
+            folder: "/media/club/",
+            optionnel: true,
             span: 12,
           },
         ],
         blank: { name: "", usage: "", address: "Lacanau", image: "" },
       },
     ],
+  },
+
+  /* ---------------------------------------------------------- */
+  {
+    slug: "photos",
+    label: "Photos du site",
+    icon: "image",
+    summary: "Les grandes photos des pages : accueil, bandeaux, galeries et logo.",
+    preview: [
+      { label: "Accueil", href: "/" },
+      { label: "Page Le club", href: "/le-club" },
+      { label: "Page Beach", href: "/beach" },
+    ],
+    /* Les photos qui appartiennent à une liste (équipe, bénévole, salle,
+       partenaire) se changent dans leur propre rubrique, au plus près de la
+       ligne concernée. Restent ici celles qui n'appartiennent à personne :
+       les grandes images des pages. Les blocs sont construits à partir de
+       `src/data/images.ts` — ajouter une photo modifiable = y ajouter une
+       ligne, cet écran suit tout seul. */
+    blocks: imageGroupes.map((groupe) => ({
+      kind: "record" as const,
+      key: "images" as const,
+      title: groupe.titre,
+      help: groupe.aide,
+      fields: imageSlotsDuGroupe(groupe.id).map((slot) => ({
+        key: slot.key,
+        label: slot.label,
+        hint: slot.hint,
+        type: "image" as const,
+        folder: slot.dossier,
+        span: 6 as const,
+      })),
+    })),
   },
 
   /* ---------------------------------------------------------- */
@@ -701,7 +803,7 @@ export const adminSections: Section[] = [
           {
             key: "guideLicencie",
             label: "Guide du licencié (PDF)",
-            type: "image",
+            type: "document",
             suggestions: mediaFiles.filter((f) => f.endsWith(".pdf")),
             span: 6,
           },
@@ -724,9 +826,11 @@ export function sectionParSlug(slug: string): Section | undefined {
   return adminSections.find((s) => s.slug === slug);
 }
 
-/** Les clés de contenu qu'une rubrique a le droit de modifier. */
+/** Les clés de contenu qu'une rubrique a le droit de modifier.
+    Dédupliquées : plusieurs blocs peuvent présenter des morceaux d'une même
+    clé — l'écran « Photos du site » découpe `images` en six groupes. */
 export function clesDeSection(section: Section): ContentKey[] {
-  return section.blocks.map((bloc) => bloc.key);
+  return [...new Set(section.blocks.map((bloc) => bloc.key))];
 }
 
 /** Combien d'entrées compte une rubrique — affiché sur le tableau de bord. */
@@ -734,9 +838,13 @@ export function compterEntrees(
   section: Section,
   contenu: Record<string, unknown>,
 ): number {
-  return section.blocks.reduce((total, bloc) => {
-    const valeur = contenu[bloc.key];
-    return total + (Array.isArray(valeur) ? valeur.length : 1);
+  return clesDeSection(section).reduce((total, cle) => {
+    const valeur = contenu[cle];
+    if (Array.isArray(valeur)) return total + valeur.length;
+    // Un objet (les liens du club, les photos du site) compte pour le nombre
+    // de champs qu'il contient : « 26 entrées » parle plus que « 1 ».
+    if (valeur && typeof valeur === "object") return total + Object.keys(valeur).length;
+    return total + 1;
   }, 0);
 }
 

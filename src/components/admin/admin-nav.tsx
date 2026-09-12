@@ -12,6 +12,7 @@ import {
   Euro,
   ExternalLink,
   Handshake,
+  Image as ImageIcon,
   LayoutGrid,
   Link2,
   LogOut,
@@ -25,6 +26,7 @@ import {
 
 import { adminSections, type Section } from "@/lib/admin-sections";
 import { seDeconnecter } from "@/app/admin/actions";
+import { defaultImages } from "@/data/images";
 import { cn } from "@/lib/utils";
 
 /* ============================================================
@@ -44,6 +46,7 @@ const icones: Record<Section["icon"], typeof Euro> = {
   help: CircleHelp,
   handshake: Handshake,
   map: MapPin,
+  image: ImageIcon,
   link: Link2,
 };
 
@@ -123,11 +126,11 @@ function PiedDeMenu() {
   );
 }
 
-function Marque() {
+function Marque({ logo }: { logo: string }) {
   return (
     <Link href="/admin" className="flex items-center gap-2.5">
       <Image
-        src="/brand/logo-white.png"
+        src={logo}
         alt=""
         priority
         width={34}
@@ -146,7 +149,9 @@ function Marque() {
   );
 }
 
-export function AdminNav() {
+/** `logo` vient du contenu modifiable (cf. /admin → Photos du site) : le
+    club retrouve son logo ici comme sur le site. */
+export function AdminNav({ logo = defaultImages.logoBlanc }: { logo?: string } = {}) {
   const [ouvert, setOuvert] = useState(false);
 
   // Le tiroir se referme au clic sur un lien (cf. `onNavigate` plus bas) ;
@@ -169,7 +174,7 @@ export function AdminNav() {
     <>
       {/* Grand écran : barre latérale fixe */}
       <aside className="sticky top-0 hidden h-svh w-[16.5rem] shrink-0 flex-col overflow-y-auto border-r border-white/10 bg-ink px-4 py-6 lg:flex">
-        <Marque />
+        <Marque logo={logo} />
         <div className="mt-8 flex flex-1 flex-col">
           <Liens />
           <PiedDeMenu />
@@ -178,7 +183,7 @@ export function AdminNav() {
 
       {/* Téléphone et tablette : barre du haut + tiroir */}
       <div className="sticky top-0 z-50 flex items-center justify-between gap-4 border-b border-white/10 bg-ink px-4 py-3 lg:hidden">
-        <Marque />
+        <Marque logo={logo} />
         <button
           type="button"
           onClick={() => setOuvert((v) => !v)}

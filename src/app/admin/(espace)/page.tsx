@@ -9,6 +9,7 @@ import {
   Euro,
   HardDrive,
   Handshake,
+  Image as ImageIcon,
   Link2,
   MapPin,
   ShieldCheck,
@@ -48,6 +49,7 @@ const icones: Record<Section["icon"], typeof Euro> = {
   help: CircleHelp,
   handshake: Handshake,
   map: MapPin,
+  image: ImageIcon,
   link: Link2,
 };
 
@@ -73,8 +75,8 @@ function chiffresCles(contenu: Awaited<ReturnType<typeof getSiteContent>>) {
       href: "/admin/creneaux",
     },
     {
-      label: "Prochain rendez-vous",
-      valeur: prochain ? prochain.dateLabel || "À venir" : "Aucun",
+      label: "Annonce en ligne",
+      valeur: prochain ? prochain.dateLabel || "Affichée" : "Aucune",
       detail: prochain ? prochain.title : "Le bandeau du site est masqué",
       href: "/admin/evenements",
     },

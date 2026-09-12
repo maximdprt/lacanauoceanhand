@@ -20,7 +20,14 @@ import { siteConfig } from "@/lib/site";
 export default async function SiteLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const { links } = await getSiteContent();
+  const { links, images } = await getSiteContent();
+
+  /* Le logo peut désormais venir du stockage de fichiers du site (une photo
+     importée depuis /admin) : son adresse est déjà absolue. Seul un chemin
+     interne a besoin d'être préfixé pour les données structurées. */
+  const logoAbsolu = images.logoCouleur.startsWith("http")
+    ? images.logoCouleur
+    : `${siteConfig.url}${images.logoCouleur}`;
 
   /* ----------------------------------------------------------
      DONNÉES STRUCTURÉES SCHEMA.ORG
@@ -41,7 +48,7 @@ export default async function SiteLayout({
         url: siteConfig.url,
         logo: {
           "@type": "ImageObject",
-          url: `${siteConfig.url}/brand/logo-color.png`,
+          url: logoAbsolu,
           width: 400,
           height: 400,
         },
@@ -126,9 +133,9 @@ export default async function SiteLayout({
   return (
     <>
       <JsonLd data={schemaGraph} />
-      <SiteHeader beachXperienceUrl={links.beachXperience} />
+      <SiteHeader beachXperienceUrl={links.beachXperience} logo={images.logoCouleur} />
       <PageTransition>{children}</PageTransition>
-      <SiteFooter links={links} />
+      <SiteFooter links={links} logo={images.logoCouleur} />
       <CookieConsent />
 
       {/* Mesure d'audience — chargée uniquement après consentement (CNIL) */}

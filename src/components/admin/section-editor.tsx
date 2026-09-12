@@ -16,7 +16,7 @@ import {
 
 import { enregistrerRubrique, reinitialiserRubrique } from "@/app/admin/actions";
 import { FieldInput } from "@/components/admin/fields";
-import { sectionParSlug, type Bloc, type Section } from "@/lib/admin-sections";
+import { sectionParSlug, type Bloc, type EtatPastille, type Section } from "@/lib/admin-sections";
 import { cn } from "@/lib/utils";
 
 /* ============================================================
@@ -275,12 +275,14 @@ export function SectionEditor({
                     onDescendre={() => deplacer(bloc.key, index, 1)}
                     onSupprimer={() => supprimer(bloc.key, ligne.cle)}
                     label={bloc.itemLabel}
+                    feminin={bloc.itemFeminin}
                   />
                 </li>
               ))}
             </ul>
             <BoutonAjouter
               label={bloc.itemLabel}
+              feminin={bloc.itemFeminin}
               onClick={() => ajouter(bloc.key, { valeur: "" })}
             />
           </div>
@@ -315,6 +317,10 @@ export function SectionEditor({
                   .map((cle) => ligne.donnees[cle])
                   .filter((v) => v !== undefined && v !== null && v !== "")
                   .join(" · ");
+                const etat = bloc.itemStatus?.(
+                  lignes.map((l) => l.donnees),
+                  index,
+                );
 
                 return (
                   <li
@@ -350,6 +356,7 @@ export function SectionEditor({
                         >
                           {resume || `${bloc.itemLabel} sans titre`}
                         </span>
+                        {etat && <Pastille label={etat.label} tone={etat.tone} />}
                       </button>
                       <BoutonsLigne
                         index={index}
@@ -358,6 +365,7 @@ export function SectionEditor({
                         onDescendre={() => deplacer(bloc.key, index, 1)}
                         onSupprimer={() => supprimer(bloc.key, ligne.cle)}
                         label={bloc.itemLabel}
+                        feminin={bloc.itemFeminin}
                       />
                     </div>
 
@@ -381,6 +389,7 @@ export function SectionEditor({
 
             <BoutonAjouter
               label={bloc.itemLabel}
+              feminin={bloc.itemFeminin}
               onClick={() => ajouter(bloc.key, bloc.blank)}
             />
           </div>
@@ -469,6 +478,7 @@ function BoutonsLigne({
   onDescendre,
   onSupprimer,
   label,
+  feminin,
 }: {
   index: number;
   total: number;
@@ -476,7 +486,9 @@ function BoutonsLigne({
   onDescendre: () => void;
   onSupprimer: () => void;
   label: string;
+  feminin?: boolean;
 }) {
+  const ce = feminin ? "cette" : "ce";
   const bouton =
     "flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-ink-soft transition hover:bg-mist hover:text-ink disabled:opacity-30 disabled:hover:bg-transparent";
 
@@ -487,7 +499,7 @@ function BoutonsLigne({
         onClick={onMonter}
         disabled={index === 0}
         className={bouton}
-        aria-label={`Déplacer ce ${label} vers le haut`}
+        aria-label={`Déplacer ${ce} ${label} vers le haut`}
       >
         <ChevronDown size={16} className="rotate-180" aria-hidden="true" />
       </button>
@@ -496,7 +508,7 @@ function BoutonsLigne({
         onClick={onDescendre}
         disabled={index === total - 1}
         className={bouton}
-        aria-label={`Déplacer ce ${label} vers le bas`}
+        aria-label={`Déplacer ${ce} ${label} vers le bas`}
       >
         <ChevronDown size={16} aria-hidden="true" />
       </button>
@@ -504,7 +516,7 @@ function BoutonsLigne({
         type="button"
         onClick={onSupprimer}
         className={cn(bouton, "hover:bg-red-50 hover:text-red-600")}
-        aria-label={`Supprimer ce ${label}`}
+        aria-label={`Supprimer ${ce} ${label}`}
       >
         <Trash2 size={15} aria-hidden="true" />
       </button>
@@ -512,7 +524,34 @@ function BoutonsLigne({
   );
 }
 
-function BoutonAjouter({ label, onClick }: { label: string; onClick: () => void }) {
+/** L'état d'une ligne sur le site public — « Affichée », « En attente »… */
+function Pastille({ label, tone }: { label: string; tone: EtatPastille }) {
+  const couleurs: Record<EtatPastille, string> = {
+    ok: "bg-c-jeunes/15 text-c-jeunes-ink",
+    attente: "bg-mist text-ink-soft",
+    fin: "bg-gold-tint text-gold-ink",
+  };
+  return (
+    <span
+      className={cn(
+        "hidden shrink-0 rounded-full px-2.5 py-1 text-[0.68rem] font-bold uppercase tracking-wider sm:inline",
+        couleurs[tone],
+      )}
+    >
+      {label}
+    </span>
+  );
+}
+
+function BoutonAjouter({
+  label,
+  feminin,
+  onClick,
+}: {
+  label: string;
+  feminin?: boolean;
+  onClick: () => void;
+}) {
   return (
     <button
       type="button"
@@ -520,7 +559,7 @@ function BoutonAjouter({ label, onClick }: { label: string; onClick: () => void 
       className="btn-press mt-3 inline-flex items-center gap-2 rounded-full border border-dashed border-line-strong px-4 py-2.5 text-sm font-semibold text-ink transition hover:border-ocean hover:bg-ocean-tint hover:text-ocean"
     >
       <Plus size={16} aria-hidden="true" />
-      Ajouter un {label}
+      Ajouter {feminin ? "une" : "un"} {label}
     </button>
   );
 }

@@ -13,6 +13,7 @@
  * Ce module doit rester utilisable des deux côtés (serveur ET navigateur) :
  * pas d'accès disque, pas de variable d'environnement, aucun import serveur.
  */
+import { defaultImages, imageSlots, type SiteImages } from "@/data/images";
 import {
   ageCategories as defaultAgeCategories,
   bureau as defaultBureau,
@@ -75,6 +76,7 @@ export type SiteContent = {
   partners: Partner[];
   salles: Salle[];
   links: SiteLinks;
+  images: SiteImages;
 };
 
 export type ContentKey = keyof SiteContent;
@@ -99,6 +101,7 @@ export const defaultSiteContent: SiteContent = {
   partners: defaultPartners,
   salles: defaultSalles,
   links: defaultLinks,
+  images: defaultImages,
 };
 
 /** Toutes les clés du contenu, dans l'ordre du type. */
@@ -111,16 +114,34 @@ export const contentKeys = Object.keys(defaultSiteContent) as ContentKey[];
    ne casse donc jamais un contenu déjà enregistré, et « réinitialiser »
    revient simplement à retirer la clé.
    ============================================================ */
+const estObjetSimple = (v: unknown): v is Record<string, unknown> =>
+  typeof v === "object" && v !== null && !Array.isArray(v);
+
 export function mergeContent(overrides: Partial<SiteContent> | null | undefined): SiteContent {
   if (!overrides) return defaultSiteContent;
   const merged = { ...defaultSiteContent };
+
   for (const key of contentKeys) {
     const value = overrides[key];
-    if (value !== undefined) {
-      // Le cast est sûr : `parseSiteContent` a déjà validé le type de chaque clé.
-      (merged as Record<string, unknown>)[key] = value;
+    if (value === undefined) continue;
+
+    const defaut = defaultSiteContent[key];
+
+    /* Les clés qui portent un OBJET (les liens du club, les photos du site,
+       le responsable jeunes) sont fusionnées champ par champ, pas remplacées.
+       Sans cela, une sauvegarde faite avant l'ajout d'un champ au code le
+       ferait revenir `undefined` — et la page qui le lit tomberait en erreur.
+       Les listes, elles, sont bien remplacées en bloc : c'est le contenu
+       saisi par le club qui fait foi. */
+    if (estObjetSimple(defaut) && estObjetSimple(value)) {
+      (merged as Record<string, unknown>)[key] = { ...defaut, ...value };
+      continue;
     }
+
+    // Le cast est sûr : `parseSiteContent` a déjà validé le type de chaque clé.
+    (merged as Record<string, unknown>)[key] = value;
   }
+
   return merged;
 }
 
@@ -189,10 +210,24 @@ function strings(v: unknown, max = MAX_TEXTE): string[] {
   return [];
 }
 
-/** Un chemin d'image interne (`/media/...`) — jamais une URL externe. */
+/**
+ * Une image du site. Deux formes, et deux seulement :
+ *
+ *   • un chemin interne (`/media/...`) — les photos livrées avec le code ;
+ *   • une adresse du stockage de fichiers du site — les photos importées
+ *     depuis l'espace d'administration, qui ne peuvent pas être écrites
+ *     dans le projet une fois celui-ci en ligne.
+ *
+ * Tout le reste est refusé : un champ photo ne doit jamais pouvoir faire
+ * charger une image depuis un site tiers, ni servir de `javascript:`.
+ */
+const BLOB_PUBLIC = /^https:\/\/[a-z0-9-]+\.public\.blob\.vercel-storage\.com\/[\w\-./%]+$/i;
+
 const imagePath = (v: unknown): string => {
-  const s = str(v, 300);
-  return /^\/[\w\-./]*$/.test(s) ? s : "";
+  const s = str(v, 500);
+  if (/^\/[\w\-./%]*$/.test(s)) return s;
+  if (BLOB_PUBLIC.test(s)) return s;
+  return "";
 };
 
 /**
@@ -406,6 +441,17 @@ const parsers: { [K in ContentKey]: (v: unknown) => SiteContent[K] } = {
         ...(image ? { image } : {}),
       };
     }),
+
+  images: (v) => {
+    const o = (typeof v === "object" && v !== null ? v : {}) as Record<string, unknown>;
+    const out = { ...defaultImages };
+    for (const slot of imageSlots) {
+      // Une photo vide ou refusée par la validation retombe sur celle du
+      // code : une page du site ne doit jamais se retrouver sans image.
+      out[slot.key] = imagePath(o[slot.key]) || slot.defaut;
+    }
+    return out;
+  },
 
   links: (v) => {
     const o = (typeof v === "object" && v !== null ? v : {}) as Record<string, unknown>;
