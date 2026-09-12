@@ -49,7 +49,17 @@ const chargerModifications = unstable_cache(
     }
   },
   ["site-content", "v2"],
-  { tags: [CONTENT_TAG] },
+  {
+    tags: [CONTENT_TAG],
+    /* L'étiquette est invalidée à chaque enregistrement (cf.
+       `rafraichirLeSite`) : en temps normal, cette durée ne sert jamais.
+       Elle est là comme filet. Ce cache a déjà gelé une fois le site
+       entier — une modification enregistrée, jamais affichée — parce que
+       l'invalidation était appelée avec la mauvaise fonction. Avec une
+       durée de vie bornée, le pire cas devient « une minute de retard »
+       au lieu de « figé jusqu'au prochain déploiement ». */
+    revalidate: 60,
+  },
 );
 
 /** Le contenu affiché par le site : valeurs par défaut + modifications du club. */

@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath, updateTag } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -114,12 +114,29 @@ async function exigerSession(): Promise<void> {
 
 /**
  * Recharge le site après modification.
- *   • `updateTag` vide le cache du contenu tout de suite, pour que l'admin
- *     réaffiche ce qui vient d'être saisi et non la version précédente ;
+ *
+ *   • `revalidateTag` vide le cache du contenu tout de suite, pour que
+ *     l'admin réaffiche ce qui vient d'être saisi et non la version
+ *     précédente ;
  *   • `revalidatePath` demande la régénération des pages publiques.
+ *
+ * ⚠️ `revalidateTag` et NON `updateTag`. Les deux invalident une étiquette,
+ * mais pas les mêmes caches : `updateTag` ne connaît que les `fetch`
+ * étiquetés et les fonctions `use cache`, alors que le contenu du site passe
+ * par `unstable_cache` — dont la documentation désigne `revalidateTag` et
+ * `revalidatePath` comme les seules façons de l'invalider.
+ *
+ * Avec `updateTag`, l'appel ne faisait donc RIEN : le club enregistrait, le
+ * message « Modifications enregistrées » s'affichait, le fichier partait bien
+ * dans le stockage — et ni le site ni le formulaire d'administration ne
+ * changeaient, indéfiniment. C'est ce qui se passait en ligne ; vérifié de
+ * bout en bout en production avant et après correction.
  */
 function rafraichirLeSite(): void {
-  updateTag(CONTENT_TAG);
+  // `expire: 0` : l'entrée est périmée sur-le-champ, la lecture suivante
+  // repart du stockage. C'est ce qu'il faut pour que le club voie sa propre
+  // modification, plutôt que la version précédente le temps d'un rendu.
+  revalidateTag(CONTENT_TAG, { expire: 0 });
   revalidatePath("/", "layout");
 }
 
