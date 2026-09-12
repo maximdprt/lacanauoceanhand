@@ -14,7 +14,11 @@ import {
   Trash2,
 } from "lucide-react";
 
-import { enregistrerRubrique, reinitialiserRubrique } from "@/app/admin/actions";
+import {
+  enregistrerRubrique,
+  reinitialiserRubrique,
+  type EtatEnregistrement,
+} from "@/app/admin/actions";
 import { FieldInput } from "@/components/admin/fields";
 import { sectionParSlug, type Bloc, type EtatPastille, type Section } from "@/lib/admin-sections";
 import { cn } from "@/lib/utils";
@@ -186,7 +190,22 @@ export function SectionEditor({
   const enregistrer = () => {
     setRetour(null);
     demarrer(async () => {
-      const resultat = await enregistrerRubrique(slug, donnees);
+      /* Un enregistrement qui échoue au niveau du réseau rejette la promesse :
+         sans ce filet, le bandeau resterait sur « Modifications non
+         enregistrées » sans dire que rien n'est parti. C'est précisément le
+         genre de silence qui fait croire qu'on a enregistré. */
+      let resultat: EtatEnregistrement;
+      try {
+        resultat = await enregistrerRubrique(slug, donnees);
+      } catch {
+        setRetour({
+          type: "erreur",
+          message:
+            "L'enregistrement n'a pas abouti. Vos saisies sont toujours à l'écran : vérifiez votre connexion et réessayez.",
+        });
+        return;
+      }
+
       if (resultat.statut === "ok") {
         setReference(JSON.stringify(donnees));
         setRetour({ type: "ok", message: "Modifications enregistrées. Le site se met à jour." });
@@ -200,7 +219,17 @@ export function SectionEditor({
     setRetour(null);
     setConfirmationRaz(false);
     demarrer(async () => {
-      const resultat = await reinitialiserRubrique(slug);
+      let resultat: EtatEnregistrement;
+      try {
+        resultat = await reinitialiserRubrique(slug);
+      } catch {
+        setRetour({
+          type: "erreur",
+          message: "La réinitialisation n'a pas abouti. Vérifiez votre connexion et réessayez.",
+        });
+        return;
+      }
+
       if (resultat.statut === "ok") {
         // Le formulaire tient encore les anciennes valeurs en mémoire :
         // le plus simple et le plus lisible est de recharger l'écran.

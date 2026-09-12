@@ -153,7 +153,17 @@ export function MediaPicker({
 
       const donnees = new FormData();
       donnees.set("fichier", fichier);
-      const resultat = await televerserImage(donnees);
+
+      /* Une coupure réseau pendant l'envoi rejette la promesse au lieu de
+         rendre un résultat : sans ce filet, le club verrait la fenêtre rester
+         ouverte sans la moindre explication. */
+      let resultat;
+      try {
+        resultat = await televerserImage(donnees);
+      } catch {
+        setMessage("L'envoi n'a pas abouti. Vérifiez votre connexion et réessayez.");
+        return;
+      }
 
       if (!resultat.ok) {
         setMessage(resultat.message);
@@ -169,7 +179,13 @@ export function MediaPicker({
   const supprimer = (media: Media) => {
     setMessage(null);
     demarrer(async () => {
-      const resultat = await supprimerImage(media.url);
+      let resultat;
+      try {
+        resultat = await supprimerImage(media.url);
+      } catch {
+        setMessage("La suppression n'a pas abouti. Vérifiez votre connexion et réessayez.");
+        return;
+      }
       if (!resultat.ok) {
         setMessage(resultat.message);
         return;
