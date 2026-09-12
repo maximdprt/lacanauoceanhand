@@ -1,7 +1,5 @@
 import "server-only";
 
-import { unstable_cache } from "next/cache";
-
 import { mergeContent, type SiteContent } from "@/lib/content-schema";
 import { readStoredContent } from "@/lib/content-store";
 
@@ -25,28 +23,27 @@ import { readStoredContent } from "@/lib/content-store";
  * précédente. C'est la panne qu'il a signalée.
  *
  * On ne dépend donc plus d'un mécanisme d'invalidation qu'on ne peut pas
- * vérifier :
+ * vérifier. UN SEUL CACHE, celui des pages. `src/app/(site)/layout.tsx` déclare
+ * `revalidate = 30` : les pages publiques restent générées statiquement (`○`
+ * au build) et servies par le CDN, et se régénèrent au plus toutes les 30
+ * secondes lorsqu'elles sont visitées. Chaque régénération relit le stockage.
  *
- *   • les PAGES PUBLIQUES lisent un cache à durée de vie courte. Elles
- *     restent générées statiquement (`○` au build) et servies par le CDN ;
- *     une modification apparaît d'elle-même dans la minute. Le mécanisme est
- *     le même en local et en ligne, et n'a aucune façon de se gripper.
+ * Empiler un second cache sur la lecture elle-même (ce qui était fait avec
+ * `unstable_cache`) paraissait plus économique, mais faisait courir les deux
+ * durées de vie l'une après l'autre : une page régénérée juste avant
+ * l'expiration du cache de données repartait avec l'ancienne valeur, et il
+ * fallait attendre le tour suivant. Mesuré en production : deux minutes pour
+ * voir apparaître une photo changée, au lieu d'une demi-minute. Deux minutes
+ * pendant lesquelles le club recharge la page et conclut que ça ne marche pas.
  *
- *   • l'ESPACE D'ADMINISTRATION lit le stockage SANS cache
- *     (`getSiteContentFrais`). Ses pages sont déjà rendues à chaque visite,
- *     une lecture de quelques kilo-octets n'y coûte rien — et le club doit
- *     voir ses propres modifications immédiatement, sinon il les réécrase
- *     avec le formulaire périmé qu'il a sous les yeux.
+ * La lecture coûte un GET de quelques kilo-octets sur le CDN du stockage, une
+ * fois par régénération de page — pas une fois par visiteur.
  *
- * CE QUI EST MIS EN CACHE : uniquement les MODIFICATIONS lues dans le
- * stockage, jamais le contenu fusionné. Le cache de données survit aux
- * déploiements ; y ranger `SiteContent` complet figerait la forme qu'il
- * avait ce jour-là, et une clé ajoutée ensuite au code reviendrait
- * `undefined` sur toutes les pages.
+ * L'ESPACE D'ADMINISTRATION, lui, passe par `getSiteContentFrais` : ses pages
+ * sont rendues à chaque visite et le club doit voir ses propres
+ * modifications immédiatement, sinon il les écrase avec le formulaire périmé
+ * qu'il a sous les yeux.
  */
-
-/** Combien de temps une page publique peut afficher une version précédente. */
-export const DUREE_CACHE_CONTENU = 30;
 
 async function lireModifications(): Promise<Partial<SiteContent> | null> {
   try {
@@ -59,15 +56,9 @@ async function lireModifications(): Promise<Partial<SiteContent> | null> {
   }
 }
 
-const chargerModifications = unstable_cache(
-  lireModifications,
-  ["site-content", "v3"],
-  { revalidate: DUREE_CACHE_CONTENU },
-);
-
 /** Le contenu affiché par le site : valeurs par défaut + modifications du club. */
 export async function getSiteContent(): Promise<SiteContent> {
-  return mergeContent(await chargerModifications());
+  return mergeContent(await lireModifications());
 }
 
 /**

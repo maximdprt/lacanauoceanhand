@@ -50,6 +50,12 @@ function creneauxParLieu(slots: TrainingSlot[]): string[] {
   });
 }
 
+/* Même fenêtre de régénération que les pages du site (cf.
+   `src/app/(site)/layout.tsx`) : ce fichier suit le contenu modifiable, il
+   doit donc se rafraîchir avec lui. Valeur écrite en toutes lettres — Next.js
+   lit cette configuration au build, sans exécuter le module. */
+export const revalidate = 30;
+
 export async function GET() {
   const c = await getSiteContent();
   const evenement = prochainEvenement(c.events);

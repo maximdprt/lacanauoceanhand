@@ -197,20 +197,28 @@ dans le fichier et suit les valeurs de `src/data/site.ts`. Conséquences utiles 
 
 ### Performance et référencement
 
-**La fraîcheur repose sur une durée de vie courte, pas sur une invalidation.**
-La version d'origine étiquetait le cache du contenu et demandait son
-invalidation à l'enregistrement. Ni `updateTag` ni `revalidateTag` ne vidaient
-l'entrée d'un `unstable_cache` en production — vérifié les deux, en ligne, sur
-la page d'administration elle-même, pourtant rendue à chaque visite. Résultat :
-le club enregistrait, le fichier partait bien dans le stockage, et le site
-servait indéfiniment la version précédente. C'est la panne qu'il a signalée.
+**La fraîcheur repose sur une durée de régénération, pas sur une
+invalidation.** La version d'origine étiquetait le cache du contenu et
+demandait son invalidation à l'enregistrement. Ni `updateTag` ni
+`revalidateTag` ne vidaient l'entrée d'un `unstable_cache` en production —
+vérifié les deux, en ligne, sur la page d'administration elle-même, pourtant
+rendue à chaque visite. Résultat : le club enregistrait, le fichier partait
+bien dans le stockage, et le site servait indéfiniment la version précédente.
+C'est la panne qu'il a signalée.
 
-Depuis : les pages publiques lisent un cache de 30 secondes (elles restent
-`○ (Static)`, servies par le CDN, et se mettent à jour d'elles-mêmes dans la
-minute), et l'espace d'administration lit le stockage **sans cache** — il doit
-voir ses propres modifications, sinon il les écrase avec le formulaire périmé
-qu'il a sous les yeux. Ne pas réintroduire de dépendance à une invalidation
-par étiquette sans l'avoir vérifiée **en production**.
+Depuis, **un seul cache** : celui des pages. `src/app/(site)/layout.tsx`
+déclare `revalidate = 30` (idem `llms.txt` et `sitemap.xml`, hors du groupe).
+Les pages restent `○ (Static)`, servies par le CDN, et se régénèrent au plus
+toutes les 30 secondes lorsqu'elles sont visitées ; chaque régénération relit
+le stockage. L'espace d'administration, lui, lit **sans cache**
+(`getSiteContentFrais`) : il doit voir ses propres modifications, sinon il les
+écrase avec le formulaire périmé qu'il a sous les yeux.
+
+Un second cache sur la lecture elle-même paraissait plus économique ; il
+faisait courir les deux durées de vie l'une après l'autre, et une modification
+mettait deux minutes à apparaître au lieu d'une demi-minute. Mesuré en
+production. Ne pas le réintroduire, et ne pas remettre de dépendance à une
+invalidation par étiquette sans l'avoir vérifiée **en production**.
 
 Le cache ne contient **que les modifications lues dans le stockage**, jamais le
 contenu fusionné. La nuance est structurelle : le cache de données survit aux

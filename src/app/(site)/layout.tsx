@@ -17,6 +17,18 @@ import { siteConfig, urlAbsolue } from "@/lib/site";
    peut les changer depuis /admin sans passer par le code.
    ============================================================ */
 
+/* Les pages publiques se régénèrent au plus toutes les 30 secondes, quand
+   elles sont visitées : c'est ce qui fait remonter les modifications faites
+   dans /admin sans dépendre d'une invalidation à l'enregistrement — celle-ci
+   ne fonctionnait pas, et le site est resté figé sur du contenu périmé.
+   Les pages restent générées statiquement et servies par le CDN ; vérifier au
+   build qu'elles affichent toujours `○ (Static)`.
+
+   La valeur doit rester écrite en toutes lettres : Next.js lit cette
+   configuration de segment au build, sans exécuter le module, et refuse une
+   constante importée. */
+export const revalidate = 30;
+
 export default async function SiteLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
