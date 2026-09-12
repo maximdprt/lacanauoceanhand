@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
 import { LoginForm } from "@/components/admin/login-form";
-import { getSiteContent } from "@/lib/content";
+import { getSiteContentFrais } from "@/lib/content";
 
 /* ============================================================
    CONNEXION À L'ESPACE D'ADMINISTRATION
@@ -16,7 +16,7 @@ export default async function ConnexionPage({
   searchParams: Promise<{ suite?: string }>;
 }) {
   const { suite } = await searchParams;
-  const { images } = await getSiteContent();
+  const { images } = await getSiteContentFrais();
 
   return (
     <main

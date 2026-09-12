@@ -1,5 +1,5 @@
 import { AdminNav } from "@/components/admin/admin-nav";
-import { getSiteContent } from "@/lib/content";
+import { getSiteContentFrais } from "@/lib/content";
 
 /* ============================================================
    COQUILLE DE L'ESPACE D'ADMINISTRATION
@@ -11,7 +11,7 @@ import { getSiteContent } from "@/lib/content";
 export default async function EspaceAdminLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const { images } = await getSiteContent();
+  const { images } = await getSiteContentFrais();
 
   return (
     <div className="flex min-h-svh flex-col bg-mist lg:flex-row">

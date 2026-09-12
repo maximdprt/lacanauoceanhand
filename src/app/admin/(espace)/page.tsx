@@ -19,7 +19,7 @@ import {
 } from "lucide-react";
 
 import { adminSections, compterEntrees, estModifiee, type Section } from "@/lib/admin-sections";
-import { getSiteContent } from "@/lib/content";
+import { getSiteContentFrais } from "@/lib/content";
 import { readStoredContent, storageStatus } from "@/lib/content-store";
 import { prochainEvenement } from "@/lib/evenements";
 import { cn } from "@/lib/utils";
@@ -54,7 +54,7 @@ const icones: Record<Section["icon"], typeof Euro> = {
 };
 
 /** Les chiffres de la première ligne : ce qui parle au bureau du club. */
-function chiffresCles(contenu: Awaited<ReturnType<typeof getSiteContent>>) {
+function chiffresCles(contenu: Awaited<ReturnType<typeof getSiteContentFrais>>) {
   const prochain = prochainEvenement(contenu.events);
   const enSalle = contenu.licenceFees.filter((f) => f.kind === "salle").map((f) => f.price);
 
@@ -90,7 +90,7 @@ function chiffresCles(contenu: Awaited<ReturnType<typeof getSiteContent>>) {
 }
 
 export default async function TableauDeBord() {
-  const contenu = await getSiteContent();
+  const contenu = await getSiteContentFrais();
   const stockage = storageStatus();
 
   // Ce qui a déjà été modifié : sert à marquer les rubriques touchées.

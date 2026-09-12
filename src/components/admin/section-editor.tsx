@@ -208,7 +208,10 @@ export function SectionEditor({
 
       if (resultat.statut === "ok") {
         setReference(JSON.stringify(donnees));
-        setRetour({ type: "ok", message: "Modifications enregistrées. Le site se met à jour." });
+        setRetour({
+          type: "ok",
+          message: "Modifications enregistrées. Le site public se met à jour dans la minute.",
+        });
       } else {
         setRetour({ type: "erreur", message: resultat.message ?? "L'enregistrement a échoué." });
       }

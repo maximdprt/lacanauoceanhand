@@ -5,7 +5,7 @@ import { ArrowLeft, ExternalLink, TriangleAlert } from "lucide-react";
 
 import { SectionEditor } from "@/components/admin/section-editor";
 import { clesDeSection, sectionParSlug } from "@/lib/admin-sections";
-import { getSiteContent } from "@/lib/content";
+import { getSiteContentFrais } from "@/lib/content";
 import { storageStatus } from "@/lib/content-store";
 
 /* Rendu à chaque visite, jamais pré-généré au build.
@@ -42,7 +42,7 @@ export default async function RubriquePage({ params }: { params: Promise<Params>
   const section = sectionParSlug(slug);
   if (!section) notFound();
 
-  const contenu = await getSiteContent();
+  const contenu = await getSiteContentFrais();
   const stockage = storageStatus();
 
   // Seules les clés de la rubrique traversent : l'écran ne charge pas
