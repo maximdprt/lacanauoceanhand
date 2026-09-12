@@ -234,9 +234,13 @@ export function SectionEditor({
       }
 
       if (resultat.statut === "ok") {
-        // Le formulaire tient encore les anciennes valeurs en mémoire :
-        // le plus simple et le plus lisible est de recharger l'écran.
-        window.location.reload();
+        /* Le formulaire tient encore les anciennes valeurs en mémoire : le
+           plus simple et le plus lisible est de recharger l'écran. Un court
+           délai avant de le faire : le stockage met quelques secondes à
+           propager l'écriture sur son réseau de diffusion, et un rechargement
+           immédiat réafficherait parfois le contenu qu'on vient d'effacer. */
+        setRetour({ type: "ok", message: "Rubrique réinitialisée. Rechargement…" });
+        window.setTimeout(() => window.location.reload(), 2000);
       } else {
         setRetour({ type: "erreur", message: resultat.message ?? "La réinitialisation a échoué." });
       }
