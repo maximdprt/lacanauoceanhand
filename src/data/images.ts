@@ -53,6 +53,11 @@ export const imageGroupes = [
     titre: "Logo du club",
     aide: "Le logo en couleur s'affiche sur fond clair (en-tête, pied de page), le logo blanc sur fond sombre. Un PNG à fond transparent donne le meilleur résultat.",
   },
+  {
+    id: "partage",
+    titre: "Partage sur les réseaux",
+    aide: "L'image qui accompagne le lien du site quand on le partage sur Facebook, Instagram, WhatsApp ou par SMS. Format paysage large, idéalement 1200 × 630 px : les réseaux recadrent au centre.",
+  },
 ] as const;
 
 export type ImageGroupeId = (typeof imageGroupes)[number]["id"];
@@ -265,6 +270,16 @@ export const imageSlots = [
     groupe: "identite",
     defaut: "/brand/logo-white.png",
     dossier: "/brand/",
+  },
+
+  /* --- Partage ---------------------------------------------- */
+  {
+    key: "partage",
+    label: "Image de partage",
+    hint: "Visible uniquement hors du site, dans l'aperçu du lien. Les réseaux la gardent parfois en cache quelques jours après un changement.",
+    groupe: "partage",
+    defaut: "/media/og-image.jpg",
+    dossier: "/media/",
   },
 ] as const satisfies readonly SlotImage[];
 

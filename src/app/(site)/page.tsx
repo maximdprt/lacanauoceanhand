@@ -12,24 +12,31 @@ import { JoinCta } from "@/components/sections/join-cta";
 import { SectionTitle } from "@/components/common/section-title";
 import { Reveal } from "@/components/common/reveal";
 import { JsonLd } from "@/components/common/json-ld";
-import { buildMetadata, siteConfig } from "@/lib/site";
+import { metadonneesPage } from "@/lib/metadonnees";
+import { siteConfig, urlAbsolue } from "@/lib/site";
 import { getSiteContent } from "@/lib/content";
 import { prochainEvenement } from "@/lib/evenements";
 
-export const metadata: Metadata = buildMetadata({
-  // Title ≤ 60 caractères, description 120-155 : non tronqués en SERP.
-  title: "Club de handball à Lacanau",
-  description:
-    "Club de handball à Lacanau (Gironde), vainqueur de la Coupe de France 2024. Baby hand, jeunes, seniors, beach handball : inscriptions ouvertes.",
-  path: "/",
-});
+/* Une fonction, et non une constante : l'image de partage est choisie
+   par le club dans /admin, elle ne peut donc pas etre figee a la
+   compilation. La page reste statique — `getSiteContent()` est mis en
+   cache et n'est lu qu'a la (re)generation. */
+export function generateMetadata(): Promise<Metadata> {
+  return metadonneesPage({
+    // Title ≤ 60 caractères, description 120-155 : non tronqués en SERP.
+    title: "Club de handball à Lacanau",
+    description:
+      "Club de handball à Lacanau (Gironde), vainqueur de la Coupe de France 2024. Baby hand, jeunes, seniors, beach handball : inscriptions ouvertes.",
+    path: "/",
+  });
+}
 
 /* Données structurées de l'événement mis en avant — émises seulement tant
    que la date n'est pas passée, ET seulement si le club en a saisi une :
    `schema.org/Event` exige une `startDate`, et une actualité sans date
    (« les inscriptions sont ouvertes ») n'est pas un événement. En publier
    une sans date produirait une donnée structurée invalide. */
-function schemaEvenement(evenement: ClubHighlight) {
+function schemaEvenement(evenement: ClubHighlight, imagePartage: string) {
   if (!evenement.startDate) return null;
   return {
     "@context": "https://schema.org",
@@ -41,7 +48,7 @@ function schemaEvenement(evenement: ClubHighlight) {
     eventStatus: "https://schema.org/EventScheduled",
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     isAccessibleForFree: true,
-    image: `${siteConfig.url}${siteConfig.ogImage}`,
+    image: imagePartage,
     location: {
       "@type": "Place",
       name: evenement.venue,
@@ -64,7 +71,9 @@ function schemaEvenement(evenement: ClubHighlight) {
 export default async function HomePage() {
   const contenu = await getSiteContent();
   const evenement = prochainEvenement(contenu.events);
-  const schema = evenement ? schemaEvenement(evenement) : null;
+  const schema = evenement
+    ? schemaEvenement(evenement, urlAbsolue(contenu.images.partage))
+    : null;
 
   return (
     <>

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, ExternalLink, Handshake, Trophy } from "lucide-react";
 
-import { buildMetadata } from "@/lib/site";
+import { metadonneesPage } from "@/lib/metadonnees";
 import type { SiteLinks } from "@/types";
 import { PageHero } from "@/components/sections/page-hero";
 import { PageNav } from "@/components/layout/page-nav";
@@ -12,12 +12,18 @@ import { SectionTitle } from "@/components/common/section-title";
 import { Reveal } from "@/components/common/reveal";
 import { getSiteContent } from "@/lib/content";
 
-export const metadata: Metadata = buildMetadata({
-  title: "Beach handball à Lacanau",
-  description:
-    "Le beach handball à Lacanau : licence à 100 €, entraînements sur le sable du Pôle de l'Ardilouse et tournoi Lacanau Beach Handball Xperience.",
-  path: "/beach",
-});
+/* Une fonction, et non une constante : l'image de partage est choisie
+   par le club dans /admin, elle ne peut donc pas etre figee a la
+   compilation. La page reste statique — `getSiteContent()` est mis en
+   cache et n'est lu qu'a la (re)generation. */
+export function generateMetadata(): Promise<Metadata> {
+  return metadonneesPage({
+    title: "Beach handball à Lacanau",
+    description:
+      "Le beach handball à Lacanau : licence à 100 €, entraînements sur le sable du Pôle de l'Ardilouse et tournoi Lacanau Beach Handball Xperience.",
+    path: "/beach",
+  });
+}
 
 const sections = [
   { id: "beach", label: "La section" },

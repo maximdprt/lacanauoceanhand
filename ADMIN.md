@@ -28,7 +28,7 @@ La session dure 12 heures ; passé ce délai, le code est redemandé.
 | Questions fréquentes | L'accordéon de l'accueil |
 | Partenaires | Le bandeau défilant des logos |
 | Salles & lieux | Les gymnases et le pôle beach |
-| Photos du site | Les grandes photos des pages : accueil, bandeaux d'en-tête, galeries, frise de l'histoire, logo |
+| Photos du site | Les grandes photos des pages : accueil, bandeaux d'en-tête, galeries, frise de l'histoire, logo, image de partage |
 | Contact & liens | Adresse e-mail, réseaux sociaux, pages HelloAsso, guide du licencié |
 
 ### Publier une actualité
@@ -65,6 +65,11 @@ Les photos qui appartiennent à une fiche (équipe, bénévole, salle, partenair
 se changent depuis la fiche elle-même. Les grandes photos des pages — accueil,
 bandeaux d'en-tête, galeries, frise de l'histoire, logo — sont regroupées dans
 la rubrique **Photos du site**.
+
+Cette rubrique contient aussi l'**image de partage** : celle qui accompagne le
+lien du site sur Facebook, WhatsApp ou par SMS. Elle ne se voit nulle part sur
+le site lui-même, et les réseaux la gardent parfois en cache quelques jours
+après un changement.
 
 ### Bon à savoir
 - **Chaque rubrique peut revenir en arrière.** Le bouton « Réinitialiser », en
@@ -147,7 +152,11 @@ les pages du site            await getSiteContent()
   blocs, ses champs. **Ajouter un champ modifiable = ajouter une ligne ici.**
   Les formulaires, l'enregistrement et la validation suivent tout seuls.
 - **`src/data/images.ts`** liste les photos « en dur » des pages, avec leur
-  libellé et leur valeur d'origine. **Rendre une photo modifiable = y ajouter
+  libellé et leur valeur d'origine. L'image de partage en fait partie : les
+  pages publient donc leurs métadonnées via `generateMetadata` +
+  `metadonneesPage` (`src/lib/metadonnees.ts`) et non plus via un
+  `export const metadata`, qu'une constante de module figerait à la
+  compilation. Elles restent statiques. **Rendre une photo modifiable = y ajouter
   une ligne**, puis lire `contenu.images.<clé>` là où elle s'affiche ; l'écran
   « Photos du site » se construit tout seul à partir de cette liste.
 - **`src/lib/media-store.ts`** dépose les photos importées (Vercel Blob en

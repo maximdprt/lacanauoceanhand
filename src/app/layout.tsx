@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Archivo } from "next/font/google";
 
 import { MotionProvider } from "@/components/layout/motion-provider";
-import { siteConfig } from "@/lib/site";
+import { getSiteContent } from "@/lib/content";
+import { siteConfig, urlAbsolue } from "@/lib/site";
 
 import "./globals.css";
 
@@ -22,8 +23,17 @@ const archivo = Archivo({
    MÉTADONNÉES GLOBALES (racine)
    Chaque page surcharge title/description/canonical via
    buildMetadata (src/lib/site.ts).
+
+   Une fonction, et non une constante : l'image de partage est choisie par le
+   club dans /admin → Photos du site, et une constante de module serait figée
+   à la compilation. Ces valeurs ne servent qu'aux routes sans métadonnées
+   propres — le reste du site passe par `metadonneesPage`.
    ============================================================ */
-export const metadata: Metadata = {
+export async function generateMetadata(): Promise<Metadata> {
+  const { images } = await getSiteContent();
+  const imagePartage = urlAbsolue(images.partage);
+
+  return {
   metadataBase: new URL(siteConfig.url),
 
   title: {
@@ -80,9 +90,7 @@ export const metadata: Metadata = {
     url: siteConfig.url,
     images: [
       {
-        url: `${siteConfig.url}${siteConfig.ogImage}`,
-        width: 1200,
-        height: 630,
+        url: imagePartage,
         alt: "Lacanau Océhand · Champions de France 2024",
       },
     ],
@@ -93,7 +101,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Lacanau Océhand · Club de handball à Lacanau",
     description: siteConfig.description,
-    images: [`${siteConfig.url}${siteConfig.ogImage}`],
+    images: [imagePartage],
     site: "@lacanauocehand",
     creator: "@lacanauocehand",
   },
@@ -106,7 +114,8 @@ export const metadata: Metadata = {
   // App info
   applicationName: siteConfig.name,
   category: "sports",
-};
+  };
+}
 
 /* ============================================================
    LAYOUT RACINE

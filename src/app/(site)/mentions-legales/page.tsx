@@ -4,14 +4,21 @@ import Link from "next/link";
 import { PageHero } from "@/components/sections/page-hero";
 import { legalInfo } from "@/data/legal";
 import { getSiteContent } from "@/lib/content";
-import { buildMetadata, siteConfig } from "@/lib/site";
+import { metadonneesPage } from "@/lib/metadonnees";
+import { siteConfig } from "@/lib/site";
 
-export const metadata: Metadata = buildMetadata({
-  title: "Mentions légales",
-  description:
-    "Mentions légales du site de Lacanau Océhand : éditeur, directeur de la publication, hébergeur et propriété intellectuelle.",
-  path: "/mentions-legales",
-});
+/* Une fonction, et non une constante : l'image de partage est choisie
+   par le club dans /admin, elle ne peut donc pas etre figee a la
+   compilation. La page reste statique — `getSiteContent()` est mis en
+   cache et n'est lu qu'a la (re)generation. */
+export function generateMetadata(): Promise<Metadata> {
+  return metadonneesPage({
+    title: "Mentions légales",
+    description:
+      "Mentions légales du site de Lacanau Océhand : éditeur, directeur de la publication, hébergeur et propriété intellectuelle.",
+    path: "/mentions-legales",
+  });
+}
 
 function LegalSection({
   title,

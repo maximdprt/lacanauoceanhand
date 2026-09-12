@@ -1,7 +1,9 @@
+import type { Metadata } from "next";
+
 import Link from "next/link";
 import { ArrowRight, CalendarDays, Download } from "lucide-react";
 
-import { buildMetadata } from "@/lib/site";
+import { metadonneesPage } from "@/lib/metadonnees";
 import { PageHero } from "@/components/sections/page-hero";
 import { PageNav } from "@/components/layout/page-nav";
 import { JoinForms } from "@/components/sections/join-forms";
@@ -12,12 +14,18 @@ import { Reveal } from "@/components/common/reveal";
 import { getSiteContent } from "@/lib/content";
 import { prochainEvenement } from "@/lib/evenements";
 
-export const metadata = buildMetadata({
-  title: "Inscription et tarifs des licences",
-  description:
-    "Tarifs des licences, aides et inscriptions à Lacanau Océhand : de 140 € à 200 € en salle, 100 € en beach handball. Règlement en plusieurs fois possible.",
-  path: "/rejoindre",
-});
+/* Une fonction, et non une constante : l'image de partage est choisie
+   par le club dans /admin, elle ne peut donc pas etre figee a la
+   compilation. La page reste statique — `getSiteContent()` est mis en
+   cache et n'est lu qu'a la (re)generation. */
+export function generateMetadata(): Promise<Metadata> {
+  return metadonneesPage({
+    title: "Inscription et tarifs des licences",
+    description:
+      "Tarifs des licences, aides et inscriptions à Lacanau Océhand : de 140 € à 200 € en salle, 100 € en beach handball. Règlement en plusieurs fois possible.",
+    path: "/rejoindre",
+  });
+}
 
 const sections = [
   { id: "tarifs", label: "Tarifs" },

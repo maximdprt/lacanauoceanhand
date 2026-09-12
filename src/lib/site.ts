@@ -30,6 +30,15 @@ export const siteConfig = {
   ogImage: "/media/og-image.jpg",
 };
 
+/**
+ * Rend une adresse absolue, qu'on lui donne un chemin interne (`/media/...`)
+ * ou une adresse déjà complète — cas d'une photo importée depuis /admin, qui
+ * vit dans le stockage de fichiers du site. Préfixer une adresse complète
+ * fabriquerait une URL cassée dans les balises de partage et le JSON-LD.
+ */
+export const urlAbsolue = (chemin: string): string =>
+  /^https?:\/\//i.test(chemin) ? chemin : `${siteConfig.url}${chemin}`;
+
 /* ============================================================
    HELPER buildMetadata
    Génère les métadonnées Next.js complètes pour chaque page :
@@ -45,14 +54,21 @@ export function buildMetadata({
   title: string;
   description: string;
   path?: string;
-  /** Chemin absolu vers l'image OG (/media/...). Par défaut : recadrage 1200×630. */
+  /** Image de partage : chemin interne (/media/...) ou adresse complète.
+      Par défaut, le recadrage 1200×630 livré avec le site. */
   image?: string;
   /** Passer à true pour noindex (pages orphelines, etc.). */
   noIndex?: boolean;
 }): Metadata {
   const fullTitle = `${title} | ${siteConfig.name}`;
   const canonical = `${siteConfig.url}${path}`;
-  const ogImage = `${siteConfig.url}${image ?? siteConfig.ogImage}`;
+  const ogImage = urlAbsolue(image ?? siteConfig.ogImage);
+
+  /* Les dimensions ne sont déclarées que pour l'image livrée avec le site :
+     c'est la seule dont on connaisse le format (1200×630). Annoncer ces
+     valeurs pour une image choisie par le club la ferait recadrer de travers
+     par les réseaux ; sans elles, ils lisent le fichier et s'adaptent. */
+  const dimensionsConnues = (image ?? siteConfig.ogImage) === siteConfig.ogImage;
 
   return {
     title: { absolute: fullTitle },
@@ -74,8 +90,7 @@ export function buildMetadata({
       images: [
         {
           url: ogImage,
-          width: 1200,
-          height: 630,
+          ...(dimensionsConnues ? { width: 1200, height: 630 } : {}),
           alt: `${title} — ${siteConfig.name}`,
         },
       ],

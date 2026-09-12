@@ -6,14 +6,20 @@ import { Reveal } from "@/components/common/reveal";
 import { GalleryLightbox } from "@/components/sections/gallery-lightbox";
 import { galleryItems } from "@/data/site";
 import { getSiteContent } from "@/lib/content";
-import { buildMetadata } from "@/lib/site";
+import { metadonneesPage } from "@/lib/metadonnees";
 
-export const metadata: Metadata = buildMetadata({
-  title: "Coupe de France 2024",
-  description:
-    "L'épopée de Lacanau Océhand à Bercy : retour sur la campagne historique qui a couronné le club champion de France 2024. Photos et galerie.",
-  path: "/le-club/coupe-de-france-2024",
-});
+/* Une fonction, et non une constante : l'image de partage est choisie
+   par le club dans /admin, elle ne peut donc pas etre figee a la
+   compilation. La page reste statique — `getSiteContent()` est mis en
+   cache et n'est lu qu'a la (re)generation. */
+export function generateMetadata(): Promise<Metadata> {
+  return metadonneesPage({
+    title: "Coupe de France 2024",
+    description:
+      "L'épopée de Lacanau Océhand à Bercy : retour sur la campagne historique qui a couronné le club champion de France 2024. Photos et galerie.",
+    path: "/le-club/coupe-de-france-2024",
+  });
+}
 
 export default async function CoupePage() {
   /* Les quatre photos de la galerie sont modifiables depuis

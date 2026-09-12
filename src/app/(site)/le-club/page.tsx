@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
-import { buildMetadata } from "@/lib/site";
+import { metadonneesPage } from "@/lib/metadonnees";
 import { PageHero } from "@/components/sections/page-hero";
 import { SectionTitle } from "@/components/common/section-title";
 import { Reveal } from "@/components/common/reveal";
@@ -14,12 +14,18 @@ import { cn } from "@/lib/utils";
 import { timelineEvents } from "@/data/site";
 import { getSiteContent } from "@/lib/content";
 
-export const metadata: Metadata = buildMetadata({
-  title: "Le club, champion de France 2024",
-  description:
-    "Né en 2017, Lacanau Océhand est champion de France 2024. Histoire en images, salles, staff et encadrement de chaque catégorie du club de handball de Lacanau.",
-  path: "/le-club",
-});
+/* Une fonction, et non une constante : l'image de partage est choisie
+   par le club dans /admin, elle ne peut donc pas etre figee a la
+   compilation. La page reste statique — `getSiteContent()` est mis en
+   cache et n'est lu qu'a la (re)generation. */
+export function generateMetadata(): Promise<Metadata> {
+  return metadonneesPage({
+    title: "Le club, champion de France 2024",
+    description:
+      "Né en 2017, Lacanau Océhand est champion de France 2024. Histoire en images, salles, staff et encadrement de chaque catégorie du club de handball de Lacanau.",
+    path: "/le-club",
+  });
+}
 
 const sections = [
   { id: "histoire", label: "Notre histoire" },

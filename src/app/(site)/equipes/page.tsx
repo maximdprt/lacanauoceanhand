@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Clock, User, ArrowRight } from "lucide-react";
 
-import { buildMetadata } from "@/lib/site";
+import { metadonneesPage } from "@/lib/metadonnees";
 import { PageHero } from "@/components/sections/page-hero";
 import { SectionTitle } from "@/components/common/section-title";
 import { PageNav } from "@/components/layout/page-nav";
@@ -15,12 +15,18 @@ import { teamGroups } from "@/data/site";
 import { getSiteContent } from "@/lib/content";
 import type { Team } from "@/types";
 
-export const metadata: Metadata = buildMetadata({
-  title: "Équipes et créneaux d'entraînement",
-  description:
-    "Toutes les équipes de Lacanau Océhand et le planning des entraînements de la semaine : baby hand, jeunes, seniors, beach, école de gardien et d'arbitrage.",
-  path: "/equipes",
-});
+/* Une fonction, et non une constante : l'image de partage est choisie
+   par le club dans /admin, elle ne peut donc pas etre figee a la
+   compilation. La page reste statique — `getSiteContent()` est mis en
+   cache et n'est lu qu'a la (re)generation. */
+export function generateMetadata(): Promise<Metadata> {
+  return metadonneesPage({
+    title: "Équipes et créneaux d'entraînement",
+    description:
+      "Toutes les équipes de Lacanau Océhand et le planning des entraînements de la semaine : baby hand, jeunes, seniors, beach, école de gardien et d'arbitrage.",
+    path: "/equipes",
+  });
+}
 
 const sections = [
   { id: "salle", label: "En salle" },

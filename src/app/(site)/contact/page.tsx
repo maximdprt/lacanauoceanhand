@@ -1,18 +1,26 @@
+import type { Metadata } from "next";
+
 import { Mail, MapPin } from "lucide-react";
 import { InstagramIcon, FacebookIcon } from "@/components/icons/social";
 
-import { buildMetadata } from "@/lib/site";
+import { metadonneesPage } from "@/lib/metadonnees";
 import { PageHero } from "@/components/sections/page-hero";
 import { ContactForm } from "@/components/sections/contact-form";
 import { Reveal } from "@/components/common/reveal";
 import { getSiteContent } from "@/lib/content";
 
-export const metadata = buildMetadata({
-  title: "Contact et accès aux salles",
-  description:
-    "Contactez Lacanau Océhand : club de handball à Lacanau (33680, Gironde). E-mail, réseaux sociaux, salle de la Cousteyre. Nous répondons rapidement.",
-  path: "/contact",
-});
+/* Une fonction, et non une constante : l'image de partage est choisie
+   par le club dans /admin, elle ne peut donc pas etre figee a la
+   compilation. La page reste statique — `getSiteContent()` est mis en
+   cache et n'est lu qu'a la (re)generation. */
+export function generateMetadata(): Promise<Metadata> {
+  return metadonneesPage({
+    title: "Contact et accès aux salles",
+    description:
+      "Contactez Lacanau Océhand : club de handball à Lacanau (33680, Gironde). E-mail, réseaux sociaux, salle de la Cousteyre. Nous répondons rapidement.",
+    path: "/contact",
+  });
+}
 
 export default async function ContactPage() {
   const { links, images } = await getSiteContent();

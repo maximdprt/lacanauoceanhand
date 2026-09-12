@@ -5,7 +5,7 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { JsonLd } from "@/components/common/json-ld";
 import { getSiteContent } from "@/lib/content";
-import { siteConfig } from "@/lib/site";
+import { siteConfig, urlAbsolue } from "@/lib/site";
 
 /* ============================================================
    COQUILLE DU SITE PUBLIC
@@ -22,12 +22,11 @@ export default async function SiteLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   const { links, images } = await getSiteContent();
 
-  /* Le logo peut désormais venir du stockage de fichiers du site (une photo
-     importée depuis /admin) : son adresse est déjà absolue. Seul un chemin
-     interne a besoin d'être préfixé pour les données structurées. */
-  const logoAbsolu = images.logoCouleur.startsWith("http")
-    ? images.logoCouleur
-    : `${siteConfig.url}${images.logoCouleur}`;
+  /* Logo et image de partage peuvent désormais venir du stockage de fichiers
+     du site (photos importées depuis /admin) : leur adresse est déjà absolue.
+     `urlAbsolue` ne préfixe que les chemins internes. */
+  const logoAbsolu = urlAbsolue(images.logoCouleur);
+  const imagePartage = urlAbsolue(images.partage);
 
   /* ----------------------------------------------------------
      DONNÉES STRUCTURÉES SCHEMA.ORG
@@ -52,7 +51,7 @@ export default async function SiteLayout({
           width: 400,
           height: 400,
         },
-        image: `${siteConfig.url}${siteConfig.ogImage}`,
+        image: imagePartage,
         foundingDate: "2017-06-04",
         founder: { "@type": "Person", name: "Thierry Mayeur" },
         slogan: "Le club de handball à Lacanau, champion de France 2024",

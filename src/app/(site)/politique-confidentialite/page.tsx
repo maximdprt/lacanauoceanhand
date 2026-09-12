@@ -5,14 +5,20 @@ import { PageHero } from "@/components/sections/page-hero";
 import { ManageCookiesButton } from "@/components/layout/manage-cookies-button";
 import { legalInfo } from "@/data/legal";
 import { getSiteContent } from "@/lib/content";
-import { buildMetadata } from "@/lib/site";
+import { metadonneesPage } from "@/lib/metadonnees";
 
-export const metadata: Metadata = buildMetadata({
-  title: "Politique de confidentialité",
-  description:
-    "Comment Lacanau Océhand traite vos données personnelles : formulaires, cookies, mesure d'audience, durées de conservation et vos droits (RGPD).",
-  path: "/politique-confidentialite",
-});
+/* Une fonction, et non une constante : l'image de partage est choisie
+   par le club dans /admin, elle ne peut donc pas etre figee a la
+   compilation. La page reste statique — `getSiteContent()` est mis en
+   cache et n'est lu qu'a la (re)generation. */
+export function generateMetadata(): Promise<Metadata> {
+  return metadonneesPage({
+    title: "Politique de confidentialité",
+    description:
+      "Comment Lacanau Océhand traite vos données personnelles : formulaires, cookies, mesure d'audience, durées de conservation et vos droits (RGPD).",
+    path: "/politique-confidentialite",
+  });
+}
 
 function LegalSection({
   title,

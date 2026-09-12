@@ -38,7 +38,7 @@ export async function generateMetadata({
   params: Promise<Params>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const { teams } = await getSiteContent();
+  const { teams, images } = await getSiteContent();
   const team = teams.find((item) => item.slug === slug);
 
   if (!team) {
@@ -51,6 +51,8 @@ export async function generateMetadata({
       `${team.name} à Lacanau Océhand (${team.age}). ${team.description}`,
     ),
     path: `/equipes/${team.slug}`,
+    // L'image de partage du club, choisie dans /admin → Photos du site.
+    image: images.partage,
   });
 }
 
