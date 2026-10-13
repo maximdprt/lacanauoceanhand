@@ -177,7 +177,10 @@ export function SiteFooter({
 
       <div className="border-t border-line">
         <div className="container-x flex flex-col items-center justify-between gap-3 py-5 text-xs text-ink-soft sm:flex-row">
-          <p>© {year} Lacanau Océhand · Site officiel du handball à Lacanau.</p>
+          <p>
+            © {year} Lacanau Océhand · Site officiel du handball à Lacanau. Site réalisé par{" "}
+            <a href="https://axior-agency.fr" className="transition hover:text-ocean">Axior</a>.
+          </p>
           <ul className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
             <li>
               <Link href="/mentions-legales" className="transition hover:text-ocean">
